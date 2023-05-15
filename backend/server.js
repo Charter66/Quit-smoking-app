@@ -14,6 +14,8 @@ connectDB();
 // Define routes
 app.use('/api/users', require('./routes/userRoutes')); // Example user routes
 
+app.use(express.static('public'))
+
 // Start the server
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
