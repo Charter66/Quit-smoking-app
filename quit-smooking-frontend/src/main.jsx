@@ -1,16 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
+import React from 'react'
+import ReactDOM from 'react-dom';
+import App from './App';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <div className="bg-gray-500 sm:bg-gray-500 sm:rounded-lg sm:p-40 sm:mx-auto sm:max-w-sm">
-        <h1 className="text-2xl font-bold text-center">Hello, World!</h1>
-        <App />
+      <div className="bg-gray-500 flex flex-col h-screen overflow-hidden">
+        <div className="bg-white sm:bg-white sm:rounded-lg sm:p-4 sm:mx-auto sm:max-w-[414px] h-[896px] w-[414px] overflow-y-auto scrollbar-hide">
+          <h1 className="text-2xl font-bold text-center">Quit Smoking</h1>
+          <div className="h-full w-full">
+            <App />
+          </div>
+        </div>
       </div>
+     
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
