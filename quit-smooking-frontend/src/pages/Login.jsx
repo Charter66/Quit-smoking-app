@@ -35,7 +35,7 @@ const Login = () => {
           <input
             type="email"
             id="email"
-            name="emaill"
+            name="email"
             value={email}
             onChange={handleChange}
             className="my-name"
