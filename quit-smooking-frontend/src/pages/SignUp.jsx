@@ -15,9 +15,9 @@ const SignUp = () => {
   console.log(name)
 
   return (
-    <div>
-      <h2>Register User</h2>
-      <form className='flex items-center justify-center'>
+    <div >
+      <h2 class="text-3xl font-bold underline bg-red-500">Register User</h2>
+      <form >
         <label>
           name:
           <input
