@@ -6,11 +6,11 @@ const SignUp = () => {
     name,
     password,
     email,
-    //handleNameChange,
-    //handlePasswordChange,
-    //handleEmailChange,
-    //handleRegister,
-  } = useContext(RegisterContext);
+    handleNameChange,
+    handlePasswordChange,
+    handleEmailChange,
+    handleRegister,
+  } = useContext(RegisterContext) ?? {};
 
   console.log(name)
 
