@@ -17,7 +17,7 @@ const SignUp = () => {
   return (
     <div>
       <h2>Register User</h2>
-      <form>
+      <form className='flex items-center justify-center'>
         <label>
           name:
           <input
