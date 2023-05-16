@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import React from 'react';
+import { BrowserRouter as  Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Goals from './pages/Goals';
@@ -19,7 +19,7 @@ const App = () => {
           <Route path="/goals" element={<Goals />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="/user" element={<User />} />
-          <Route path='singUp' element={<SingUp />} />
+          <Route exact path='/singup' element={<SingUp />} />
           <Route path='login' element={<Login />} />
         </Routes>
       </div>

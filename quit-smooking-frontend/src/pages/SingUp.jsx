@@ -1,4 +1,3 @@
-import React from 'react'
 
 function SingUp() {
   return (
@@ -6,4 +5,4 @@ function SingUp() {
   )
 }
 
-export default SingUp
+export default SingUp 
