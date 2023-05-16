@@ -9,7 +9,6 @@ import Login from './pages/Login';
 import SingUp from './pages/SignUp';
 import {RegisterProvider } from './context/ContextProvider';
 
-
 const App = () => {
   return (
    

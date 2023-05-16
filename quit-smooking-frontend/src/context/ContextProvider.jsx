@@ -20,8 +20,8 @@ const RegisterProvider = ({ children }) => {
     setPassword(event.target.value);
   }; 
 
-  const handleRegister = async () => {
-    await axios
+  const handleRegister = () => {
+   axios
       .post('http://localhost:3000/api/users/register', {
         name,
         email,
