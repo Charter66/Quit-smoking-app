@@ -21,7 +21,15 @@ const userSchema = new mongoose.Schema({
     },
     quitDate: {
       type: Date
-    }
+    },
+    packageCost: {
+      type: Number,
+      default: 0
+    },
+    cigarettesInPackage:{
+      type:Number,
+      default: 0
+    },
   },
   goals: [{
     description: {

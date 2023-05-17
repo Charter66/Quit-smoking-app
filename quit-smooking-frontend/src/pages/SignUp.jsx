@@ -1,5 +1,8 @@
 import  { useContext } from 'react';
-import { RegisterContext } from '../context/ContextProvider';
+import { RegisterContext } from '../context/SignUpContext';
+import {useNavigate} from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext';
+
 
 const SignUp = () => {
   const {
@@ -11,6 +14,9 @@ const SignUp = () => {
     handlePasswordChange,
     handleRegister,
   } = useContext(RegisterContext);
+  const navigate = useNavigate();
+  const { isLoggedIn , setLoggedIn} = useContext(AuthContext);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,12 +24,19 @@ const SignUp = () => {
     try {
       await handleRegister();
       // Handle successful registration, if needed
-    } catch (error) {
+     setLoggedIn(true);
+      } catch (error) {
       // Handle registration error, if needed
       console.error(error); // Example: Display the error message
     }
     console.log(name)
+    console.log(isLoggedIn)
+
   };
+
+  if(isLoggedIn) {
+    navigate('/survey')
+  }
 
   return (
     <div>

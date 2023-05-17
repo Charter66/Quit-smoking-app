@@ -16,14 +16,32 @@ const register = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 10);
   
       // Create a new user
-      const newUser = await User.create({ name, email, password: hashedPassword });
+      const {_id} = await User.create({ name, email, password: hashedPassword });
+
+      const token = jwt.sign({ _id }, process.env.JWT_SECRET);
   
-      res.status(201).json({ message: 'User registered successfully', user: newUser });
+      res
+      .cookie('token', token, {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60,
+        sameSite: 'none',
+        secure: true,
+      })
+      .sendStatus(201);
     } catch (error) {
       console.error('Error during user registration:', error);
       res.status(500).json({ message: 'Server error' });
     }
   };
+  // const getOneUser = async (req, res, next) => {
+  //   try {
+  //     const findUser = await User.findById(req.param._id);
+  //     console.log(req.param)
+  //     res.status(200).json(findUser);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // };
   
 
   const login = async (req, res) => {
@@ -51,6 +69,46 @@ const register = async (req, res) => {
       res.status(500).json({ message: 'Server error' });
     }
   };
+
+  
+    const survey = async (req, res) => {
+      const { cigarettesPerDay, quitDate, packageCost, cigarettesInPackage } = req.body;
+    
+      try {
+        // Extract the token from the request headers or other secure storage
+        const token = req.headers.authorization;
+        
+        // Verify the token and extract the user's email or ID
+        const email = verifyTokenAndGetEmail(token);
+    
+        if (!email) {
+          return res.status(401).json({ error: "Unauthorized" });
+        }
+    
+        // Find the user by their email and update the survey details
+        const user = await User.findOneAndUpdate(
+          { email },
+          {
+            $set: {
+              "smokingHabit.cigarettesPerDay": cigarettesPerDay,
+              "smokingHabit.quitDate": quitDate,
+              "smokingHabit.packageCost": packageCost,
+              "smokingHabit.cigarettesInPackage": cigarettesInPackage,
+            },
+          }
+        );
+    
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+    
+        res.status(200).json({ message: "Survey updated successfully" });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    };
+    
   
   const profile = async (req, res) => {
     try {
@@ -81,4 +139,6 @@ module.exports = {
   register,
   login,
   profile,
+  survey,
+ 
 };
