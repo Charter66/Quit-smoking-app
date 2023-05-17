@@ -4,7 +4,7 @@ import Goals from './pages/Goals';
 import Progress from './pages/Progress';
 import User from './pages/User';
 import Login from './pages/Login';
-import SingUp from './pages/SignUp';
+import SignUp from './pages/SignUp';
 import { RegisterProvider } from './context/SignUpContext';
 import Navbar from './components/Navbar';
 import Survey from './pages/Survey'
@@ -20,10 +20,10 @@ const App = () => {
             <Route path="/progress" element={<Progress />} />
             <Route path="/user" element={<User />} />
             <Route
-              path="signup"
+              path="/signup"
               element={
                 <RegisterProvider>
-                  <SingUp />
+                  <SignUp />
                 </RegisterProvider>
               }
             />

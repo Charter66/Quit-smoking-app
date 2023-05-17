@@ -9,21 +9,21 @@ const register = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     
+    if (existingUser) {
+      return res.status(409).json({ message: 'User already exists' });
+    }
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user
     const user = await User.create({ name, email, password: hashedPassword });
-    if (existingUser) {
-      return res.status(409).json({ message: 'User already exists' });
-    }
-
+   
  
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+  
 
     // Generate JWT token
-
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
     res.cookie('token', token, {
       httpOnly: true,
