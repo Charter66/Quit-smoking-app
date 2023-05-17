@@ -25,13 +25,13 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-<<<<<<< HEAD
-          <Link to="/user" className="flex flex-col items-center text-gray-300 hover:text-white">
-            <BsPerson size={20} />
-=======
           <Link to="/user" className="flex flex-col items-center text-red-300 hover:text-red-500">
+            <BsPerson size={30} />
+            <span className="text-xs">User</span>
+          </Link>
         </li>
       </ul>
+    </nav>
   );
 };
 
