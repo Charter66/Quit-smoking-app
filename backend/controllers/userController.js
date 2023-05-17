@@ -3,72 +3,88 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
 const register = async (req, res) => {
-    const { name, email, password } = req.body;
-  
-    try {
-      // Check if user already exists
-      const existingUser = await User.findOne({ email });
-      if (existingUser) {
-        return res.status(409).json({ message: 'User already exists' });
-      }
-  
-      // Hash the password
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      // Create a new user
-      const {_id} = await User.create({ name, email, password: hashedPassword });
+  const { name, email, password } = req.body;
 
-      const token = jwt.sign({ _id }, process.env.JWT_SECRET);
-  
-      res
-      .cookie('token', token, {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60,
-        sameSite: 'none',
-        secure: true,
-      })
-      .sendStatus(201);
-    } catch (error) {
-      console.error('Error during user registration:', error);
-      res.status(500).json({ message: 'Server error' });
+  try {
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create a new user
+    const user = await User.create({ name, email, password: hashedPassword });
+    if (existingUser) {
+      return res.status(409).json({ message: 'User already exists' });
     }
-  };
-  // const getOneUser = async (req, res, next) => {
-  //   try {
-  //     const findUser = await User.findById(req.param._id);
-  //     console.log(req.param)
-  //     res.status(200).json(findUser);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // };
+
+ 
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+
+    // Generate JWT token
+
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60,
+      sameSite: 'none',
+      secure: true,
+    }).sendStatus(201)
+   
+  } catch (error) {
+    console.error('Error during user registration:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+const getOneUser = async (req, res, next) => {
+  try {
+    const userId = req.params._id; // Corrected the parameter name to 'params'
+    const findUser = await User.findById(userId); // Corrected the parameter name to 'userId'
+    console.log(req.params);
+    res.status(200).json(findUser);
+  } catch (error) {
+    next(error);
+  }
+};
   
 
-  const login = async (req, res) => {
-    const { email, password } = req.body;
-  
-    try {
-      // Check if user exists
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(401).json({ message: 'Invalid email or password' });
-      }
-  
-      // Compare passwords
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(401).json({ message: 'Invalid email or password' });
-      }
-  
-      // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  
-      res.json({ token });
-    } catch (error) {
-      console.error('Error during login:', error);
-      res.status(500).json({ message: 'Server error' });
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
-  };
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    // Set the token as a cookie
+    res.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60, // 1 hour
+      sameSite: 'none', // Adjust according to your requirements
+      secure: false, // Adjust according to your requirements
+    });
+
+    // Send the token in the response
+    res.json({ token });
+  } catch (error) {
+    console.error('Error during login:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 
   
     const survey = async (req, res) => {
@@ -140,5 +156,6 @@ module.exports = {
   login,
   profile,
   survey,
+  getOneUser,
  
 };

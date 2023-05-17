@@ -16,6 +16,6 @@ router.get('/profile', profile);
 
 router.put('/survey', survey);
 
-router.get('/me', checkToken);
+router.get('/me', checkToken, getOneUser);
 
 module.exports = router;
