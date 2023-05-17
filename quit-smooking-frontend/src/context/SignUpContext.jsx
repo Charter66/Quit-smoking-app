@@ -29,6 +29,7 @@ const RegisterProvider = ({ children }) => {
       })
       .then((response) => {
         // Handle successful registration
+     
         console.log(response.data); // Example: Display the response data
       })
       .catch((error) => {
@@ -55,3 +56,9 @@ const RegisterProvider = ({ children }) => {
 };
 
 export { RegisterContext, RegisterProvider };
+
+
+
+
+
+

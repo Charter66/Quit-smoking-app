@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate , Link , Navigate} from 'react-router-dom';
 import axios from 'axios';
-
+import { AuthContext } from '../context/AuthContext';
+ 
 const Login = () => {
-  const navigate = useNavigate();
+  // const { isLoggedIn } = AuthContext();
+
+  // const navigate = useNavigate();
   const [{email, password}, setForm] = useState({
     email:'',
     password: '',
@@ -24,7 +27,7 @@ const Login = () => {
     }
 
 
- navigate('/')
+    //  if (isLoggedIn) return <Navigate to='/' />;
  
 }
   return (
@@ -55,7 +58,7 @@ const Login = () => {
           Submit
         </button>
       </form>
-      <Link to={"/signup"}>Create an acount</Link>
+      <Link to="/signup">You do not have an Acc. Click for creating one</Link>
     </>
   );
 };
