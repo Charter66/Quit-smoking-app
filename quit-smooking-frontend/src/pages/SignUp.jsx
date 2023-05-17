@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import  { useContext } from 'react';
+=======
+import { useContext } from 'react';
+>>>>>>> TDD
 import { RegisterContext } from '../context/ContextProvider';
 
 const SignUp = () => {
@@ -26,6 +30,7 @@ const SignUp = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div>
       <h2 className="text-red-500">Sign Up</h2>
       <form onSubmit={handleSubmit}>
@@ -42,6 +47,38 @@ const SignUp = () => {
           <input type="password" value={password} onChange={handlePasswordChange} />
         </div>
         <button type="submit">Register</button>
+=======
+    <div >
+      <h2 className="text-3xl font-bold underline bg-red-500">Register User</h2>
+      <form >
+        <label>
+          name:
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+          />
+        </label>
+        <label>
+          email:
+          <input
+            type="text"
+            value={email}
+            onChange={handleEmailChange}
+          />
+        </label>
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </label>
+        <button type="submit" onClick={handleRegister}>
+          Register
+        </button>
+>>>>>>> TDD
       </form>
     </div>
   );

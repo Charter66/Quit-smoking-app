@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Goals from './pages/Goals';
 import Progress from './pages/Progress';
@@ -6,7 +7,6 @@ import User from './pages/User';
 import Login from './pages/Login';
 import SingUp from './pages/SignUp';
 import { RegisterProvider } from './context/ContextProvider';
-import Navbar from './components/Navbar';
 
 const App = () => {
   return (
