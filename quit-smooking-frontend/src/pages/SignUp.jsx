@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { RegisterContext } from '../context/ContextProvider';
 
 const SignUp = () => {
@@ -16,7 +16,7 @@ const SignUp = () => {
 
   return (
     <div >
-      <h2 class="text-3xl font-bold underline bg-red-500">Register User</h2>
+      <h2 className="text-3xl font-bold underline bg-red-500">Register User</h2>
       <form >
         <label>
           name:
