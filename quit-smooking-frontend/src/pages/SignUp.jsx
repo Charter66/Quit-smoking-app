@@ -54,7 +54,7 @@ const SignUp = () => {
           <label>Password</label>
           <input type="password" value={password} onChange={handlePasswordChange} />
         </div>
-        <button type="submit">Registerr</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
