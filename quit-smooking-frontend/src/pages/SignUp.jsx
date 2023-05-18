@@ -10,7 +10,7 @@ const SignUp = () => {
     handleEmailChange,
     handlePasswordChange,
     handleRegister,
-  } = useContext(RegisterContext);
+  } = useContext(RegisterContext) ?? {};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
