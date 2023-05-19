@@ -1,5 +1,8 @@
-import { useContext } from 'react';
-import { RegisterContext } from '../context/ContextProvider';
+import  { useContext, useEffect } from 'react';
+import { RegisterContext } from '../context/SignUpContext';
+import {useNavigate} from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext';
+
 
 const SignUp = () => {
   const {
@@ -22,8 +25,17 @@ const SignUp = () => {
       // Handle registration error, if needed
       console.error(error); // Example: Display the error message
     }
-    console.log(name)
+
   };
+
+  console.log(isLoggedIn)
+  
+useEffect(()=>{
+  if(isLoggedIn) {
+    navigate('/survey')
+  }
+},[isLoggedIn, navigate])
+  
 
   return (
     <div >
