@@ -1,8 +1,7 @@
 import  { useContext, useEffect } from 'react';
 import { RegisterContext } from '../context/SignUpContext';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-
 
 const SignUp = () => {
   const {
@@ -13,7 +12,9 @@ const SignUp = () => {
     handleEmailChange,
     handlePasswordChange,
     handleRegister,
-  } = useContext(RegisterContext) ?? {};
+  } = useContext(RegisterContext) || {};
+  const navigate = useNavigate();
+  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -21,54 +22,60 @@ const SignUp = () => {
     try {
       await handleRegister();
       // Handle successful registration, if needed
+      setLoggedIn(true)
     } catch (error) {
       // Handle registration error, if needed
       console.error(error); // Example: Display the error message
     }
-
   };
 
-  console.log(isLoggedIn)
-  
-useEffect(()=>{
-  if(isLoggedIn) {
-    navigate('/survey')
-  }
-},[isLoggedIn, navigate])
-  
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/survey');
+    }
+  }, [isLoggedIn, navigate]);
 
   return (
-    <div >
+    <div>
       <h2 className="text-3xl font-bold underline bg-red-500">Register User</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          name:
-          <input
-            type="text"
-            value={name}
-            onChange={handleNameChange}
-          />
-        </label>
-        <label>
-          email:
-          <input
-            type="text"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            type="password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </label>
-        <button type="submit" onClick={handleRegister}>
-          Register
-        </button>
-      </form>
+      <div>
+        <h2 className="text-red-500">Sign Up</h2>
+        <form onSubmit={handleSubmit}>
+          <label>
+            name:
+            <input
+              className="mb-4 px-4 py-2 border rounded"
+              type="text"
+              value={name}
+              onChange={handleNameChange}
+            />
+          </label>
+          <label>
+            email:
+            <input
+              className="mb-4 px-4 py-2 border rounded"
+              type="text"
+              value={email}
+              onChange={handleEmailChange}
+            />
+          </label>
+          <label>
+            Password:
+            <input
+              className="mb-4 px-4 py-2 border rounded"
+              type="password"
+              value={password}
+              onChange={handlePasswordChange}
+            />
+          </label>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
+            type="submit"
+          >
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
