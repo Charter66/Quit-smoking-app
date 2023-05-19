@@ -1,23 +1,58 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
-import axios from 'axios'
+import axios from 'axios';
+
 const Survey = () => {
   const navigate = useNavigate();
   const [cigarettesPerDay, setCigarettesPerDay] = useState(0);
   const [quitDate, setQuitDate] = useState('');
-  const [packageCost, setPackageCost] = useState('');
-  const [cigarettesInPackage, setCigarettesInPackage] = useState('');
-
+  const [packageCost, setPackageCost] = useState(0);
+  const [cigarettesInPackage, setCigarettesInPackage] = useState(0);
   const { isLoggedIn } = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext); // Access the isAuth state from AuthContext
 
-  const handleFormSubmit = async(e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const {status}=await axios.post('http://localhost:3000/api/users/survey', {cigarettesPerDay, quitDate,packageCost,cigarettesInPackage})
-    // Perform any additional logic or data handling here
-    console.log(status)
-    navigate('/'); // Redirect to the home page after submitting the survey
+
+    // const smokingHabit = {
+    //   cigarettesPerDay: cigarettesPerDay,
+    //   quitDate: quitDate,
+    //   packageCost: packageCost,
+    //   cigarettesInPackage: cigarettesInPackage
+    // };
+
+    // const userData = {
+    //   smokingHabit: smokingHabit
+    // };
+
+    try {
+      const token = isAuth.token; // Retrieve the token from the isAuth state
+
+      const { data, status } = await axios.put('http://localhost:3000/api/users/survey', 
+        {
+          cigarettesPerDay,
+          quitDate,
+          packageCost,
+          cigarettesInPackage
+        }, 
+        {
+          headers: {
+            Authorization: token
+          }
+        }
+      );
+
+      setUser(data)
+
+      console.log(status);
+      navigate('/'); // Redirect to the home page after submitting the survey
+    } catch (error) {
+      console.error(error);
+      // Handle error state or display error message to the user
+    }
   };
+  console.log(isAuth)
 
   if (!isLoggedIn) {
     return (
@@ -34,7 +69,7 @@ const Survey = () => {
             Cigarettes per Day:
           </label>
           <input
-            type="number"
+            type="text"
             id="cigarettesPerDay"
             name="cigarettesPerDay"
             value={cigarettesPerDay}
@@ -64,7 +99,7 @@ const Survey = () => {
             id="packageCost"
             name="PackageCost"
             value={packageCost}
-            onChange={(e) => setPackageCost(e.target.value)}
+            onChange={(e) => setPackageCost(parseInt(e.target.value))}
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
         </div>
@@ -77,7 +112,7 @@ const Survey = () => {
             id="cigarettesInPackage"
             name="cigarettesInPackage"
             value={cigarettesInPackage}
-            onChange={(e) => setCigarettesInPackage(e.target.value)}
+            onChange={(e) => setCigarettesInPackage(parseInt(e.target.value))}
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
         </div>
