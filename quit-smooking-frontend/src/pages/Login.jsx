@@ -33,7 +33,9 @@ const Login = () => {
     }
   };
 
-  
+  if (isLoggedIn) {
+    navigate('/dashboard');
+  }
 
   return (
     <>

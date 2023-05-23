@@ -7,7 +7,7 @@ const Navbar = () => {
 
           <ul className="flex items-center justify-around py-4">
         <li>
-          <Link to="/" className="flex flex-col items-center text-red-300 hover:text-red-500">
+          <Link to="/dashboard" className="flex flex-col items-center text-red-300 hover:text-red-500">
             <BsHouse size={30} />
             <span className="text-xs">Dashboard</span>
           </Link>
