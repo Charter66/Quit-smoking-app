@@ -11,7 +11,7 @@ router.post('/register', register);
 // Login route
 router.post('/login', login);
 //Logout route
-router.delete('/logout', logout);
+router.post('/logout', logout);
 
 // Profile route
 router.get('/profile', profile);
