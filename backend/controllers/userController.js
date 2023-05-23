@@ -73,8 +73,9 @@ const login= async (req, res) => {
       sameSite: 'lax',
       secure: false,
     });
-
+    
     res.json({ token });
+
 
     // Send the token in the response
     // res.json({ token });
