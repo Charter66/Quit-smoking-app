@@ -25,8 +25,12 @@ const Login = () => {
         formData
       );
       if (response.status === 200) {
+        const token = response.data.token;
+        // Store the token in local storage
+        localStorage.setItem('token', token)
         setLoggedIn(true);
         navigate('/dashboard');
+        
       }
     } catch (error) {
       console.error(error);
