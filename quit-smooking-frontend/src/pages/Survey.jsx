@@ -15,21 +15,10 @@ const Survey = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    // const smokingHabit = {
-    //   cigarettesPerDay: cigarettesPerDay,
-    //   quitDate: quitDate,
-    //   packageCost: packageCost,
-    //   cigarettesInPackage: cigarettesInPackage
-    // };
-
-    // const userData = {
-    //   smokingHabit: smokingHabit
-    // };
-
     try {
       const token = isAuth.token; // Retrieve the token from the isAuth state
 
-      const { data, status } = await axios.put('http://localhost:3000/api/users/survey', 
+      const { status } = await axios.put('http://localhost:3000/api/users/survey', 
         {
           cigarettesPerDay,
           quitDate,
@@ -43,16 +32,16 @@ const Survey = () => {
         }
       );
 
-      setUser(data)
+      // setUser(data)
 
       console.log(status);
-      navigate('/'); // Redirect to the home page after submitting the survey
+      navigate('/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
       console.error(error);
       // Handle error state or display error message to the user
     }
   };
-  console.log(isAuth)
+  
 
   if (!isLoggedIn) {
     return (
@@ -69,7 +58,7 @@ const Survey = () => {
             Cigarettes per Day:
           </label>
           <input
-            type="text"
+            type="number"
             id="cigarettesPerDay"
             name="cigarettesPerDay"
             value={cigarettesPerDay}

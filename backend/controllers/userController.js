@@ -84,6 +84,19 @@ const login= async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+const logout = async (req, res) => {
+  try {
+    // Clear the token from the client-side
+    res.clearCookie('token');
+
+    // Add any additional logic for clearing sessions or tokens as needed
+
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Error during logout:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
 
 
   
@@ -173,6 +186,7 @@ const profile = async (req, res) => {
 module.exports = {
   register,
   login,
+  logout,
   profile,
   survey,
   getOneUser,
