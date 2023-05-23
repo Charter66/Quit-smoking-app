@@ -11,7 +11,7 @@ const LogoutBtn = () => {
   const handleLogout = async () => {
     try {
       // Make a request to the logout endpoint on the server
-      await axios.post('http://localhost:3000/api/users/logout', null, {
+      await axios.post('http://localhost:3000/api/users/logout',{
         headers: {
           Authorization: `${isAuth.token}` // Replace `token` with the actual token value
         }
