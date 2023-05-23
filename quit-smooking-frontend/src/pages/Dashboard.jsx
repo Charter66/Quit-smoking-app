@@ -4,7 +4,7 @@ import { ProfileContext } from '../context/ProfileContex';
 
 function Dashboard() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
-
+  console.log(profile)
   return (
     <div>
       {profile ? (
