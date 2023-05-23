@@ -84,6 +84,9 @@ const login= async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
 const logout = async (req, res) => {
   try {
     // Clear the token from the client-side

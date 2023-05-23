@@ -23,7 +23,7 @@ const LogoutBtn = () => {
       setLoggedIn(false);
 
       // Redirect to the login page
-      navigate('/');
+      navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);
     }
