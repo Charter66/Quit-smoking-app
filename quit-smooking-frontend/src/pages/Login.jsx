@@ -30,7 +30,7 @@ const Login = () => {
         localStorage.setItem('token', token)
         setLoggedIn(true);
         navigate('/dashboard');
-        
+
       }
     } catch (error) {
       console.error(error);
