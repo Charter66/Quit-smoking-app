@@ -12,9 +12,7 @@ export const AuthProvider = ({ children }) => {
    
   };
   
-  useEffect(() => {
-    console.log(isAuth);
-  }, [isAuth]);
+
 
   const logout = () => {
     setIsAuth({ token: '' });
