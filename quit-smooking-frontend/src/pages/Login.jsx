@@ -1,35 +1,40 @@
-import { useState } from 'react';
-import { useNavigate , Link , Navigate} from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
- 
-const Login = () => {
-  const { isLoggedIn } = AuthContext();
+import { AuthContext } from '../context/AuthContext';
 
+const Login = () => {
+  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [{email, password}, setForm] = useState({
-    email:'',
+
+  const [formData, setFormData] = useState({
+    email: '',
     password: '',
-  })
+  });
 
   const handleChange = (e) => {
-    const {name , value} = e.target;
-    setForm((prev)=>({...prev, [name]: value}))
-  }
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the form from refreshing the page
-    try{
-        const {status} = await axios.post('http://localhost:3000/api/users/login', {email, password});
-        console.log(status)
-    }catch(error){
-        console.error(error)
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/api/users/login',
+        formData
+      );
+      if (response.status === 200) {
+        setLoggedIn(true);
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error(error);
     }
+  };
 
+  
 
-    if (isLoggedIn){
-      navigate('./Dashboard')
-    }
-}
   return (
     <>
       <form className="my-form" onSubmit={handleSubmit}>
@@ -39,7 +44,7 @@ const Login = () => {
             type="email"
             id="email"
             name="email"
-            value={email}
+            value={formData.email}
             onChange={handleChange}
             className="my-name"
           />
@@ -50,7 +55,7 @@ const Login = () => {
             type="password"
             id="password"
             name="password"
-            value={password}
+            value={formData.password}
             onChange={handleChange}
           />
         </div>
@@ -58,7 +63,7 @@ const Login = () => {
           Submit
         </button>
       </form>
-      <Link to="/signup">You do not have an Acc. Click for creating one</Link>
+      <Link to="/signup">You do not have an account. Click here to create one.</Link>
     </>
   );
 };
