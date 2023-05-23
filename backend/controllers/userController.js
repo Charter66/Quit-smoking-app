@@ -145,7 +145,7 @@ const survey = async (req, res) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
   
       // Find the user by ID
-      const user = await User.findById(decoded.userId).select('-password');
+      const user = await User.findById(decoded._id).select('-password');
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
