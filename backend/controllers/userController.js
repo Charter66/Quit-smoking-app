@@ -51,35 +51,33 @@ const getOneUser = async (req, res, next) => {
 };
   
 
-const login = async (req, res) => {
-  const { email, password } = req.body;
-
+const login= async (req, res) => {
   try {
-    // Check if user exists
-    const user = await User.findOne({ email });
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
+    const { email, password } = req.body;
+    if (!email || !password)
+      return res.status(400).send('Please provide all fields');
 
-    // Compare passwords
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid email or password' });
-    }
+    const checkUser = await User
+      .findOne({ email })
+      .select('+password');
+    if (!checkUser) return res.status(400).send('User already exists');
 
-    // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const pwdMatch = await bcrypt.compare(password, checkUser.password);
+    if (!pwdMatch) return res.status(400).send('Incorrect password');
 
-    // Set the token as a cookie
+    const token = jwt.sign({ _id: checkUser._id }, process.env.JWT_SECRET);
+
     res.cookie('token', token, {
       httpOnly: true,
-      maxAge: 1000 * 60 * 60, // 1 hour
-      sameSite: 'none', // Adjust according to your requirements
-      secure: false, // Adjust according to your requirements
+      maxAge: 1000 * 60 * 60,
+      sameSite: 'lax',
+      secure: false,
     });
 
-    // Send the token in the response
     res.json({ token });
+
+    // Send the token in the response
+    // res.json({ token });
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'Server error' });

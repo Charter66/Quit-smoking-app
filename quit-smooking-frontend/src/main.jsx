@@ -4,10 +4,12 @@ import App from './App';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ProfileProvider } from './context/ProfileContex';
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <ProfileProvider>
     <BrowserRouter>
     <AuthProvider>
       <div className="bg-gray-500 flex flex-col h-screen overflow-hidden">
@@ -19,8 +21,8 @@ ReactDOM.render(
         </div>
       </div>
       </AuthProvider>
-     
     </BrowserRouter>
+    </ProfileProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
