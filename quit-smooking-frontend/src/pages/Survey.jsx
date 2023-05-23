@@ -69,7 +69,7 @@ const Survey = () => {
             Cigarettes per Day:
           </label>
           <input
-            type="text"
+            type="number"
             id="cigarettesPerDay"
             name="cigarettesPerDay"
             value={cigarettesPerDay}

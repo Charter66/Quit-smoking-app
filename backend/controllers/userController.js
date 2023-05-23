@@ -112,8 +112,7 @@ const survey = async (req, res) => {
       email,
       {
         $set: {
-          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay),
-          "smokingHabit.quitDate": quitDate,
+          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay) == Nan ? 0 : parseInt(cigarettesPerDay),
           "smokingHabit.packageCost": parseInt(packageCost),
           "smokingHabit.cigarettesInPackage": parseInt(cigarettesInPackage),
         },
