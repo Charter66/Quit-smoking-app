@@ -9,8 +9,8 @@ import { ProfileProvider } from './context/ProfileContex';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ProfileProvider>
     <BrowserRouter>
+    <ProfileProvider>
     <AuthProvider>
       <div className="bg-gray-500 flex flex-col h-screen overflow-hidden">
         <div className="bg-white sm:bg-white sm:rounded-lg sm:p-4 sm:mx-auto sm:max-w-[414px] h-[800px] w-[414px] overflow-y-auto scrollbar-hide">
@@ -21,8 +21,8 @@ ReactDOM.render(
         </div>
       </div>
       </AuthProvider>
-    </BrowserRouter>
     </ProfileProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
