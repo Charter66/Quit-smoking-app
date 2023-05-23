@@ -27,7 +27,7 @@ const App = () => {
                 </RegisterProvider>
               }
             />
-            <Route path="login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/survey" element={<Survey />} />
           </Routes>
        

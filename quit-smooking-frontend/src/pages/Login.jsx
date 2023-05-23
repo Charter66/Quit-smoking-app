@@ -3,9 +3,9 @@ import { useNavigate , Link , Navigate} from 'react-router-dom';
 import axios from 'axios';
  
 const Login = () => {
-  // const { isLoggedIn } = AuthContext();
+  const { isLoggedIn } = AuthContext();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [{email, password}, setForm] = useState({
     email:'',
     password: '',
@@ -26,8 +26,9 @@ const Login = () => {
     }
 
 
-    //  if (isLoggedIn) return <Navigate to='/' />;
- 
+    if (isLoggedIn){
+      navigate('./Dashboard')
+    }
 }
   return (
     <>
