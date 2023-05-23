@@ -94,6 +94,8 @@ const logout = async (req, res) => {
 
     // Add any additional logic for clearing sessions or tokens as needed
 
+    console.log('Logout successful'); // Add console log
+
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Error during logout:', error);
@@ -128,7 +130,7 @@ const survey = async (req, res) => {
       email,
       {
         $set: {
-          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay) == Nan ? 0 : parseInt(cigarettesPerDay),
+          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay) ,
           "smokingHabit.packageCost": parseInt(packageCost),
           "smokingHabit.cigarettesInPackage": parseInt(cigarettesInPackage),
         },

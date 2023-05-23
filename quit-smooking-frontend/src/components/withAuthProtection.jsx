@@ -1,21 +1,24 @@
-import { useContext, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const withAuthProtection = (Component) => {
   const ProtectedRoute = (props) => {
-    const { isAuth } = useContext(AuthContext);
+    const {  isLoggedIn } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
-      if (!isAuth.token) {
-        // Redirect to login page if not authenticated
-        // You can also perform additional actions here, such as clearing local storage or logging out the user
-        return <Navigate to="/login"  />;
+      console.log('Component:', Component);
+      console.log('Props:', props);
+
+      if (!isLoggedIn ) {
+        console.log('Redirecting to login...');
+        navigate('/login', { replace: true });
       }
-    }, [isAuth.token]);
+    }, [isLoggedIn,  props, navigate]);
 
     // Render the protected component if authenticated
-    return <Component {...props} />;
+    return isLoggedIn ? <Component {...props} /> : null;
   };
 
   return ProtectedRoute;
