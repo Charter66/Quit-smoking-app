@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const SignUp = () => {
+  
   const {
     name,
     email,
@@ -75,6 +76,8 @@ const SignUp = () => {
                 />
               </label>
             </div>
+       
+
 
             <div className='btn'>
             <button type="submit"> Register
