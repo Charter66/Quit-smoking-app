@@ -10,6 +10,7 @@ export const AuthContext = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState({});
   const [gotCookie, setGotCookie] = useState(false);
+  console.log(gotCookie)
 
   useEffect(() => {
     const checkToken = async () => {

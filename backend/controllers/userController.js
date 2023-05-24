@@ -84,12 +84,17 @@ const login= async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
 const logout = async (req, res) => {
   try {
     // Clear the token from the client-side
     res.clearCookie('token');
 
     // Add any additional logic for clearing sessions or tokens as needed
+
+    console.log('Logout successful'); // Add console log
 
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
@@ -125,8 +130,7 @@ const survey = async (req, res) => {
       email,
       {
         $set: {
-          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay),
-          "smokingHabit.quitDate": quitDate,
+          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay) ,
           "smokingHabit.packageCost": parseInt(packageCost),
           "smokingHabit.cigarettesInPackage": parseInt(cigarettesInPackage),
         },

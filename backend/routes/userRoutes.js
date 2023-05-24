@@ -11,13 +11,13 @@ router.post('/register', register);
 // Login route
 router.post('/login', login);
 //Logout route
-router.delete('/logout', logout);
+router.post('/logout', logout);
 
 // Profile route
 router.get('/profile', profile);
 
 router.put('/survey', survey);
 
-router.get('/me', checkToken, getOneUser);
+//router.get('/me', checkToken, getOneUser);
 
 module.exports = router;

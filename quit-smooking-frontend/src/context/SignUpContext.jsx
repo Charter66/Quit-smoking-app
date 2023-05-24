@@ -40,7 +40,7 @@ const RegisterProvider = ({ children }) => {
         // You can then store the token in local storage or use it as needed
         // For example, you can set it in the AuthProvider's state
         setIsAuth({ token });
-        localStorage.setItem()
+        localStorage.setItem('token', token); // Store the token in local storage
   
         // Redirect the user to the survey page after successful registration
         navigate('/survey');
