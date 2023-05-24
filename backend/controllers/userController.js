@@ -106,16 +106,14 @@ const logout = async (req, res) => {
 
   
 
-// ...
 
 const survey = async (req, res) => {
-  const { cigarettesPerDay, quitDate, packageCost, cigarettesInPackage } = req.body;
-
+  const {startSmokingDate, cigarettesPerDay, quitDate, packageCost, cigarettesInPackage, selectedCurrency } = req.body;
   try {
     // Extract the token from the request headers or other secure storage
     const token = req.headers.authorization;
-    console.log(req.headers)
-    console.log(token)
+    console.log(req.headers);
+    console.log(token);
 
     // Verify the token and extract the user's email or ID
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -130,9 +128,12 @@ const survey = async (req, res) => {
       email,
       {
         $set: {
-          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay) ,
+          "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay),
+          "smokingHabit.quitDate": quitDate,
           "smokingHabit.packageCost": parseInt(packageCost),
           "smokingHabit.cigarettesInPackage": parseInt(cigarettesInPackage),
+          "smokingHabit.selectedCurrency": selectedCurrency,
+          "smokingHabit.startSmokingDate":startSmokingDate,
         },
       },
       { new: true } // to return the updated user document
@@ -148,6 +149,7 @@ const survey = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 
   
