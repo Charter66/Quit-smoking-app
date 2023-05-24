@@ -10,6 +10,7 @@ import { RegisterProvider } from './context/SignUpContext';
 import Survey from './pages/Survey';
 import withAuthProtection from './components/withAuthProtection';
 
+
 const ProtectedDashboard = withAuthProtection(Dashboard);
 const ProtectedGoals = withAuthProtection(Goals);
 const ProtectedProgress = withAuthProtection(Progress);

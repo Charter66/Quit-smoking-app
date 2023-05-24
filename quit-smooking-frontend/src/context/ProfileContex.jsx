@@ -11,14 +11,16 @@ const ProfileProvider = ({ children }) => {
       const token = localStorage.getItem('token');
       if (!token) {
         console.log('Token not found');
+        setProfile(null); // Set profile to null when token is not found
+        return;
       }
-
+  
       const response = await axios.get('http://localhost:3000/api/users/profile', {
         headers: {
           Authorization: token,
         },
       });
-
+  
       if (response.status === 200) {
         setProfile(response.data.user);
         console.log(response.data.user);
@@ -27,6 +29,7 @@ const ProfileProvider = ({ children }) => {
       }
     } catch (error) {
       console.error('Error retrieving user profile:', error);
+      setProfile(null); // Set profile to null on error
     }
   };
 

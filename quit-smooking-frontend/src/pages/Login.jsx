@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
@@ -30,21 +30,23 @@ const Login = () => {
         localStorage.setItem('token', token)
         setLoggedIn(true);
         navigate('/dashboard');
-
       }
     } catch (error) {
       console.error(error);
     }
   };
+  console.log(isLoggedIn)
 
-  if (isLoggedIn) {
-    navigate('/dashboard');
-  }
+  useEffect(() => {
+    console.log('Redirecting to login...');
+
+    navigate('/login', { replace: true });
+  }, [navigate]);
 
   return (
     <>
       <form className="my-form" onSubmit={handleSubmit}>
-        <div>
+      <div>
           <label>Email:</label>
           <input
             type="email"

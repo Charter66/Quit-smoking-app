@@ -14,26 +14,32 @@ const Survey = () => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const token = isAuth.token; // Retrieve the token from the isAuth state
-
-      const { status } = await axios.put('http://localhost:3000/api/users/survey', 
+  
+      console.log("cigarettesPerDay:", cigarettesPerDay);
+      console.log("quitDate:", quitDate);
+      console.log("packageCost:", packageCost);
+      console.log("cigarettesInPackage:", cigarettesInPackage);
+  
+      const { status } = await axios.put(
+        'http://localhost:3000/api/users/survey',
         {
           cigarettesPerDay,
           quitDate,
           packageCost,
-          cigarettesInPackage
-        }, 
+          cigarettesInPackage,
+        },
         {
           headers: {
-            Authorization: token
-          }
+            Authorization: token,
+          },
         }
       );
-
+  
       // setUser(data)
-
+  
       console.log(status);
       navigate('/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
