@@ -2,6 +2,11 @@ import React, { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
+import "../styles/Login.css";
+
+//icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
   const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
@@ -43,33 +48,38 @@ const Login = () => {
 
   return (
     <>
-      <form className="my-form" onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="my-name"
-          />
+      <div className='background'></div>
+
+        <form className="my-form" onSubmit={handleSubmit}>
+
+        <div className='input-box'>
+          <span className='icon'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
+          </span>
+            <label> email:
+              <input className='submit-box' type="email" id="name" name="email" value={formData.email}
+              onChange={handleChange}
+              />
+            </label>
         </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+
+        <div className='input-box'>
+          <span className='icon'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
+            <label> password:
+              <input className='submit-box' type="password" id="password" name="password" value={formData.password} onChange={handleChange}
+              />
+            </label>
         </div>
-        <button type="submit" className="my-button">
+
+        <div className='btn'>
+          <button type="submit" className="my-button">
           Submit
-        </button>
+          </button>
+        </div>
+
+        <div className='login-signUp'>
+          <p>Don't have an account? <Link to="/signup" className='signUp-link'>Sign Up</Link></p>
+        </div>
       </form>
-      <Link to="/signup">You do not have an account. Click here to create one.</Link>
     </>
   );
 };

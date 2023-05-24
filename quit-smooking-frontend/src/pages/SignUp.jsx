@@ -2,6 +2,11 @@ import  { useContext, useEffect } from 'react';
 import { RegisterContext } from '../context/SignUpContext';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import "../styles/SignUp.css";
+
+//icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const SignUp = () => {
   const {
@@ -36,45 +41,48 @@ const SignUp = () => {
   }, [isLoggedIn, navigate]);
 
   return (
-    <div>
-      <h2 className="text-3xl font-bold underline bg-red-500">Register User</h2>
-      <div>
-        <h2 className="text-red-500">Sign Up</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            name:
-            <input
-              className="mb-4 px-4 py-2 border rounded"
-              type="text"
-              value={name}
-              onChange={handleNameChange}
-            />
-          </label>
-          <label>
-            email:
-            <input
-              className="mb-4 px-4 py-2 border rounded"
-              type="text"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </label>
-          <label>
-            Password:
-            <input
-              className="mb-4 px-4 py-2 border rounded"
-              type="password"
-              value={password}
-              onChange={handlePasswordChange}
-            />
-          </label>
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer"
-            type="submit"
-          >
-            Register
-          </button>
-        </form>
+    <div className='background'>
+      <div className='wrapper'>
+        <div className='form-box sign-up'>
+          <h2>Sign Up</h2>
+          
+          <form className="my-form" onSubmit={handleSubmit}>
+    
+            <div className='input-box'>
+            <span className='icon'><FontAwesomeIcon icon={faUser} name='name'></FontAwesomeIcon></span>
+              <label> name:
+                <input className='submit-box' type="text" name="name" value={name}
+                onChange={handleNameChange}
+                />
+              </label>
+            </div>
+
+            <div className='input-box'>
+              <span className='icon'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
+              </span>
+              <label> email:
+                <input className='submit-box' type="email" name="email" value={email}
+                onChange={handleEmailChange}
+                />
+              </label>
+            </div>
+
+            <div className='input-box'>
+              <span className='icon'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
+              <label> password:
+                <input className='submit-box' type="password" name="password" value={password}
+                onChange={handlePasswordChange}
+                />
+              </label>
+            </div>
+
+            <div className='btn'>
+            <button type="submit"> Register
+            </button>
+            </div>
+
+          </form>
+        </div>
       </div>
     </div>
   );
