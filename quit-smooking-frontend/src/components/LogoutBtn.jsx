@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import { ProfileContext } from '../context/ProfileContex';
 import { useNavigate } from 'react-router-dom';
 
 const LogoutBtn = () => {
-  const { isAuth,setLoggedIn } = useContext(AuthContext);
+  const { isAuth,setLoggedIn } = useContext(ProfileContext);
   console.log(isAuth)
   const navigate = useNavigate();
 

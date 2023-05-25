@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ProfileContext } from '../context/ProfileContex';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 
@@ -12,7 +13,7 @@ const Survey = () => {
   const [startSmokingDate, setStartSmokingDate] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
 
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(ProfileContext);
   const { isAuth } = useContext(AuthContext); // Access the isAuth state from AuthContext
 
   const handleFormSubmit = async (e) => {
@@ -41,12 +42,10 @@ const Survey = () => {
             Authorization: token,
           },
         }
-      );
-  
-      // setUser(data)
+      );      
   
       console.log(status);
-      navigate('/dashboard'); // Redirect to the home page after submitting the survey
+      if (status === 200) navigate('/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
       console.error(error);
       // Handle error state or display error message to the user

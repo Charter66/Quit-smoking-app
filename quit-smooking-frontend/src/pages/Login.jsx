@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Navigate} from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import { ProfileContext } from '../context/ProfileContex';
 import "../styles/Login.css";
 
 //icons
@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
 const Login = () => {
-  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
+  const { hasToken, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ const Login = () => {
         // Store the token in local storage
         localStorage.setItem('token', token)
         setLoggedIn(true);
-        navigate('/dashboard');
+        navigate('/me/dashboard');
       }
     } catch (error) {
       console.error(error);
@@ -48,9 +48,9 @@ const Login = () => {
     navigate('/login', { replace: true });
   }, [navigate]);
 
+  // if (hasToken) return <Navigate to='/dashboard' />
   return (
     <>
-
       <div className='background'></div>
 
         <form className="my-form" onSubmit={handleSubmit}>

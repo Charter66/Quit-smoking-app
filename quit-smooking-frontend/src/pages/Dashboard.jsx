@@ -2,12 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { ProfileContext } from '../context/ProfileContex';
 import LogoutBtn from '../components/LogoutBtn';
 import "../styles/dashboard.css";
-import {AuthContext} from '../context/AuthContext'
 
 function Dashboard() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
-  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +25,7 @@ function Dashboard() {
 
   return (
     <div>
+      <h3>Dashboard</h3>
       {isLoading ? (
         <p>Loading profile...</p>
       ) : profile ? (

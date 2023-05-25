@@ -9,8 +9,10 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import { RegisterProvider } from './context/SignUpContext';
 import Survey from './pages/Survey';
+import ProtectRoutes from './pages/ProtectRoutes';
 import withAuthProtection from './components/withAuthProtection';
-import { AuthContext } from './context/AuthContext';
+import { ProfileContext } from './context/ProfileContex';
+
 
 
 const ProtectedDashboard = withAuthProtection(Dashboard);
@@ -20,7 +22,7 @@ const ProtectedUser = withAuthProtection(User);
 const ProtectedSurvey = withAuthProtection(Survey);
 
 const App = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(ProfileContext);
 
   
 
@@ -28,10 +30,13 @@ const App = () => {
     <div className="flex flex-col h-screen">
       <div className="flex-grow">
         <Routes>
-          <Route path="/dashboard" element={<ProtectedDashboard />} />
-          <Route path="/goals" element={<ProtectedGoals />} />
-          <Route path="/progress" element={<ProtectedProgress />} />
-          <Route path="/user" element={<ProtectedUser />} />
+          <Route path='/me' element={<ProtectRoutes />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="goals" element={<Goals />} />
+            <Route path="progress" element={<Progress />} />
+            <Route path="user" element={<User />} />
+            <Route path="survey" element={<Survey />} />
+          </Route>
           <Route
             path="/signup"
             element={
@@ -41,7 +46,6 @@ const App = () => {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/survey" element={<ProtectedSurvey />} />
         </Routes>
       </div>
       

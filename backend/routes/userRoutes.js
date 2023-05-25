@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login, logout, profile, survey, getOneUser } = require('../controllers/userController');
+const { register, login, logout, profile, survey, getOneUser , goals} = require('../controllers/userController');
 
 const checkToken = require('../middlewares/checkToken');
 
@@ -17,6 +17,8 @@ router.post('/logout', logout);
 router.get('/profile', profile);
 
 router.put('/survey', survey);
+
+router.put('/goals', goals)
 
 //router.get('/me', checkToken, getOneUser);
 

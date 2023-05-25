@@ -49,8 +49,8 @@ const userSchema = new mongoose.Schema({
       type: String,
     },
   },
-  goals: [
-    {
+  goals:[
+   {
       description: {
         type: String,
         required: true,
@@ -68,8 +68,17 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
       },
-    },
-  ],
+      goalCost: {
+        type: Number,
+        default: 0,
+      },
+      currency: {
+        type: String,
+
+      },
+    },],
+  
+  
   createdAt: {
     type: Date,
     default: Date.now,
