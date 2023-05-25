@@ -20,7 +20,7 @@ function Dashboard() {
     };
 
     fetchData();
-  }, []);
+  }, [isLoading]);
 
   return (
     <div>
