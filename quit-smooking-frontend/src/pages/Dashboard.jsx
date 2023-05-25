@@ -1,17 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ProfileContext } from '../context/ProfileContex';
 import LogoutBtn from '../components/LogoutBtn';
 import "../styles/dashboard.css";
-
+import {AuthContext} from '../context/AuthContext'
 
 function Dashboard() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
+  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await fetchUserProfile();
+        setLoggedIn(true);
       } catch (error) {
         console.error('Error fetching user profile:', error);
       } finally {

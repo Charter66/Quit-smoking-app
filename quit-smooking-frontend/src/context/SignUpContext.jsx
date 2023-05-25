@@ -8,12 +8,18 @@ const RegisterContext = createContext();
 const RegisterProvider = ({ children }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const [password, setPassword] = useState('');
   const { setIsAuth } = useContext(AuthContext); // Access setIsAuth from AuthContext
   const navigate = useNavigate();
 
   const handleNameChange = (event) => {
-    setName(event.target.value);
+    const inputValue = event.target.value;
+    const regex =/^[a-zA-Z\s]*$/ ;
+          console.log(inputValue)
+    if (regex.test(inputValue)) {
+      // Input value contains only letters
+      setName(inputValue);
+    } 
   };
 
   const handleEmailChange = (event) => {
