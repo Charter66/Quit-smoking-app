@@ -80,7 +80,7 @@ const Login = () => {
         </div>
 
         <div className='login-signUp'>
-          <p>Don't have an account? <Link to="/signup" className='signUp-link'>Sign Up</Link></p>
+          <p>Don&apost have an account? <Link to="/signup" className='signUp-link'>Sign Up</Link></p>
         </div>
       </form>
     </>

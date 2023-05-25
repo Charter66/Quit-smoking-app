@@ -30,7 +30,6 @@ const userSchema = new mongoose.Schema({
       match: [/^[0-9]+$/, 'Please enter only numbers'],
     },
     quitDate: {
-      quitDate: {
         type: Date
       },
       packageCost: {
