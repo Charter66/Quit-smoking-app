@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
 import axios from 'axios';
 
@@ -10,6 +10,19 @@ const Goals = () => {
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
 
   const { hasToken } = useContext(ProfileContext);
+
+  useEffect(() => {
+    // Retrieve goals from local storage when the component mounts
+    const storedGoals = localStorage.getItem('goals');
+    if (storedGoals) {
+      setGoals(JSON.parse(storedGoals));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update local storage when goals state changes
+    localStorage.setItem('goals', JSON.stringify(goals));
+  }, [goals]);
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
@@ -35,14 +48,13 @@ const Goals = () => {
 
       const { status } = await axios.put(
         'http://localhost:3000/api/users/goals',
-          {
-            description,
-            targetDate: new Date().toISOString(), // Modify this line based on your target date input
-            achieved: false,
-            goalCost,
-            currency,
-          },
-        
+        {
+          description,
+          targetDate: new Date().toISOString(), // Modify this line based on your target date input
+          achieved: false,
+          goalCost,
+          currency,
+        },
         {
           headers: {
             Authorization: token,
@@ -132,20 +144,24 @@ const Goals = () => {
       )}
 
       <div className="mt-4">
-        {goals ? goals.map((goal, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between"
-          >
-            <div>
-              <p>Description: {goal.description}</p>
-              <p>
-                Goal Cost: {goal.goalCost}
-                {goal.currency}
-              </p>
+        {goals ? (
+          goals.map((goal, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between"
+            >
+              <div>
+                <p>Description: {goal.description}</p>
+                <p>
+                  Goal Cost: {goal.goalCost}
+                  {goal.currency}
+                </p>
+              </div>
             </div>
-          </div>
-        )) : null}
+          ))
+        ) : (
+          <p>No goals found.</p>
+        )}
       </div>
     </div>
   );
