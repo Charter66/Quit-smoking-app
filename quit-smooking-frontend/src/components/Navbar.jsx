@@ -3,7 +3,7 @@ import { BsHouse, BsBullseye, BsGraphUp, BsPerson } from 'react-icons/bs';
 
 const Navbar = () => {
   return (
-<nav className="sticky bottom-0 border-t border-gray-200" >
+<nav className="sticky bottom-0 border-t border-gray-200 bg-slate-50" >
 
           <ul className="flex items-center justify-around py-4">
         <li>

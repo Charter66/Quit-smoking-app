@@ -1,8 +1,9 @@
 import  { useContext, useEffect } from 'react';
 import { RegisterContext } from '../context/SignUpContext';
 import { useNavigate } from 'react-router-dom';
+import "../Styles/SignUp.css";
+import { AuthContext } from '../context/AuthContext';
 import { ProfileContext } from '../context/ProfileContext';
-import "../styles/SignUp.css";
 
 //icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -86,8 +87,29 @@ const SignUp = () => {
             </button>
             </div>
 
+            <div className='extra-box'>
+                <p className='popup-box'>LOGOUT</p>
+            </div>
+
+            <div className='extra-box'>
+                <p className='popup-box'>TELL A FRIEND</p>
+            </div>
+
+            <div className='extra-box'>
+                <p className='popup-box'>ABOUT US</p>
+            </div>
+
+            <div className='extra-box'>
+                <p className='popup-box'>PRIVACY POLICY</p>
+            </div>
+
+
           </form>
+
+
+
         </div>
+        
       </div>
     </div>
   );

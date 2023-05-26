@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     match: [
       // Updated regular expression for email validation
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/,
       'Please enter a valid email',
     ],
   },
@@ -49,8 +49,8 @@ const userSchema = new mongoose.Schema({
       type: String,
     },
   },
-  goals:[
-   {
+  goals: [
+    {
       description: {
         type: String,
         required: true,
@@ -68,17 +68,8 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
       },
-      goalCost: {
-        type: Number,
-        default: 0,
-      },
-      currency: {
-        type: String,
-
-      },
-    },],
-  
-  
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,
