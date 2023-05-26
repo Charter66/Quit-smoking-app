@@ -10,7 +10,8 @@ function Profile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        await fetchUserProfile();
+        await profile;
+        console.log(profile)
       } catch (error) {
         console.error("Error fetching user profile:", error);
       } finally {
@@ -30,9 +31,9 @@ function Profile() {
         </div>
       ) : profile ? (
         <div className='extra-box'>
-          <p>Email</p>
           <p>Email: {profile.email}</p>
-          {/* Additional profile information */}
+          <p>Name: {profile.name}</p>
+          <p>description: {profile.goals[1].description}</p>
         </div>
       ) : (
         <p>Unable to fetch profile data.</p>
