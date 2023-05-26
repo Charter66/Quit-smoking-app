@@ -35,6 +35,8 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
+  console.log(profile)
+
   useEffect(() => {
     fetchUserProfile();
   }, [hasToken]);

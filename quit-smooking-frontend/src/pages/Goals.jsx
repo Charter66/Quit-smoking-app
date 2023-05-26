@@ -9,7 +9,7 @@ const Goals = () => {
   const [currency, setCurrency] = useState('');
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
 
-  const { isAuth } = useContext(ProfileContext);
+  const { hasToken } = useContext(ProfileContext);
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
@@ -27,7 +27,7 @@ const Goals = () => {
     e.preventDefault();
 
     try {
-      const token = isAuth.token;
+      const token = hasToken;
 
       console.log("description:", description);
       console.log("goalCost:", goalCost);

@@ -55,6 +55,15 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      goalCost: {
+        type:Number,
+        required: true,
+      },
+      currency: {
+        type: String,
+        required: true,
+      },
+
       targetDate: {
         type: Date,
         required: true,
@@ -64,6 +73,7 @@ const userSchema = new mongoose.Schema({
           'Please enter a valid date in the format YYYY-MM-DD',
         ],
       },
+
       achieved: {
         type: Boolean,
         default: false,

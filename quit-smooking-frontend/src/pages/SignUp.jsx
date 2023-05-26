@@ -37,11 +37,11 @@ const SignUp = () => {
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/survey');
-    }
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate('/me/survey');
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   return (
     <div className='background'>

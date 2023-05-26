@@ -57,7 +57,7 @@ const [password, setPassword] = useState('');
         localStorage.setItem('token', token); // Store the token in local storage
   
         // Redirect the user to the survey page after successful registration
-        navigate('/survey');
+        navigate('/me/survey');
       })
       .catch((error) => {
         // Handle registration error
