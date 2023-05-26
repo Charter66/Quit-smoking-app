@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ProfileContext } from "../context/ProfileContex";
+import { ProfileContext } from "../context/ProfileContext";
 import "../styles/Dashboard.css";
 
 //images

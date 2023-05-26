@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ProfileContext } from "../context/ProfileContex";
+import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
 import "../styles/User.css";
 
