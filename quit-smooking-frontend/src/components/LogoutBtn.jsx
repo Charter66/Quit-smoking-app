@@ -16,7 +16,10 @@ const LogoutBtn = () => {
           Authorization: `${hasToken}` // Replace `token` with the actual token value
         }
       });
+      localStorage.removeItem('savedMoney');
       localStorage.removeItem('token');
+      localStorage.removeItem('goals');
+      localStorage.removeItem('lastUpdate');
 
 
       // Update the logged-in status in the context

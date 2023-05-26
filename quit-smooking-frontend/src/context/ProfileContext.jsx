@@ -8,6 +8,9 @@ const ProfileProvider = ({ children }) => {
   const [hasToken, setHasToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setLoggedIn] = useState(false);
 
+  
+
+
   const fetchUserProfile = async () => {
     try {
       if (!hasToken) {
@@ -25,7 +28,7 @@ const ProfileProvider = ({ children }) => {
       if (response.status === 200) {
         setProfile(response.data.user);
         setLoggedIn(true)
-        console.log(response.data.user);
+        // console.log(response.data.user);
       } else {
         throw new Error('Failed to fetch user profile');
       }
@@ -35,11 +38,14 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
-  console.log(profile)
 
   useEffect(() => {
     fetchUserProfile();
+    
+
   }, [hasToken]);
+
+ 
 
   return (
     <ProfileContext.Provider value={{ profile, fetchUserProfile, hasToken, isLoggedIn, setLoggedIn }}>

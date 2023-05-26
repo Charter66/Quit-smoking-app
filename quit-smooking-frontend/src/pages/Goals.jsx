@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
+import SavedMoney from '../components/savedMoney';
 import axios from 'axios';
 
 const Goals = () => {
@@ -91,6 +92,7 @@ const Goals = () => {
 
   return (
     <div className="container mx-auto px-4">
+    <SavedMoney />
       <h1 className="text-2xl font-bold mb-4">Create a New Goal</h1>
       <button
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
