@@ -1,3 +1,10 @@
+/*-----------------main.jsx - logo position----------------*/
+.logo {
+   display: flex;
+   justify-content: center;
+   border-bottom: 2px solid #66bec7;
+   margin-bottom: 1vh;
+}
 
 /*-------------------DASHBOARD-------------------*/
 .background-dashboard {
@@ -21,9 +28,27 @@
    margin-bottom: 1em;
 }
 
+.form-box-dashboard h2 {
+   font-size: 2em;
+   color: #EC6464;
+   text-align: center;
+}
+
 .wrapper-dashboard .form-box {
    width: 100%;
    padding: 1rem 1rem 1rem 2rem;
+}
+
+.icon-dashboard {
+   color:#EC6464;
+}
+
+.input-box-dashboard {
+   position: relative;
+   width: 100%;
+   height: 70px;
+   border-bottom: 2px solid #162938;
+   margin: 20px 0;
 }
 
 /*-------------------Articles-------------------*/
@@ -48,49 +73,20 @@
    margin-bottom: 1em;
 }
 
-.form-box-dashboard h2 {
-   font-size: 2em;
-   color: #EC6464;
-   text-align: center;
-}
-
-.input-box-dashboard {
-   position: relative;
-   width: 100%;
-   height: 70px;
-   border-bottom: 2px solid #162938;
-   margin: 20px 0;
-}
-
-.icon-dashboard {
-   color:#EC6464;
-}
-
-.input-box-dashboard input:focus~label, input-box-dashboard input:valid~label {
-   top: 5px;
-}
-
-.input-box-dashboard input {
-   width: 100%;
-   height: 100%;
-   background: transparent;
-   border: none;
-   outline: none;
-   font-size: 1rem;
-   font-weight: 600;
-   padding: 0 35px 0 5px;
-}
-
 .input-box-dashboard .icon-dashboard {
    position:absolute;
    right: 8px;
    font-size: 1.2em;
 }
 
-/*-----------------main.jsx - logo position----------------*/
-.logo {
-   display: flex;
-   justify-content: center;
-   border-bottom: 2px solid #66bec7;
-   margin-bottom: 1vh;
+.form-box-article h2 {
+   font-size: 1.5em;
+   color: #EC6464;
+   text-align: center;
 }
+
+.article-image {
+   margin: 1em 1em 1em 1em;
+}
+
+

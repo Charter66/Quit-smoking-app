@@ -3,7 +3,7 @@ import { ProfileContext } from "../context/ProfileContex";
 import "../styles/Dashboard.css";
 
 //images
-import unclocking from '../images/unclocking.png';
+import unlocking from '../images/unlocking.png';
 import journey from '../images/journey.png';
 
 // Icons
@@ -59,8 +59,8 @@ function Dashboard() {
                 </label>
             </div>
 
-            <div className="input-box">
-                <span className="icon">
+            <div className="input-box-dashboard">
+                <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCalendarDays} name="password" />
                 </span>
                 <label>
@@ -73,12 +73,12 @@ function Dashboard() {
       </div>
 
       <div className="background-articles">
-        <div className="wrapper-articles">
-          <div>
+        <div>
+          <div className ="form-box-article">
             <h2>Unlocking the Path to Freedom:</h2>
           </div>
-          <div>
-            <img src={unclocking} width="100" height="50" />
+          <div className="wrapper-articles">
+            <img src={unlocking} width="100" height="50" className="article-image"></img>
             <p>
               Quitting smoking is not merely an act of giving up a harmful
               habit; it is an act of self-love and empowerment. As you leave
@@ -134,47 +134,30 @@ function Dashboard() {
       </Popup>
       </div>
 
+      
+
+
       <div className="background-articles">
-            <div className="wrapper-articles">
-              <div>
-                <h2>A Journey of Resilience:</h2>
-              </div>
-              <div>
-                <img src={journey} width="100" height="50" />
-                <p>
-                The path to a smoke-free life is not without its challenges, but with each hurdle you overcome, your resilience grows stronger. Draw inspiration from your own determination and ..... read more
-                </p>
-              </div>
-            </div>
+        <div>
+          <div className ="form-box-article">
+            <h2>Journey of Resilience:</h2>
           </div>
+          <div className="wrapper-articles">
+            <img src={journey} width="100" height="50" className="article-image"></img>
+            <p>
+            Life is not without its challenges, but with each hurdle you overcome, your resilience grows stronger. Draw inspiration from your own determination and ...
+              <button onClick={() => setButtonPopup(true)}>read more</button>
+            </p>
+          </div>
+        </div>
+      </div>
 
-          <div className="background-articles">
-            <div className="wrapper-articles">
-              <div>
-                <h2>A Journey of Resilience:</h2>
-              </div>
-              <div>
-              <img src={journey} width="100" height="50" />
-                <p>
-                The path to a smoke-free life is not without its challenges, but with each hurdle you overcome, your resilience grows stronger. Draw inspiration from your own determination and ..... read more
-                </p>
-              </div>
-            </div>
-          </div>
+     
 
-          <div className="background-articles">
-            <div className="wrapper-articles">
-              <div>
-                <h2>A Journey of Resilience:</h2>
-              </div>
-              <div>
-              <img src={journey} width="100" height="50" />
-                <p>
-                The path to a smoke-free life is not without its challenges, but with each hurdle you overcome, your resilience grows stronger. Draw inspiration from your own determination and ..... read more
-                </p>
-              </div>
-            </div>
-          </div>
+
+
+
+
 
     </div>
   );

@@ -51,38 +51,39 @@ const Login = () => {
   return (
     <>
 
-      <div className='background'></div>
+      <div className='background-login'>
+        <div className="wrapper-dashboard">
+          <form onSubmit={handleSubmit}>
 
-        <form className="my-form" onSubmit={handleSubmit}>
-
-        <div className='input-box'>
-          <span className='icon'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
-          </span>
-            <label> email:
-              <input className='submit-box' type="email" id="name" name="email" value={formData.email}
+            <div className='input-box-login'>
+              <span className='icon-login'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
+              </span>
+              <label> email:
+              <input type="email" id="name" name="email" value={formData.email}
               onChange={handleChange}
               />
-            </label>
-        </div>
+              </label>
+            </div>
 
-        <div className='input-box'>
-          <span className='icon'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
-            <label> password:
-              <input className='submit-box' type="password" id="password" name="password" value={formData.password} onChange={handleChange}
+            <div className='input-box-login'>
+              <span className='icon-login'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
+              <label> password:
+              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange}
               />
-            </label>
-        </div>
+              </label>
+            </div>
 
-        <div className='btn'>
-          <button type="submit" className="my-button">
-          Submit
-          </button>
-        </div>
+            <div className='btn-login'>
+              <button type="submit">Submit</button>
+            </div>
 
-        <div className='login-signUp'>
-          <p>Don&apost have an account? <Link to="/signup" className='signUp-link'>Sign Up</Link></p>
+            <div className='login-to-signup'>
+              <div><p>Don&apos;t have an account? </p></div>
+              <div><p><Link to="/signup" className='link-to-signUp-Login'>Sign Up</Link></p></div>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </>
   );
 };
