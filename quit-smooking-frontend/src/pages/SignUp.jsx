@@ -1,14 +1,16 @@
 import  { useContext, useEffect } from 'react';
 import { RegisterContext } from '../context/SignUpContext';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
 import "../Styles/SignUp.css";
+import { AuthContext } from '../context/AuthContext';
+import { ProfileContext } from '../context/ProfileContext';
 
 //icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faLock, faUser } from '@fortawesome/free-solid-svg-icons';
 
 const SignUp = () => {
+  
   const {
     name,
     email,
@@ -17,9 +19,10 @@ const SignUp = () => {
     handleEmailChange,
     handlePasswordChange,
     handleRegister,
+    nameValidation
   } = useContext(RegisterContext) || {};
   const navigate = useNavigate();
-  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setLoggedIn } = useContext(ProfileContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -55,6 +58,7 @@ const SignUp = () => {
                 onChange={handleNameChange}
                 />
               </label>
+              {nameValidation && <p>{nameValidation}</p>}
             </div>
 
             <div className='input-box'>
@@ -75,6 +79,8 @@ const SignUp = () => {
                 />
               </label>
             </div>
+       
+
 
             <div className='btn'>
             <button type="submit"> Register

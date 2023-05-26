@@ -18,11 +18,13 @@ function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
+  const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await fetchUserProfile();
+        setLoggedIn(true);
       } catch (error) {
         console.error("Error fetching user profile:", error);
       } finally {
@@ -73,6 +75,7 @@ function Dashboard() {
       </div>
 
       <div className="background-articles">
+
         <div>
           <div className ="form-box-article">
             <h2>Unlocking the Path to Freedom:</h2>

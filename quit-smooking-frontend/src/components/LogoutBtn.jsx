@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
+import { ProfileContext } from '../context/ProfileContext';
 import { useNavigate } from 'react-router-dom';
 
 const LogoutBtn = () => {
-  const { isAuth,setLoggedIn } = useContext(AuthContext);
-  console.log(isAuth)
+  const { hasToken,setLoggedIn } = useContext(ProfileContext);
+  console.log(hasToken)
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -13,7 +13,7 @@ const LogoutBtn = () => {
       // Make a request to the logout endpoint on the server
       await axios.post('http://localhost:3000/api/users/logout',{
         headers: {
-          Authorization: `${isAuth.token}` // Replace `token` with the actual token value
+          Authorization: `${hasToken}` // Replace `token` with the actual token value
         }
       });
       localStorage.removeItem('token');

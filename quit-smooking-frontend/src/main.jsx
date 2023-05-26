@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ProfileProvider } from './context/ProfileContex';
 import "./styles/Dashboard.css";
 
+
 //logo
 import logo from './images/logoBig.png';
 

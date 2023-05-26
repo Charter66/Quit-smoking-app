@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ProfileContext } from '../context/ProfileContext';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 
@@ -9,7 +10,10 @@ const Survey = () => {
   const [quitDate, setQuitDate] = useState('');
   const [packageCost, setPackageCost] = useState(0);
   const [cigarettesInPackage, setCigarettesInPackage] = useState(0);
-  const { isLoggedIn } = useContext(AuthContext);
+  const [startSmokingDate, setStartSmokingDate] = useState('');
+  const [selectedCurrency, setSelectedCurrency] = useState('USD');
+
+  const { isLoggedIn } = useContext(ProfileContext);
   const { isAuth } = useContext(AuthContext); // Access the isAuth state from AuthContext
 
   const handleFormSubmit = async (e) => {
@@ -26,9 +30,11 @@ const Survey = () => {
       const { status } = await axios.put(
         'http://localhost:3000/api/users/survey',
         {
+          startSmokingDate,
           cigarettesPerDay,
           quitDate,
           packageCost,
+          selectedCurrency,
           cigarettesInPackage,
         },
         {
@@ -36,12 +42,10 @@ const Survey = () => {
             Authorization: token,
           },
         }
-      );
-  
-      // setUser(data)
+      );      
   
       console.log(status);
-      navigate('/dashboard'); // Redirect to the home page after submitting the survey
+      if (status === 200) navigate('/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
       console.error(error);
       // Handle error state or display error message to the user
@@ -59,6 +63,19 @@ const Survey = () => {
   return (
     <div className="flex justify-center items-center h-screen">
       <form className="w-full max-w-sm" onSubmit={handleFormSubmit}>
+       <div className="mb-4">
+         <label htmlFor="startSmokingDate" className="block text-gray-700">
+            Start Smoking Date:
+         </label>
+            <input
+              type="month"
+              id="startSmokingDate"
+              name="startSmokingDate"
+              value={startSmokingDate}
+              onChange={(e) => setStartSmokingDate(e.target.value)}
+              className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+            />
+       </div>
         <div className="mb-4">
           <label htmlFor="cigarettesPerDay" className="block text-gray-700">
             Cigarettes per Day:
@@ -97,6 +114,16 @@ const Survey = () => {
             onChange={(e) => setPackageCost(parseInt(e.target.value))}
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
+            <select
+        value={selectedCurrency}
+        onChange={(e) => setSelectedCurrency(e.target.value)}
+        className="ml-2 bg-transparent focus:outline-none"
+      >
+        <option value="USD">USD</option>
+        <option value="EUR">EUR</option>
+        <option value="GBP">GBP</option>
+        {/* Add more currency options as needed */}
+      </select>
         </div>
         <div className="mb-4">
           <label htmlFor="cigarettesInPackage" className="block text-gray-700">

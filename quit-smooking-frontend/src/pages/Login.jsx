@@ -1,55 +1,57 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
-import "../styles/Login.css";
+  import React, { useState, useContext, useEffect } from 'react';
+  import { useNavigate, Link, Navigate} from 'react-router-dom';
+  import axios from 'axios';
+  import { ProfileContext } from '../context/ProfileContext';
+  import "../styles/Login.css";
 
-//icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+  //icons
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
-const Login = () => {
-  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const Login = () => {
+    const { hasToken, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+    const navigate = useNavigate();
+    console.log(hasToken)
+    const [formData, setFormData] = useState({
+      email: '',
+      password: '',
+    });
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        'http://localhost:3000/api/users/login',
-        formData
-      );
-      if (response.status === 200) {
-        const token = response.data.token;
-        // Store the token in local storage
-        localStorage.setItem('token', token)
-        setLoggedIn(true);
-        navigate('/dashboard');
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post(
+          'http://localhost:3000/api/users/login',
+          formData
+        );
+        if (response.status === 200) {
+          const token = response.data.token;
+          // Store the token in local storage
+          localStorage.setItem('token', token)
+          setLoggedIn(true);
+          navigate('/me/dashboard');
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  console.log(isLoggedIn)
+    };
+    console.log(isLoggedIn)
 
-  useEffect(() => {
-    console.log('Redirecting to login...');
+    useEffect(() => {
+      console.log('Redirecting to login...');
 
-    navigate('/login', { replace: true });
-  }, [navigate]);
+      navigate('/login', { replace: true });
+    }, [navigate]);
 
-  return (
-    <>
+    if (hasToken) return <Navigate to='/me/dashboard' />
+    return (
+      <>
+        <div className='background'></div>
 
       <div className='background-login'>
         <div className="wrapper-dashboard">
@@ -88,4 +90,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+
+  export default Login;

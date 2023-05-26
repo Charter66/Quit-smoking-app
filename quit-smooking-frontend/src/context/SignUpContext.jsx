@@ -7,13 +7,27 @@ const RegisterContext = createContext();
 
 const RegisterProvider = ({ children }) => {
   const [name, setName] = useState('');
+  const [nameValidation, setNameValidation] = useState('')
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const [password, setPassword] = useState('');
   const { setIsAuth } = useContext(AuthContext); // Access setIsAuth from AuthContext
   const navigate = useNavigate();
 
   const handleNameChange = (event) => {
-    setName(event.target.value);
+    const inputValue = event.target.value;
+    const regex =/^[a-zA-Z\s]*$/ ;
+    const regex2 = /^[a-zA-Z0-9\s.!#&]{8,16}$/g ;
+
+    console.log(inputValue)
+    console.log(inputValue.match(regex2))
+    if (inputValue.match(regex2)) {
+      // Input value contains only letters
+      setName(inputValue);
+      setNameValidation('')
+    } else {
+      setName(inputValue);
+      setNameValidation('Your username must be between 8 and 16 characters long')
+    }
   };
 
   const handleEmailChange = (event) => {
@@ -58,6 +72,7 @@ const RegisterProvider = ({ children }) => {
     handleEmailChange,
     handlePasswordChange,
     handleRegister,
+    nameValidation, setNameValidation
   };
 
   return (
