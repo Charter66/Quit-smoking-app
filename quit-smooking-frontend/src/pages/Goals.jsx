@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
+
 import axios from 'axios';
 
 const Goals = () => {
@@ -9,7 +10,10 @@ const Goals = () => {
   const [currency, setCurrency] = useState('');
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
 
-  const { hasToken } = useContext(ProfileContext);
+  const { hasToken , profile} = useContext(ProfileContext);
+
+console.log(profile)
+
 
   useEffect(() => {
     // Retrieve goals from local storage when the component mounts
