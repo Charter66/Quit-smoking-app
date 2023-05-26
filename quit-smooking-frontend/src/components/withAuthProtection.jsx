@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { ProfileContext } from '../context/ProfileContex';
+import { ProfileContext } from '../context/ProfileContext';
 
 const withAuthProtection = (Component) => {
   const ProtectedRoute = (props) => {
     const { hasToken, isLoggedIn } = useContext(ProfileContext);
     const navigate = useNavigate();
-
+  console.log(isLoggedIn)
     useEffect(() => {
       console.log('Component:', Component);
       console.log('Props:', props);

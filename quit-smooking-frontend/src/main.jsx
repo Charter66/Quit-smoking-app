@@ -4,7 +4,7 @@ import App from './App';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
-import { ProfileProvider } from './context/ProfileContex';
+import { ProfileProvider } from './context/ProfileContext';
 
 
 ReactDOM.render(

@@ -11,7 +11,7 @@ import { RegisterProvider } from './context/SignUpContext';
 import Survey from './pages/Survey';
 import ProtectRoutes from './pages/ProtectRoutes';
 import withAuthProtection from './components/withAuthProtection';
-import { ProfileContext } from './context/ProfileContex';
+import { ProfileContext } from './context/ProfileContext';
 
 
 

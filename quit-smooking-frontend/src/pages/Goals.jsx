@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { ProfileContext } from '../context/ProfileContex';
+import { ProfileContext } from '../context/ProfileContext';
 import axios from 'axios';
 
 const Goals = () => {

@@ -1,6 +1,6 @@
 import {useContext} from 'react';
 import {Outlet, Navigate} from 'react-router-dom'
-import { ProfileContext } from '../context/ProfileContex';
+import { ProfileContext } from '../context/ProfileContext';
 
 const ProtectRoutes = () => {
   const { isLoggedIn } = useContext(ProfileContext);

@@ -1,7 +1,7 @@
 import  { useContext, useEffect } from 'react';
 import { RegisterContext } from '../context/SignUpContext';
 import { useNavigate } from 'react-router-dom';
-import { ProfileContext } from '../context/ProfileContex';
+import { ProfileContext } from '../context/ProfileContext';
 import "../styles/SignUp.css";
 
 //icons
