@@ -27,7 +27,7 @@ function Profile() {
     <div className="wrapper">
       {isLoading ? (
         <div className="form-box sign-up">
-          <p>Loading profile...</p>
+          <p>Loading profilee...</p>
         </div>
       ) : profile ? (
         <div className='extra-box'>
