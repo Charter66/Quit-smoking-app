@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login, logout, profile, survey, getOneUser , goals} = require('../controllers/userController');
+const { register, login, logout, profile, survey, getOneUser , goals, deleteGoal} = require('../controllers/userController');
 
 const checkToken = require('../middlewares/checkToken');
 
@@ -21,5 +21,6 @@ router.put('/survey', survey);
 router.put('/goals', goals)
 
 //router.get('/me', checkToken, getOneUser);
+router.delete('/goals/:id', deleteGoal)
 
 module.exports = router;
