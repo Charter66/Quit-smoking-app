@@ -92,8 +92,6 @@ const logout = async (req, res) => {
     // Clear the token from the client-side
     res.clearCookie('token');
 
-    // Add any additional logic for clearing sessions or tokens as needed
-
     console.log('Logout successful'); // Add console log
 
     res.status(200).json({ message: 'Logout successful' });
