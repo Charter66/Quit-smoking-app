@@ -13,10 +13,10 @@ const ProgressBar = ({ percent, color }) => {
           strokeWidth="8"
           strokeDasharray="100"
           style={circleStyle}
-          r="20"
+          r="16"
           cx="50"
           cy="50"
-          fill="transparent"
+          fill="gray"
         />
       </svg>
       <span className={`ml-2 text-${color}`}>{percent}%</span>

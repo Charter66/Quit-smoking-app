@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 const LogoutBtn = () => {
   const { hasToken,setLoggedIn } = useContext(ProfileContext);
-  console.log(hasToken)
+  //console.log(hasToken)
   const navigate = useNavigate();
 
   const handleLogout = async () => {
