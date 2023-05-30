@@ -4,7 +4,8 @@ import { ProfileContext } from '../context/ProfileContext';
 function SavedMoney() {
   const [isLoading, setIsLoading] = useState(true);
   const [savedMoney, setSavedMoney] = useState(0);
-  const { profile } = useContext(ProfileContext);
+  const [currency, setCurrency] = useState('');
+  const { profile, fetchUserProfile } = useContext(ProfileContext);
 
   useEffect(() => {
     const calculateSavedMoney = () => {
@@ -14,13 +15,34 @@ function SavedMoney() {
           const currentDate = new Date();
           const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
-          const savedMoney = profile.smokingHabit.cigarettesPerDay * profile.smokingHabit.packageCost * daysPassed;
+
+          const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+          const packageCost = profile.smokingHabit.packageCost;
+          const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+
+          const cigarettesSmoked = cigarettesPerDay * daysPassed;
+          
+          const savedMoney = (cigarettesSmoked / cigarettesInPackage) * packageCost;
+
           setSavedMoney(savedMoney);
-          localStorage.setItem('savedMoney', savedMoney);
-          localStorage.setItem('lastUpdate', new Date().toISOString());
+          setCurrency(profile.smokingHabit.selectedCurrency);
+          localStorage.setItem('savedMoney', savedMoney); // Cache the saved money value in localStorage
+          localStorage.setItem('currency', profile.smokingHabit.selectedCurrency); // Cache the currency in localStorage
+          localStorage.setItem('lastUpdate', new Date().toISOString()); // Cache the timestamp of the last update
         }
       } catch (error) {
         console.error("Error calculating saved money:", error);
+      }
+    };
+
+    const fetchData = async () => {
+      try {
+        await fetchUserProfile();
+        calculateSavedMoney();
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -30,28 +52,28 @@ function SavedMoney() {
       const lastUpdateTime = new Date(lastUpdate);
       const hoursDiff = Math.abs(currentTime - lastUpdateTime) / 36e5;
 
+      // If it has been less than 24 hours since the last update, use the cached saved money value
       if (hoursDiff < 24) {
         const cachedSavedMoney = localStorage.getItem('savedMoney');
+        const cachedCurrency = localStorage.getItem('currency');
         setSavedMoney(parseFloat(cachedSavedMoney));
+        setCurrency(cachedCurrency);
         setIsLoading(false);
         return;
       }
     }
 
-    calculateSavedMoney();
-    setIsLoading(false);
-  }, [profile]);
+    fetchData();
+  }, [fetchUserProfile, profile]);
 
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="text-center">
       {isLoading ? (
-        <p className="text-center text-gray-500">Loading...</p>
+        <p>Loading...</p>
       ) : (
-        <div className="flex items-center">
-          <p className="text-4xl font-bold mr-2">{savedMoney}</p>
-          {profile && profile.goals && profile.goals.length > 0 && (
-            <p className="text-sm text-gray-400">{profile.goals[0].currency}</p>
-          )}
+        <div className="bg-white rounded-lg shadow-lg p-4">
+          <h2 className="text-xl font-bold mb-2">Saved Money</h2>
+          <p>{savedMoney.toFixed(2)} {currency}</p>
         </div>
       )}
     </div>
