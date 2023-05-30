@@ -23,7 +23,7 @@ const register = async (req, res) => {
   
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
     res.cookie('token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60,
@@ -77,6 +77,8 @@ const login= async (req, res) => {
     res.json({ token });
 
 
+
+
     // Send the token in the response
     // res.json({ token });
   } catch (error) {
@@ -117,15 +119,16 @@ const survey = async (req, res) => {
 
     // Verify the token and extract the user's email or ID
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const email = decoded.userId;
+    const id = decoded._id;
+    console.log(decoded._id)
 
-    if (!email) {
+    if (!id) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
     // Find the user by their email and update the survey details
     const user = await User.findByIdAndUpdate(
-      email,
+      id,
       {
         $set: {
           "smokingHabit.cigarettesPerDay": parseInt(cigarettesPerDay),
@@ -149,6 +152,54 @@ const survey = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+const goals = async (req, res) => {
+  const {description, goalCost, currency} = req.body;
+  console.log(req.body)
+  try {
+    // Extract the token from the request headers or other secure storage
+    const token = req.headers.authorization;
+    console.log(req.headers);
+    console.log(token);
+
+    // Verify the token and extract the user's email or ID
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const id = decoded._id;
+    console.log(decoded._id)
+    if (!id) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    // Find the user by their email and update the survey details
+    const user = await User.findByIdAndUpdate(
+      id,
+      {
+        $set: {}, // Empty $set object
+        $push: {
+          goals: {
+            description,
+            goalCost: parseInt(goalCost),
+            currency,
+          },
+        },
+      },
+      { new: true } // to return the updated user document
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.status(200).json({ message: "Goals updated successfully", user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+
+
 
 
 
@@ -196,5 +247,6 @@ module.exports = {
   profile,
   survey,
   getOneUser,
+  goals,
  
 };

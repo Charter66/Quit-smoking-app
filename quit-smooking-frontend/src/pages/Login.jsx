@@ -1,90 +1,94 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
-import "../styles/Login.css";
+  import React, { useState, useContext, useEffect } from 'react';
+  import { useNavigate, Link, Navigate} from 'react-router-dom';
+  import axios from 'axios';
+  import { ProfileContext } from '../context/ProfileContext';
+  import "../styles/Login.css";
 
-//icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
+  //icons
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+  import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
-const Login = () => {
-  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const Login = () => {
+    const { hasToken, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+    const navigate = useNavigate();
+    console.log(hasToken)
+    const [formData, setFormData] = useState({
+      email: '',
+      password: '',
+    });
 
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        'http://localhost:3000/api/users/login',
-        formData
-      );
-      if (response.status === 200) {
-        const token = response.data.token;
-        // Store the token in local storage
-        localStorage.setItem('token', token)
-        setLoggedIn(true);
-        navigate('/dashboard');
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await axios.post(
+          'http://localhost:3000/api/users/login',
+          formData
+        );
+        if (response.status === 200) {
+          const token = response.data.token;
+          // Store the token in local storage
+          localStorage.setItem('token', token)
+          setLoggedIn(true);
+          navigate('/me/dashboard');
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  console.log(isLoggedIn)
+    };
+    console.log(isLoggedIn)
 
-  useEffect(() => {
-    console.log('Redirecting to login...');
+    useEffect(() => {
+      console.log('Redirecting to login...');
 
-    navigate('/login', { replace: true });
-  }, [navigate]);
+      navigate('/login', { replace: true });
+    }, [navigate]);
 
-  return (
-    <>
+    if (hasToken) return <Navigate to='/me/dashboard' />
+    return (
+      <>
+        <div className='background'></div>
 
-      <div className='background'></div>
+      <div className='background-login'>
+        <div className="wrapper-dashboard">
+          <form onSubmit={handleSubmit}>
 
-        <form className="my-form" onSubmit={handleSubmit}>
-
-        <div className='input-box'>
-          <span className='icon'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
-          </span>
-            <label> email:
-              <input className='submit-box' type="email" id="name" name="email" value={formData.email}
+            <div className='input-box-login'>
+              <span className='icon-login'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
+              </span>
+              <label> email:
+              <input type="email" id="name" name="email" value={formData.email}
               onChange={handleChange}
               />
-            </label>
-        </div>
+              </label>
+            </div>
 
-        <div className='input-box'>
-          <span className='icon'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
-            <label> password:
-              <input className='submit-box' type="password" id="password" name="password" value={formData.password} onChange={handleChange}
+            <div className='input-box-login'>
+              <span className='icon-login'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
+              <label> password:
+              <input type="password" id="password" name="password" value={formData.password} onChange={handleChange}
               />
-            </label>
-        </div>
+              </label>
+            </div>
 
-        <div className='btn'>
-          <button type="submit" className="my-button">
-          Submit
-          </button>
-        </div>
+            <div className='btn-login'>
+              <button type="submit">Submit</button>
+            </div>
 
-        <div className='login-signUp'>
-          <p>Don&apos;t have an account? <Link to="/signup" className='signUp-link'>Sign Up</Link></p>
+            <div className='login-to-signup'>
+              <div><p>Don&apos;t have an account? </p></div>
+              <div><p><Link to="/signup" className='link-to-signUp-Login'>Sign Up</Link></p></div>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </>
   );
 };
 
-export default Login;
+
+  export default Login;

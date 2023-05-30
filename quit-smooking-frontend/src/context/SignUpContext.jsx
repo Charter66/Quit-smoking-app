@@ -7,6 +7,7 @@ const RegisterContext = createContext();
 
 const RegisterProvider = ({ children }) => {
   const [name, setName] = useState('');
+  const [nameValidation, setNameValidation] = useState('')
   const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
   const { setIsAuth } = useContext(AuthContext); // Access setIsAuth from AuthContext
@@ -15,11 +16,18 @@ const [password, setPassword] = useState('');
   const handleNameChange = (event) => {
     const inputValue = event.target.value;
     const regex =/^[a-zA-Z\s]*$/ ;
-          console.log(inputValue)
-    if (regex.test(inputValue)) {
+    const regex2 = /^[a-zA-Z0-9\s.!#&]{8,16}$/g ;
+
+    console.log(inputValue)
+    console.log(inputValue.match(regex2))
+    if (inputValue.match(regex2)) {
       // Input value contains only letters
       setName(inputValue);
-    } 
+      setNameValidation('')
+    } else {
+      setName(inputValue);
+      setNameValidation('Your username must be between 8 and 16 characters long')
+    }
   };
 
   const handleEmailChange = (event) => {
@@ -49,7 +57,7 @@ const [password, setPassword] = useState('');
         localStorage.setItem('token', token); // Store the token in local storage
   
         // Redirect the user to the survey page after successful registration
-        navigate('/survey');
+        navigate('/me/survey');
       })
       .catch((error) => {
         // Handle registration error
@@ -64,6 +72,7 @@ const [password, setPassword] = useState('');
     handleEmailChange,
     handlePasswordChange,
     handleRegister,
+    nameValidation, setNameValidation
   };
 
   return (
