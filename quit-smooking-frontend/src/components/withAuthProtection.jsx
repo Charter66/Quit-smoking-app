@@ -1,24 +1,24 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { ProfileContext } from '../context/ProfileContext';
 
 const withAuthProtection = (Component) => {
   const ProtectedRoute = (props) => {
-    const {  isLoggedIn } = useContext(AuthContext);
+    const { hasToken, isLoggedIn } = useContext(ProfileContext);
     const navigate = useNavigate();
-
+  console.log(isLoggedIn)
     useEffect(() => {
       console.log('Component:', Component);
       console.log('Props:', props);
 
-      if (!isLoggedIn ) {
+      if (!hasToken && !isLoggedIn ) {
         console.log('Redirecting to login...');
         navigate('/login', { replace: true });
       }
-    }, [isLoggedIn,  props, navigate]);
+    }, [hasToken, isLoggedIn,  props, navigate]);
 
     // Render the protected component if authenticated
-    return isLoggedIn ? <Component {...props} /> : null;
+    return hasToken ? <Component {...props} /> : <div>No component from protection</div>;
   };
 
   return ProtectedRoute;

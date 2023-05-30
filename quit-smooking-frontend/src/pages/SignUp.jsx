@@ -1,8 +1,9 @@
 import  { useContext, useEffect } from 'react';
 import { RegisterContext } from '../context/SignUpContext';
 import { useNavigate } from 'react-router-dom';
+import "../Styles/SignUp.css";
 import { AuthContext } from '../context/AuthContext';
-import "../styles/SignUp.css";
+import { ProfileContext } from '../context/ProfileContext';
 
 //icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,9 +19,10 @@ const SignUp = () => {
     handleEmailChange,
     handlePasswordChange,
     handleRegister,
+    nameValidation
   } = useContext(RegisterContext) || {};
   const navigate = useNavigate();
-  const { isLoggedIn, setLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, setLoggedIn } = useContext(ProfileContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,11 +37,11 @@ const SignUp = () => {
     }
   };
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/survey');
-    }
-  }, [isLoggedIn, navigate]);
+  // useEffect(() => {
+  //   if (isLoggedIn) {
+  //     navigate('/me/survey');
+  //   }
+  // }, [isLoggedIn, navigate]);
 
   return (
     <div className='background'>
@@ -56,6 +58,7 @@ const SignUp = () => {
                 onChange={handleNameChange}
                 />
               </label>
+              {nameValidation && <p>{nameValidation}</p>}
             </div>
 
             <div className='input-box'>
@@ -84,8 +87,29 @@ const SignUp = () => {
             </button>
             </div>
 
+            <div className='extra-box'>
+                <p className='popup-box'>LOGOUT</p>
+            </div>
+
+            <div className='extra-box'>
+                <p className='popup-box'>TELL A FRIEND</p>
+            </div>
+
+            <div className='extra-box'>
+                <p className='popup-box'>ABOUT US</p>
+            </div>
+
+            <div className='extra-box'>
+                <p className='popup-box'>PRIVACY POLICY</p>
+            </div>
+
+
           </form>
+
+
+
         </div>
+        
       </div>
     </div>
   );
