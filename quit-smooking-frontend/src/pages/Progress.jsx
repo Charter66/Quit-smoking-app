@@ -87,6 +87,11 @@ const Progress = () => {
           const denominatorYear = 365;
           const percentageYear = ( numeratorDays / denominatorYear ) * 100;
 
+          // currency
+          const profileCurrency = profile.smokingHabit.selectedCurrency;
+
+          
+          // setting the states
           
           setThreeWeeksPercentage(percentage)
           setMonthPercentage(percentageMonth);
@@ -96,6 +101,7 @@ const Progress = () => {
           setDays(remainingDaysLost);
           setCigarettes(cigarettesSmoked);
           setMoneySpent(totalMoneySpent);
+          setCurrency(profileCurrency);
 
           localStorage.setItem('monthPercentage', percentageMonth);
           localStorage.setItem('threeWeeksPercentage', percentage);
@@ -152,7 +158,7 @@ const Progress = () => {
               <h3>During your period of smoking:</h3>
               <p>You lost {years} year {months} months and {days} days off your life expectancy</p>
               <p>You smoked {cigarettes} cigarettes</p>
-              <p>You spent {moneySpent}</p>
+              <p>You spent {moneySpent} {currency}</p>
         </div>
     </div>
 
