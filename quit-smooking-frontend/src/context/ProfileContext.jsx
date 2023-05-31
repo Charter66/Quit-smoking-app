@@ -9,8 +9,6 @@ const ProfileProvider = ({ children }) => {
   const [isLoggedIn, setLoggedIn] = useState(false);
 
   
-
-
   const fetchUserProfile = async () => {
     try {
       if (!hasToken) {
@@ -40,9 +38,9 @@ const ProfileProvider = ({ children }) => {
 
 
   useEffect(() => {
+
     fetchUserProfile();
     
-
   }, [hasToken]);
 
  
@@ -54,4 +52,4 @@ const ProfileProvider = ({ children }) => {
   );
 };
 
-export { ProfileContext, ProfileProvider };
+export  { ProfileContext, ProfileProvider };

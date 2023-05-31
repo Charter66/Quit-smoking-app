@@ -11,7 +11,7 @@
   const Login = () => {
     const { hasToken, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
     const navigate = useNavigate();
-    console.log(hasToken)
+    //console.log(hasToken)
     const [formData, setFormData] = useState({
       email: '',
       password: '',
