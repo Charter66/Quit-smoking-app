@@ -3,6 +3,14 @@ import ProgressBar from '../components/ProgressBar';
 import { ProfileContext } from '../context/ProfileContext';
 
 const Progress = () => {
+  const [days, setDays] = useState(0);
+  const [years, setYears] = useState(0);
+  const [months, setMonths] = useState(0);
+  const [cigarettes, setCigarettes] = useState(0);
+  const [moneySpent, setMoneySpent] = useState(0);
+  const [currency, setCurrency] = useState('');
+  
+
   const [threeWeeksPercentage, setThreeWeeksPercentage] = useState(0);
   const [monthPercentage, setMonthPercentage] = useState(0);
   const [yearPercentage, setYearPercentage] = useState(0);
@@ -14,21 +22,60 @@ const Progress = () => {
 
     const accumulatedTime = () => {
       try {
-        if ( profile && profile.smokingHabit && profile.smokingHabit.quitDate){
+        if ( profile && profile.smokingHabit && profile.smokingHabit.quitDate && profile.smokingHabit.startSmokingDate){
           const quitDate = new Date(profile.smokingHabit.quitDate);
+          const startDate = new Date(profile.smokingHabit.startSmokingDate)
           const currentDate = new Date();
+
+           // finding how many days has passed...
+           const timeDiff = Math.abs(startDate.getTime() - quitDate.getTime());
+           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+           console.log(daysPassed);
+
+          // finding how many was cigarettes smoked
+          const cigarettesSmoked = (profile.smokingHabit.cigarettesPerDay) * daysPassed;
+
+          // finding how much money was spent
+          const cigaretesInPackage = profile.smokingHabit.cigarettesInPackage;
+          const packageCost = profile.smokingHabit.packageCost;
+
+          const totalMoneySpent = (cigarettesSmoked / cigaretesInPackage ) * packageCost;
+          
+
           // finding the hours passed without smooking
           const millisecondsPassed = currentDate - quitDate;
           const hoursPassed = Math.ceil(millisecondsPassed / (1000 * 60 * 60));
           console.log(hoursPassed);
 
-          // finding how many days has passed...
-          const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
-          const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
-          console.log(daysPassed);
+          // finding how many years has been lost 
+          const timeDiffYear = quitDate.getTime() - startDate.getTime();
+          const yearsPassed = Math.floor(timeDiffYear / (1000 * 60 * 60 * 24 * 365));
 
+          // finding how many months has been lost
+          const monthsPassed = (currentDate.getFullYear() - startDate.getFullYear()) * 12 +
+          (currentDate.getMonth() - startDate.getMonth());
+
+          // finding how life expectancy lost
+             // Every cigarette a man smokes reduces his life by 11 minutes.
+          
+             const minutesPassed = Math.floor(daysPassed * 24 * 60);
+             const minLost = cigarettesSmoked * 11;
+
+             // Calculate the number of days, hours, and minutes
+            const daysLost = Math.floor(minLost / (60 * 24));
+            const hoursLost = Math.floor((minLost % (60 * 24)) / 60);
+            const minutesLost = minLost % 60;
+
+            // Calculate the number of years and months from the daysLost
+            const yearsLost = Math.floor(daysLost / 365);
+            const monthsLost = Math.floor((daysLost % 365) / 30);
+            const remainingDaysLost = (daysLost % 365) % 30;
+          
           // percentage for 3 weeks
-          const numeratorDays = daysPassed;
+          const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());
+           const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
+          
+          const numeratorDays = daysPassedCurrent;
           const denominator = 21;
           const percentage = ( numeratorDays / denominator) * 100;
 
@@ -44,6 +91,12 @@ const Progress = () => {
           setThreeWeeksPercentage(percentage)
           setMonthPercentage(percentageMonth);
           setYearPercentage(percentageYear);
+          setYears(yearsLost);
+          setMonths(monthsLost);
+          setDays(remainingDaysLost);
+          setCigarettes(cigarettesSmoked);
+          setMoneySpent(totalMoneySpent);
+
           localStorage.setItem('monthPercentage', percentageMonth);
           localStorage.setItem('threeWeeksPercentage', percentage);
           localStorage.setItem('yearPercentage', percentageYear);
@@ -89,17 +142,17 @@ const Progress = () => {
             <p className="ml-4 font-medium text-gray-600 sm:text-xl">After one month you will reduce risks of respiratory infections:</p>
             </div>
 
-            <div className="flex items-center fit-content bg-white shadow-xl rounded-2xl h-30">
+            <div className="flex  bg-white shadow-xl rounded-2xl h-30">
             <ProgressBar percent={yearPercentage.toFixed(2)} color="gray-600" />
             <p className="ml-4 font-medium text-gray-600 sm:text-xl">After one year you will enhance your cardiovacular health:</p>
             </div>
-
-            <div className="flex items-center fit-content bg-white shadow-xl rounded-2xl h-30">
+        </div><br></br>
+        
+        <div className="flex-col justify-items-start justify-evenly bg-white shadow-xl rounded-2xl h-60">
               <h3>During your period of smoking:</h3>
-              <p>You lost {years} year {months} months off your life expectancy</p>
-              <p>You smoked {cigarrettes} cigarettes</p>
-              <p>You spent {money}</p>
-            </div>
+              <p>You lost {years} year {months} months and {days} days off your life expectancy</p>
+              <p>You smoked {cigarettes} cigarettes</p>
+              <p>You spent {moneySpent}</p>
         </div>
     </div>
 
