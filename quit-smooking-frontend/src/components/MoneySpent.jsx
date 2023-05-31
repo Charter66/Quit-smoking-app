@@ -27,10 +27,10 @@ function MoneySpent() {
           const cigarettesSmoked = cigarettesPerDay * daysPassed;
           console.log(cigarettesSmoked); // Check the value of cigarettesSmoked
   
-          const savedMoney = (cigarettesSmoked / cigarettesInPackage) * packageCost;
-          console.log(savedMoney); // Check the value of savedMoney
+          const moneySpent = (cigarettesSmoked / cigarettesInPackage) * packageCost;
+          console.log(moneySpent); // Check the value of money spended
   
-          setSpendedMoney(savedMoney);
+          setSpendedMoney(moneySpent);
           setCurrency(profile.smokingHabit.selectedCurrency);
           localStorage.setItem('moneySpent', spendedMoney.toFixed(2));
           localStorage.setItem('currency', profile.smokingHabit.selectedCurrency);

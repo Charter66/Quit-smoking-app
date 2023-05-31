@@ -40,7 +40,6 @@ const Goals = () => {
   
       const newGoalData = {
         description,
-        targetDate: new Date().toISOString(),
         achieved: false,
         goalCost,
         currency,
@@ -57,11 +56,16 @@ const Goals = () => {
         }
       );
   
-      if (response.status === 200) {
-        // If the goal is successfully saved in the database,
-        // update the goals array with the new goal
-        const newGoal = response.data.goal;
-        setGoals((prevGoals) => [newGoal, ...prevGoals]);
+      if (response.status === 200 && response.data && response.data.goals && response.data.goals.length > 0) {
+        const goalsArray = response.data.goals;
+        const newGoal = goalsArray[goalsArray.length - 1];
+        if (newGoal) {
+          // Access the properties of newGoal here
+          const { description, goalCost, currency } = newGoal;
+          // Do something with the properties
+        }
+      
+        setGoals((prevGoals) => [...prevGoals, newGoal]);
   
         // Reset the form
         setDescription('');
@@ -163,7 +167,7 @@ const Goals = () => {
       )}
 
       <div className="mt-4">
-      {goals.length > 0 ? (
+      {goals && goals.length > 0 ? (
   goals.map((goal, index) => (
     <div
       key={index}

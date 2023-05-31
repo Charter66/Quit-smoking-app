@@ -61,12 +61,12 @@ const userSchema = new mongoose.Schema({
       },
       currency: {
         type: String,
-        required: true,
+        //  required: true,
       },
 
       targetDate: {
         type: Date,
-        required: true,
+        // required: true,
         // Updated regular expression for date validation
         match: [
           /^\d{4}-\d{2}-\d{2}$/,
