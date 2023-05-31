@@ -3,15 +3,33 @@ import ProgressBar from '../components/ProgressBar';
 import { ProfileContext } from '../context/ProfileContext';
 
 const Progress = () => {
-
+  const [timeAccumulated, setTimeAccumulated ] = useState(0);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
+
+    const accumulatedTime = () => {
+      try {
+        if ( profile && profile.smokingHabit && profile.smokingHabit.quitDate){
+          const quitDate = new Date(profile.smokingHabit.quitDate);
+          const currentDate = new Date();
+          const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+          const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+          setTimeAccumulated(timeDiff)
+          localStorage.setItem('accumulatedTime', accumulatedTime)
+        }
+        
+      } catch (error) {
+        console.error("Error cauculating save money:", error);
+        
+      }
+    }
     const fetchData = async () => {
       try {
-        await profile;
-        console.log(profile)
+        await fetchUserProfile();
+        accumulatedTime();
       } catch (error) {
         console.error("Error fetching user profile:", error);
       } finally {
@@ -32,12 +50,8 @@ const Progress = () => {
       ) : profile ? (
         <div className='extra-box'>
           <p>Quitting date: {profile.smokingHabit.quitDate}</p>
-        </div>
-      ) : (
-        <p>Unable to fetch profile data.</p>
-      )}
-
-    <div className="min-h-screen py-20 px-10 ">
+          <p>Accumulated Time:{timeAccumulated}</p>
+          <div className="min-h-screen py-20 px-10 ">
     <div className="grid grid-cols-1 gap-20 lg:grid-cols-2 lg:gap-10">
       
       <div className="flex items-center fit-content bg-white shadow-xl rounded-2xl h-30">
@@ -57,6 +71,14 @@ const Progress = () => {
 
     </div>
   </div>
+        </div>
+
+        
+      ) : (
+        <p>Unable to fetch profile data.</p>
+      )}
+
+    
   </div>
   );
 };
