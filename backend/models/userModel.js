@@ -84,6 +84,9 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  spendedMoney: {
+    type: Number,
+  }
 });
 
 const User = mongoose.model('User', userSchema);
