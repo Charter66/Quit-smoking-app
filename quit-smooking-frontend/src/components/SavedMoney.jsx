@@ -76,7 +76,7 @@ function SavedMoney() {
     }
 
     fetchData();
-  }, [fetchUserProfile, profile]);
+  }, [fetchUserProfile]);
 
   return (
     <div className="text-center">
@@ -84,8 +84,10 @@ function SavedMoney() {
         <p>Loading...</p>
       ) : (
         <div className="bg-white rounded-lg shadow-lg p-4">
-          <h2 className="text-xl font-bold mb-2">Saved Money</h2>
-          <p>{savedMoney.toFixed(2)} {currency}</p>
+          <h2 className="text-xl font-bold">Saved Money</h2>
+          <p className="mt-4">
+            You have saved {savedMoney.toFixed(2)} {currency}.
+          </p>
         </div>
       )}
     </div>

@@ -247,11 +247,15 @@ const deleteGoal = async (req, res) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken._id;
     const goalId = req.params.id;
-    console.log(req.params)
+
+    console.log('User ID:', userId);
+    console.log('Goal ID:', goalId);
+
     // Find the user by their ID
     const user = await User.findById(userId);
 
     if (!user) {
+      console.log('User not found');
       return res.status(404).json({ error: 'User not found' });
     }
 
@@ -259,15 +263,17 @@ const deleteGoal = async (req, res) => {
     const goalIndex = user.goals.findIndex((goal) => goal.id.toString() === goalId);
 
     if (goalIndex === -1) {
+      console.log('Goal not found');
       return res.status(404).json({ error: 'Goal not found' });
     }
 
     // Remove the goal from the user's goals array
-    user.goals.splice(goalIndex);
+    user.goals.splice(goalIndex, 1);
 
     // Save the updated user object
     await user.save();
 
+    console.log('Goal deleted successfully');
     res.status(200).json({ message: 'Goal deleted successfully' });
   } catch (error) {
     console.error(error);
