@@ -3,58 +3,65 @@ import { ProfileContext } from '../context/ProfileContext';
 
 function MoneySpent() {
   const [isLoading, setIsLoading] = useState(true);
-  const [moneySpent, setMoneySpent] = useState(0);
+  const [spendedMoney, setSpendedMoney]  = useState(0);
   const [currency, setCurrency] = useState('');
   const { profile, fetchUserProfile } = useContext(ProfileContext);
-
   useEffect(() => {
-    const calculateMoneySpent = () => {
+    const calculateSpendedMoney = () => {
       try {
-        if (profile && profile.startDate && profile.quitDate) {
-          const startDate = new Date(profile.startDate);
-          const quitDate = new Date(profile.quitDate);
+        if (profile && profile.smokingHabit && profile.smokingHabit.quitDate) {
+          const startDate = new Date(profile.smokingHabit.startSmokingDate);
+          const quitDate = new Date(profile.smokingHabit.quitDate);
+          console.log(startDate, quitDate); // Check the values of startDate and quitDate
+  
           const timeDiff = Math.abs(quitDate.getTime() - startDate.getTime());
-          const daysSmoked = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-          const cigarettesPerDay = profile.cigarettesPerDay;
-          const packageCost = profile.packageCost;
-          const cigarettesInPackage = profile.cigarettesInPackage;
-
-          const cigarettesSmoked = cigarettesPerDay * daysSmoked;
-          const moneySpent = (cigarettesSmoked / cigarettesInPackage) * packageCost;
-
-          setMoneySpent(moneySpent);
-          setCurrency(profile.selectedCurrency);
-          localStorage.setItem('moneySpent', moneySpent.toFixed(2));
-          localStorage.setItem('currency', profile.selectedCurrency);
+          console.log(timeDiff); // Check the value of timeDiff
+  
+          const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          console.log(daysPassed); // Check the value of daysPassed
+  
+          const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+          const packageCost = profile.smokingHabit.packageCost;
+          const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+  
+          const cigarettesSmoked = cigarettesPerDay * daysPassed;
+          console.log(cigarettesSmoked); // Check the value of cigarettesSmoked
+  
+          const savedMoney = (cigarettesSmoked / cigarettesInPackage) * packageCost;
+          console.log(savedMoney); // Check the value of savedMoney
+  
+          setSpendedMoney(savedMoney);
+          setCurrency(profile.smokingHabit.selectedCurrency);
+          localStorage.setItem('moneySpent', spendedMoney.toFixed(2));
+          localStorage.setItem('currency', profile.smokingHabit.selectedCurrency);
+          localStorage.setItem('lastUpdate', new Date().toISOString());
         }
       } catch (error) {
-        console.error('Error calculating money spent:', error);
+        console.error("Error calculating saved money:", error);
       }
     };
-
+  
     const fetchData = async () => {
       try {
         await fetchUserProfile();
-        calculateMoneySpent();
-        setIsLoading(false);
       } catch (error) {
-        console.error('Error fetching user profile:', error);
+        console.error("Error fetching user profile:", error);
+      } finally {
         setIsLoading(false);
       }
     };
-
+  
     fetchData();
-  }, [fetchUserProfile, profile]);
-
+    calculateSpendedMoney();
+  }, []);
   return (
-    <div className="text-center">
+    <div>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="bg-white rounded-lg shadow-lg p-4">
-          <h2 className="text-xl font-bold mb-2">Money Spent</h2>
-          <p>{moneySpent.toFixed(2)} {currency}</p>
+        <div>
+          <h2>Spended Money</h2>
+          <p>{spendedMoney.toFixed(2)} {currency}</p>
         </div>
       )}
     </div>

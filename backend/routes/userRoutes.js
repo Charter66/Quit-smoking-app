@@ -23,4 +23,5 @@ router.put('/goals', goals)
 //router.get('/me', checkToken, getOneUser);
 router.delete('/goals/:id', deleteGoal)
 
+
 module.exports = router;
