@@ -20,6 +20,11 @@ const LogoutBtn = () => {
       localStorage.removeItem('token');
       localStorage.removeItem('goals');
       localStorage.removeItem('lastUpdate');
+      localStorage.removeItem('currency');
+      localStorage.removeItem('threeWeeksPercentage');
+      localStorage.removeItem('monthPercentage');
+      localStorage.removeItem('moneySpent');
+      localStorage.removeItem('yearPercentage');
 
 
       // Update the logged-in status in the context
