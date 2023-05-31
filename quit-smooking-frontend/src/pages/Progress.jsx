@@ -127,6 +127,8 @@ const Progress = () => {
     fetchData();
   }, [ ]);
 
+
+  
   return (
 
     <div className="wrapper">
