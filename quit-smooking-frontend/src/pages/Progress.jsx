@@ -131,6 +131,7 @@ const Progress = () => {
   
   return (
 
+
     <div className="wrapper">
       {isLoading ? (
         <div className="form-box sign-up">
@@ -162,6 +163,7 @@ const Progress = () => {
               <p>You smoked {cigarettes} cigarettes</p>
               <p>You spent {moneySpent} {currency}</p>
         </div>
+
     </div>
 
         
