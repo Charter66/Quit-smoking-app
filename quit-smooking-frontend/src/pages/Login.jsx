@@ -26,7 +26,7 @@
       e.preventDefault();
       try {
         const response = await axios.post(
-          'http://localhost:3000/api/users/login',
+          'https://quit-smoking-app.onrender.com/api/users/login',
           formData
         );
         if (response.status === 200) {

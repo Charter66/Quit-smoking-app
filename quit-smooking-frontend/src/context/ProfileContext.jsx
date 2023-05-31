@@ -17,7 +17,7 @@ const ProfileProvider = ({ children }) => {
         return;
       }
   
-      const response = await axios.get('http://localhost:3000/api/users/profile', {
+      const response = await axios.get('https://quit-smoking-app.onrender.com/api/users/profile', {
         headers: {
           Authorization: hasToken,
         },

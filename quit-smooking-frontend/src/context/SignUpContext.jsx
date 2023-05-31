@@ -40,7 +40,7 @@ const [password, setPassword] = useState('');
 
   const handleRegister = () => {
     axios
-      .post('http://localhost:3000/api/users/register', {
+      .post('https://quit-smoking-app.onrender.com/api/users/register', {
         name,
         email,
         password,

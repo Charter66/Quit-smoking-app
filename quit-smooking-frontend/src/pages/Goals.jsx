@@ -47,7 +47,7 @@ const Goals = () => {
   
       // Make an API request to save the new goal
       const response = await axios.put(
-        'http://localhost:3000/api/users/goals',
+        'https://quit-smoking-app.onrender.com/api/users/goals',
         newGoalData,
         {
           headers: {
@@ -85,7 +85,7 @@ const Goals = () => {
   
       // Make an API request to delete the goal
       const response = await axios.delete(
-        `http://localhost:3000/api/users/goals/${goalId}`,
+        `https://quit-smoking-app.onrender.com/api/users/goals/${goalId}`,
         {
           headers: {
             Authorization: token,

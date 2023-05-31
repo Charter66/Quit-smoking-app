@@ -28,7 +28,7 @@ const Survey = () => {
       console.log("cigarettesInPackage:", cigarettesInPackage);
   
       const { status } = await axios.put(
-        'http://localhost:3000/api/users/survey',
+        'https://quit-smoking-app.onrender.com/api/users/survey',
         {
           startSmokingDate,
           cigarettesPerDay,
