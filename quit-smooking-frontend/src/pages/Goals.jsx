@@ -195,7 +195,7 @@ console.log(profile)
               </div>
 
               <button type="submit" className="goals_saveGoal_btn">
-                Save Goal
+                Save Goalll
               </button>
             </form>
           )}
