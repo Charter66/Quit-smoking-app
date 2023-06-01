@@ -1,6 +1,6 @@
 import  { useContext, useEffect } from 'react';
 import { RegisterContext } from '../context/SignUpContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import "../Styles/SignUp.css";
 import { AuthContext } from '../context/AuthContext';
 import { ProfileContext } from '../context/ProfileContext';
@@ -44,65 +44,51 @@ const SignUp = () => {
   // }, [isLoggedIn, navigate]);
 
   return (
-    <div className='background'>
-      <div className='wrapper'>
-        <div className='form-box sign-up'>
+    <div className='signup-background'>
+      <div className='signup-wrapper'>
+        <div className='signup-form-box sign-up'>
           <h2>Sign Up</h2>
           
-          <form className="my-form" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
     
-            <div className='input-box'>
-            <span className='icon'><FontAwesomeIcon icon={faUser} name='name'></FontAwesomeIcon></span>
+            <div className='signup-input-box'>
+            <span className='signup-icon'><FontAwesomeIcon icon={faUser} name='name'></FontAwesomeIcon></span>
               <label> name:
-                <input className='submit-box' type="text" name="name" value={name}
+                <input className='signup-submit-box' type="text" name="name" value={name}
                 onChange={handleNameChange}
                 />
               </label>
               {nameValidation && <p>{nameValidation}</p>}
             </div>
 
-            <div className='input-box'>
-              <span className='icon'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
+            <div className='signup-input-box'>
+              <span className='signup-icon'><FontAwesomeIcon icon={faEnvelope} name='email'></FontAwesomeIcon>
               </span>
               <label> email:
-                <input className='submit-box' type="email" name="email" value={email}
+                <input className='signup-submit-box' type="email" name="email" value={email}
                 onChange={handleEmailChange}
                 />
               </label>
             </div>
 
-            <div className='input-box'>
-              <span className='icon'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
+            <div className='signup-input-box'>
+              <span className='signup-icon'><FontAwesomeIcon icon={faLock} name='password'></FontAwesomeIcon></span>
               <label> password:
-                <input className='submit-box' type="password" name="password" value={password}
+                <input className='signup-submit-box' type="password" name="password" value={password}
                 onChange={handlePasswordChange}
                 />
               </label>
             </div>
-       
 
-
-            <div className='btn'>
+            <div className='signup-btn'>
             <button type="submit"> Register
             </button>
             </div>
 
-            <div className='extra-box'>
-                <p className='popup-box'>LOGOUT</p>
+            <div className='signup-to-login'>
+              <div><p>Do you already have an account? </p></div>
+              <div><p><Link to="/login" className='link-to-signup-to-login'>Login</Link></p></div>
             </div>
-
-            <div className='extra-box'>
-                <p className='popup-box'>TELL A FRIEND</p>
-            </div>
-
-            <div className='extra-box'>
-                <p className='popup-box'>ABOUT US</p>
-            </div>
-
-            <div className='extra-box'>
-                <p className='popup-box'>PRIVACY POLICY</p>
-            </div>
-
 
           </form>
 

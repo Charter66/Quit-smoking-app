@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import "../styles/Dashboard.css";
-import SavedMoney from "../components/savedMoney";
 //images
 import unlocking from '../images/unlocking.png';
 import journey from '../images/journey.png';
@@ -13,13 +12,14 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 // Popup
 import Popup from "reactjs-popup";
 import "../styles/Popup.css";
-
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
   const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
-
+  const savedMoney = localStorage.getItem('savedMoney') 
+  const daysPassed = localStorage.getItem('daysPassed')
+  const currency = localStorage.getItem('currency')
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -41,8 +41,8 @@ function Dashboard() {
 
   return (
     <div>
-      <div className="background-dashboard">
-        <div className="wrapper-dashboard">
+      <div>
+        <div>
           {isLoading ? (
             <div className="form-box-dashboard">
               <p>Loading profile...</p>
@@ -51,13 +51,12 @@ function Dashboard() {
             <div className="form-box-dashboard">
               <h2>Good morning {profile.name},</h2>
               <p>You are doing great!</p>
-              <SavedMoney />
             <div className="input-box-dashboard">
                 <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCoins} name="password" />
                 </span>
                 <label>
-                  You saved: <p>€ 500.00</p>
+                  You saved: <p>{savedMoney}{currency}</p>
                 </label>
             </div>
 
@@ -66,7 +65,7 @@ function Dashboard() {
                   <FontAwesomeIcon icon={faCalendarDays} name="password" />
                 </span>
                 <label>
-                  You have not smoked for:<p>98 days</p>
+                  You have not smoked for:<p>{daysPassed} days</p>
                 </label>
               </div>
             </div>

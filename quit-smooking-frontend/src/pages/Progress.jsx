@@ -1,3 +1,4 @@
+
 import React, { useContext, useState, useEffect } from 'react';
 import ProgressBar from '../components/ProgressBar';
 import { ProfileContext } from '../context/ProfileContext';
@@ -177,3 +178,4 @@ const Progress = () => {
 };
 
 export default Progress;
+

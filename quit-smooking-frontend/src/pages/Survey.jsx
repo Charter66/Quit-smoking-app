@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProfileContext } from '../context/ProfileContext';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
+import "../Styles/Survey.css";
 
 const Survey = () => {
   const navigate = useNavigate();
@@ -61,10 +62,11 @@ const Survey = () => {
     );
   }
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form className="w-full max-w-sm" onSubmit={handleFormSubmit}>
+    <div className="survey-container">
+      <form className="survey-formArea" onSubmit={handleFormSubmit}>
+
        <div className="mb-4">
-         <label htmlFor="startSmokingDate" className="block text-gray-700">
+         <label className='survey-label' htmlFor="startSmokingDate">
             Start Smoking Date:
          </label>
             <input
@@ -76,8 +78,9 @@ const Survey = () => {
               className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
             />
        </div>
+
         <div className="mb-4">
-          <label htmlFor="cigarettesPerDay" className="block text-gray-700">
+          <label className='survey-label' htmlFor="cigarettesPerDay">
             Cigarettes per Day:
           </label>
           <input
@@ -89,8 +92,9 @@ const Survey = () => {
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
         </div>
+
         <div className="mb-4">
-          <label htmlFor="quitDate" className="block text-gray-700">
+          <label className='survey-label' htmlFor="quitDate">
             Quit Date:
           </label>
           <input
@@ -102,31 +106,9 @@ const Survey = () => {
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
         </div>
+
         <div className="mb-4">
-          <label htmlFor="packageCost" className="block text-gray-700">
-            Package Cost:
-          </label>
-          <input
-            type="number"
-            id="packageCost"
-            name="PackageCost"
-            value={packageCost}
-            onChange={(e) => setPackageCost(parseInt(e.target.value))}
-            className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-          />
-            <select
-        value={selectedCurrency}
-        onChange={(e) => setSelectedCurrency(e.target.value)}
-        className="ml-2 bg-transparent focus:outline-none"
-      >
-        <option value="USD">USD</option>
-        <option value="EUR">EUR</option>
-        <option value="GBP">GBP</option>
-        {/* Add more currency options as needed */}
-      </select>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="cigarettesInPackage" className="block text-gray-700">
+          <label className='survey-label' htmlFor="cigarettesInPackage">
             Cigarettes In a Package:
           </label>
           <input
@@ -138,9 +120,35 @@ const Survey = () => {
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
         </div>
+
+        <div className="mb-4">
+          <label className='survey-label' htmlFor="packageCost">
+            Package Cost:
+          </label>
+          <input
+            type="number"
+            id="packageCost"
+            name="PackageCost"
+            value={packageCost}
+            onChange={(e) => setPackageCost(parseInt(e.target.value))}
+            className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+          />
+
+            <select
+              value={selectedCurrency}
+              onChange={(e) => setSelectedCurrency(e.target.value)}
+              className="ml-2 bg-transparent focus:outline-none survey-currency"
+            >
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+              {/* Add more currency options as needed */}
+            </select>
+        </div>
+
         <button
           type="submit"
-          className="bg-blue-500 text-white rounded-lg px-4 py-2 w-full hover:bg-blue-600"
+          className="bg-red-300 text-white rounded-lg px-4 py-2 w-full hover:bg-red-600"
         >
           Submit
         </button>

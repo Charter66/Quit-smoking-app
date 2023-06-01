@@ -26,9 +26,10 @@
    justify-content: center;
    align-items: center;
    margin-bottom: 1em;
+   padding: 1em 1em 1em 1em;
 }
 
-.form-box-dashboard h2 {
+.form-box-dashboard .dashboard-h2 {
    font-size: 2em;
    color: #EC6464;
    text-align: center;
@@ -79,14 +80,17 @@
    font-size: 1.2em;
 }
 
-.form-box-article h2 {
+.form-box-article .article-h2 {
    font-size: 1.5em;
    color: #EC6464;
    text-align: center;
 }
 
-.article-image {
+.article-image1 {
    margin: 1em 1em 1em 1em;
 }
 
+.article-image2 {
+   margin: 1em 1em 1em 1em;
+}
 
