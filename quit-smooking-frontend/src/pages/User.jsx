@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
-import "../styles/User.css";
+import "../Styles/User.css";
 
 function Profile() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -22,42 +22,41 @@ function Profile() {
   }, []);
 
   return (
-    <div className="background">
-    <div className="wrapper">
+    <div className="user-background">
+    <div className="user-wrapper">
       {isLoading ? (
-        <div className="form-box sign-up">
+        <div className="user-form-box sign-up">
           <p>Loading profile...</p>
         </div>
       ) : profile ? (
-        <div className='extra-box'>
-          <p>Email</p>
+        <div className='user-extra-box'>
           <p>Email: {profile.email}</p>
           {/* Additional profile information */}
         </div>
       ) : (
         <p>Unable to fetch profile data.</p>
       )}
-  
-      <div className='extra-box'>
-        <p>REFRESH PROFILE</p>
-        <button onClick={fetchUserProfile}>Refresh Profile</button>
-      </div>
-  
-      <div className='extra-box'>
-        <p>LOGOUT</p>
-        <LogoutBtn profile={profile} />
-      </div>
-  
-      <div className='extra-box'>
-        <p>TELL A FRIEND</p>
-      </div>
-  
-      <div className='extra-box'>
-        <p>ABOUT US</p>
-      </div>
-  
-      <div className='extra-box'>
-        <p>PRIVACY POLICY</p>
+
+      <div className="user-container">
+        <div className='user-extra-box'>
+          <button onClick={fetchUserProfile}>REFRESH PROFILE</button>
+        </div>
+    
+        <div className='user-extra-box'>
+          <p>TELL A FRIEND</p>
+        </div>
+    
+        <div className='user-extra-box'>
+          <p>ABOUT US</p>
+        </div>
+    
+        <div className='user-extra-box'>
+          <p>PRIVACY POLICY</p>
+        </div>
+
+        <div className='user-extra-box'>
+          <LogoutBtn profile={profile} />
+        </div>
       </div>
     </div>
   </div>

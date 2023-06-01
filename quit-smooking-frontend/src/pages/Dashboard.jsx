@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
-import "../styles/Dashboard.css";
+import "../Styles/Dashboard.css";
 
 //images
 import unlocking from '../images/unlocking.png';
@@ -49,7 +49,7 @@ function Dashboard() {
             </div>
           ) : profile ? (
             <div className="form-box-dashboard">
-              <h2>Good morning {profile.name},</h2>
+              <h2 className="dashboard-h2">Good morning {profile.name},</h2>
               <p>You are doing great!</p>
 
             <div className="input-box-dashboard">
@@ -66,7 +66,7 @@ function Dashboard() {
                   <FontAwesomeIcon icon={faCalendarDays} name="password" />
                 </span>
                 <label>
-                  You have not smoked for:<p>98 days</p>
+                  You have been smoke free for:<p>98 days</p>
                 </label>
               </div>
             </div>
@@ -78,10 +78,10 @@ function Dashboard() {
 
         <div>
           <div className ="form-box-article">
-            <h2>Unlocking the Path to Freedom:</h2>
+            <h2 className="article-h2">Unlocking the Path to Freedom:</h2>
           </div>
           <div className="wrapper-articles">
-            <img src={unlocking} width="100" height="50" className="article-image"></img>
+            <img src={unlocking} width="100" height="50" className="article-image1"></img>
             <p>
               Quitting smoking is not merely an act of giving up a harmful
               habit; it is an act of self-love and empowerment. As you leave
@@ -143,10 +143,10 @@ function Dashboard() {
       <div className="background-articles">
         <div>
           <div className ="form-box-article">
-            <h2>Journey of Resilience:</h2>
+            <h2 className="article-h2">Journey of Resilience:</h2>
           </div>
           <div className="wrapper-articles">
-            <img src={journey} width="100" height="50" className="article-image"></img>
+            <img src={journey} width="100" height="50" className="article-image2"></img>
             <p>
             Life is not without its challenges, but with each hurdle you overcome, your resilience grows stronger. Draw inspiration from your own determination and ...
               <button onClick={() => setButtonPopup(true)}>read more</button>
