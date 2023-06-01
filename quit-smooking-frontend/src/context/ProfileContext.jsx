@@ -1,21 +1,19 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import {useLocation} from 'react-router-dom'
 
 const ProfileContext = createContext();
 
 const ProfileProvider = ({ children }) => {
+  const {pathname} = useLocation();
+  const [initPath] = useState(pathname);
   const [profile, setProfile] = useState(null);
   const [hasToken, setHasToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setLoggedIn] = useState(false);
-
   
   const fetchUserProfile = async () => {
     try {
-      if (!hasToken) {
-        console.log('Token not found');
-        setProfile(null); // Set profile to null when token is not found
-        return;
-      }
+     
   
       const response = await axios.get('https://quit-smoking-app.onrender.com/api/users/profile', {
         headers: {
@@ -29,6 +27,7 @@ const ProfileProvider = ({ children }) => {
         // console.log(response.data.user);
       } else {
         throw new Error('Failed to fetch user profile');
+        
       }
     } catch (error) {
       console.error('Error retrieving user profile:', error);
@@ -46,7 +45,7 @@ const ProfileProvider = ({ children }) => {
  
 
   return (
-    <ProfileContext.Provider value={{ profile, fetchUserProfile, hasToken, isLoggedIn, setLoggedIn }}>
+    <ProfileContext.Provider value={{ profile, fetchUserProfile, hasToken, isLoggedIn, setLoggedIn, initPath }}>
       {children}
     </ProfileContext.Provider>
   );

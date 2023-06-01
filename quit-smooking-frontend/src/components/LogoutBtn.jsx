@@ -25,6 +25,7 @@ const LogoutBtn = () => {
       localStorage.removeItem('monthPercentage');
       localStorage.removeItem('moneySpent');
       localStorage.removeItem('yearPercentage');
+      localStorage.removeItem('daysPassed');
 
 
       // Update the logged-in status in the context

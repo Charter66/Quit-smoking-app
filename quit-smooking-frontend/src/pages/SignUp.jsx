@@ -23,6 +23,7 @@ const SignUp = () => {
   } = useContext(RegisterContext) || {};
   const navigate = useNavigate();
   const { isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+  const{hasToken} = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,17 +32,19 @@ const SignUp = () => {
       await handleRegister();
       // Handle successful registration, if needed
       setLoggedIn(true)
+      
     } catch (error) {
       // Handle registration error, if needed
       console.error(error); // Example: Display the error message
     }
   };
+  console.log(isLoggedIn)
 
-  // useEffect(() => {
-  //   if (isLoggedIn) {
-  //     navigate('/me/survey');
-  //   }
-  // }, [isLoggedIn, navigate]);
+  useEffect(() => {
+    if (hasToken) {
+      navigate('/me/survey');
+    }
+  }, [hasToken, navigate]);
 
   return (
     <div className='signup-background'>

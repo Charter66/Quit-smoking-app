@@ -21,7 +21,6 @@ const Goals = () => {
   const [goalSaved, setGoalSaved] = useState(false);
 
 
-console.log(profile)
 
 
   useEffect(() => {
@@ -37,7 +36,6 @@ console.log(profile)
     localStorage.setItem('goals', JSON.stringify(goals));
   }, [goals]);
 
-console.log(profile)
 
 
   useEffect(() => {
