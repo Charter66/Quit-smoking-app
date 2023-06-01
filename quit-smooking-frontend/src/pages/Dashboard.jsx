@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
-import "../Styles/Dashboard.css";
-
-
-import SavedMoney from "../components/savedMoney";
-
+import "../styles/Dashboard.css";
 //images
 import unlocking from '../images/unlocking.png';
 import journey from '../images/journey.png';
@@ -16,13 +12,14 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 // Popup
 import Popup from "reactjs-popup";
 import "../styles/Popup.css";
-
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
   const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
-
+  const savedMoney = localStorage.getItem('savedMoney') 
+  const daysPassed = localStorage.getItem('daysPassed')
+  const currency = localStorage.getItem('currency')
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -44,23 +41,22 @@ function Dashboard() {
 
   return (
     <div>
-      <div className="background-dashboard">
-        <div className="wrapper-dashboard">
+      <div>
+        <div>
           {isLoading ? (
             <div className="form-box-dashboard">
               <p>Loading profile...</p>
             </div>
           ) : profile ? (
             <div className="form-box-dashboard">
-              <h2 className="dashboard-h2">Good morning {profile.name},</h2>
+              <h2>Good morning {profile.name},</h2>
               <p>You are doing great!</p>
-              <SavedMoney />
             <div className="input-box-dashboard">
                 <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCoins} name="password" />
                 </span>
                 <label>
-                  You saved: <p>€ 500.00</p>
+                  You saved: <p>{savedMoney}{currency}</p>
                 </label>
             </div>
 
@@ -69,7 +65,7 @@ function Dashboard() {
                   <FontAwesomeIcon icon={faCalendarDays} name="password" />
                 </span>
                 <label>
-                  You have been smoke free for:<p>98 days</p>
+                  You have not smoked for:<p>{daysPassed} days</p>
                 </label>
               </div>
             </div>
@@ -81,10 +77,10 @@ function Dashboard() {
 
         <div>
           <div className ="form-box-article">
-            <h2 className="article-h2">Unlocking the Path to Freedom:</h2>
+            <h2>Unlocking the Path to Freedom:</h2>
           </div>
           <div className="wrapper-articles">
-            <img src={unlocking} width="100" height="50" className="article-image1"></img>
+            <img src={unlocking} width="100" height="50" className="article-image"></img>
             <p>
               Quitting smoking is not merely an act of giving up a harmful
               habit; it is an act of self-love and empowerment. As you leave
@@ -146,10 +142,10 @@ function Dashboard() {
       <div className="background-articles">
         <div>
           <div className ="form-box-article">
-            <h2 className="article-h2">Journey of Resilience:</h2>
+            <h2>Journey of Resilience:</h2>
           </div>
           <div className="wrapper-articles">
-            <img src={journey} width="100" height="50" className="article-image2"></img>
+            <img src={journey} width="100" height="50" className="article-image"></img>
             <p>
             Life is not without its challenges, but with each hurdle you overcome, your resilience grows stronger. Draw inspiration from your own determination and ...
               <button onClick={() => setButtonPopup(true)}>read more</button>

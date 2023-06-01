@@ -20,7 +20,6 @@ const Goals = () => {
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
   const [goalSaved, setGoalSaved] = useState(false);
 
-  const { hasToken , profile} = useContext(ProfileContext);
 
 console.log(profile)
 
@@ -178,6 +177,7 @@ console.log(profile)
     <div>
       {/* Add new goals as much as needed */}
       <div className="goals_createGoal">
+        <SavedMoney />
         <h1 className="newGoal">Create a New Goal</h1>
         <button className="goals_addGoal_btn" onClick={handleToggleForm}>
           {showNewGoalForm ? 'Cancel' : 'Add Goal'}
