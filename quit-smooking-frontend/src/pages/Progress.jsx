@@ -109,7 +109,7 @@ const Progress = () => {
         }
         
       } catch (error) {
-        console.error("Error cauculating save money:", error);
+        console.error("Error cauculating the progress:", error);
         
       }
     }
