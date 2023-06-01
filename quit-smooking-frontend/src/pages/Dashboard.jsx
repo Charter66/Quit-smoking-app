@@ -16,7 +16,6 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 // Popup
 import Popup from "reactjs-popup";
 import "../styles/Popup.css";
-import SavedMoney from "../components/SavedMoney";
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -48,38 +47,7 @@ function Dashboard() {
 
   return (
     <div>
-
-      <div className="background-dashboard">
-        <div className="wrapper-dashboard">
-          {isLoading ? (
-            <div className="form-box-dashboard">
-              <p>Loading profile...</p>
-            </div>
-          ) : profile ? (
-            <div className="form-box-dashboard">
-              <h2>Good morning {profile.name},</h2>
-              <p>You are doing great!</p>
-              <Initials/>
-              <SavedMoney />
-            <div className="input-box-dashboard">
-                <span className="icon-dashboard">
-                  <FontAwesomeIcon icon={faCoins} name="password" />
-                </span>
-                <label>
-                  You saved: <p>€ 500.00</p>
-                </label>
-            </div>
-
-            <div className="input-box-dashboard">
-                <span className="icon-dashboard">
-                  <FontAwesomeIcon icon={faCalendarDays} name="password" />
-                </span>
-                <label>
-                  You have not smoked for:<p>98 days</p>
-                </label>
-              </div>
-            </div>
-          ) : null}
+        <Initials />
 
       {isLoading ? (
         <div className="form-box-dashboard">
@@ -87,6 +55,7 @@ function Dashboard() {
         </div>
       ) : profile ? (
         <div className="form-box-dashboard">
+
           <h2>Good morning {profile.name},</h2>
           <p>You are doing great!</p>
           <div className="input-box-dashboard">
