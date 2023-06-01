@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import "../Styles/Dashboard.css";
 
+
+import SavedMoney from "../components/savedMoney";
+
 //images
 import unlocking from '../images/unlocking.png';
 import journey from '../images/journey.png';
@@ -33,7 +36,7 @@ function Dashboard() {
     };
 
     fetchData();
-  }, []);
+  }, [isLoading]);
 
   const closePopup = () => {
     setButtonPopup(false);
@@ -51,7 +54,7 @@ function Dashboard() {
             <div className="form-box-dashboard">
               <h2 className="dashboard-h2">Good morning {profile.name},</h2>
               <p>You are doing great!</p>
-
+              <SavedMoney />
             <div className="input-box-dashboard">
                 <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCoins} name="password" />

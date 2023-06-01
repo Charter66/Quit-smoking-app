@@ -35,7 +35,7 @@ function Profile() {
         <div className='user-extra-box'>
           <p>Email: {profile.email}</p>
           <p>Name: {profile.name}</p>
-          <p>description: {profile.goals[1].description}</p>
+          <p>description: {profile.goals.description}</p>
         </div>
       ) : (
         <p>Unable to fetch profile data.</p>
