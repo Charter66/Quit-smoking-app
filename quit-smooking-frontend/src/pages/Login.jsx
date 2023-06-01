@@ -11,7 +11,7 @@
   const Login = () => {
     const { hasToken, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
     const navigate = useNavigate();
-    console.log(hasToken)
+    //console.log(hasToken)
     const [formData, setFormData] = useState({
       email: '',
       password: '',
@@ -26,7 +26,7 @@
       e.preventDefault();
       try {
         const response = await axios.post(
-          'http://localhost:3000/api/users/login',
+          'https://quit-smoking-app.onrender.com/api/users/login',
           formData
         );
         if (response.status === 200) {

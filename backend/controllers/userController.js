@@ -94,8 +94,6 @@ const logout = async (req, res) => {
     // Clear the token from the client-side
     res.clearCookie('token');
 
-    // Add any additional logic for clearing sessions or tokens as needed
-
     console.log('Logout successful'); // Add console log
 
     res.status(200).json({ message: 'Logout successful' });
@@ -155,27 +153,24 @@ const survey = async (req, res) => {
 
 
 const goals = async (req, res) => {
-  const {description, goalCost, currency} = req.body;
-  console.log(req.body)
+  const { description, goalCost, currency } = req.body;
+
   try {
     // Extract the token from the request headers or other secure storage
     const token = req.headers.authorization;
-    console.log(req.headers);
-    console.log(token);
 
     // Verify the token and extract the user's email or ID
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const id = decoded._id;
-    console.log(decoded._id)
+
     if (!id) {
       return res.status(401).json({ error: "Unauthorized" });
     }
 
-    // Find the user by their email and update the survey details
+    // Find the user by their ID and update the goals array
     const user = await User.findByIdAndUpdate(
       id,
       {
-        $set: {}, // Empty $set object
         $push: {
           goals: {
             description,
@@ -184,19 +179,22 @@ const goals = async (req, res) => {
           },
         },
       },
-      { new: true } // to return the updated user document
+      { new: true } // Return the updated user document
     );
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    res.status(200).json({ message: "Goals updated successfully", user });
+    // Return only the updated goals array in the response
+    const updatedGoals = user.goals;
+    res.status(200).json({ message: "Goals updated successfully", goals: updatedGoals });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
 
 
 
@@ -238,6 +236,49 @@ const profile = async (req, res) => {
   }
 };
 
+// DELETE /api/users/goals/:id
+const deleteGoal = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    // Decode the token to obtain the user ID
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken._id;
+    const goalId = req.params.id;
+
+    console.log('User ID:', userId);
+    console.log('Goal ID:', goalId);
+
+    // Find the user by their ID
+    const user = await User.findById(userId);
+
+    if (!user) {
+      console.log('User not found');
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Find the goal by its ID in the user's goals array
+    const goalIndex = user.goals.findIndex((goal) => goal.id.toString() === goalId);
+
+    if (goalIndex === -1) {
+      console.log('Goal not found');
+      return res.status(404).json({ error: 'Goal not found' });
+    }
+
+    // Remove the goal from the user's goals array
+    user.goals.splice(goalIndex, 1);
+
+    // Save the updated user object
+    await user.save();
+
+    console.log('Goal deleted successfully');
+    res.status(200).json({ message: 'Goal deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 
 
 module.exports = {
@@ -248,5 +289,6 @@ module.exports = {
   survey,
   getOneUser,
   goals,
+  deleteGoal,
  
 };

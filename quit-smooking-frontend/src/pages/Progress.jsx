@@ -1,142 +1,181 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../Styles/Progress.css';
 
-// Chart
-import DoughnutChart from '../components/DoughnutChart.jsx';
+import React, { useContext, useState, useEffect } from 'react';
+import ProgressBar from '../components/ProgressBar';
+import { ProfileContext } from '../context/ProfileContext';
 
-//Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSmoking, faCoins, faHourglass, faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+const Progress = () => {
+  const [days, setDays] = useState(0);
+  const [years, setYears] = useState(0);
+  const [months, setMonths] = useState(0);
+  const [cigarettes, setCigarettes] = useState(0);
+  const [moneySpent, setMoneySpent] = useState(0);
+  const [currency, setCurrency] = useState('');
+  
 
-function Progress() {
-  const [progress, setProgress] = useState(false);
+  const [threeWeeksPercentage, setThreeWeeksPercentage] = useState(0);
+  const [monthPercentage, setMonthPercentage] = useState(0);
+  const [yearPercentage, setYearPercentage] = useState(0);
 
+  const { profile, fetchUserProfile } = useContext(ProfileContext);
+  const [isLoading, setIsLoading] = useState(true);
+  
   useEffect(() => {
-    setProgress(true);
-  }, []);
 
-  // Chart
-  const chartData = {
-    dataPoints: [
-      { name: 'not finished', y: 100 },
-      { name: 'finished', y: 200 },
-    ],
-  };
+    const accumulatedTime = () => {
+      try {
+        if ( profile && profile.smokingHabit && profile.smokingHabit.quitDate && profile.smokingHabit.startSmokingDate){
+          const quitDate = new Date(profile.smokingHabit.quitDate);
+          const startDate = new Date(profile.smokingHabit.startSmokingDate)
+          const currentDate = new Date();
 
-  const totalDataPoints = chartData.dataPoints.reduce((total, dataPoint) => total + dataPoint.y, 0);
-  const collectedDataPoints = chartData.dataPoints.find((dataPoint) => dataPoint.name === 'finished').y;
+           // finding how many days has passed...
+           const timeDiff = Math.abs(startDate.getTime() - quitDate.getTime());
+           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+           console.log(daysPassed);
 
-  const positivePercentage = ((collectedDataPoints / totalDataPoints) * 100).toFixed(1);
+          // finding how many was cigarettes smoked
+          const cigarettesSmoked = (profile.smokingHabit.cigarettesPerDay) * daysPassed;
 
-  chartData.positivePercentage = positivePercentage;
+          // finding how much money was spent
+          const cigaretesInPackage = profile.smokingHabit.cigarettesInPackage;
+          const packageCost = profile.smokingHabit.packageCost;
 
-  // Modify the color of the doughnut chart sections
-  chartData.dataPoints = chartData.dataPoints.map((dataPoint) => {
-    if (dataPoint.name === 'finished') {
-      return {
-        ...dataPoint,
-        color: '#66bec7', // Change the color to the desired color for the 'finished' section
-      };
-    } else {
-      return {
-        ...dataPoint,
-        color: '#FFF', // Change the color to the desired color for other sections
-      };
+          const totalMoneySpent = (cigarettesSmoked / cigaretesInPackage ) * packageCost;
+          
+
+          // finding the hours passed without smooking
+          const millisecondsPassed = currentDate - quitDate;
+          const hoursPassed = Math.ceil(millisecondsPassed / (1000 * 60 * 60));
+          console.log(hoursPassed);
+
+          // finding how many years has been lost 
+          const timeDiffYear = quitDate.getTime() - startDate.getTime();
+          const yearsPassed = Math.floor(timeDiffYear / (1000 * 60 * 60 * 24 * 365));
+
+          // finding how many months has been lost
+          const monthsPassed = (currentDate.getFullYear() - startDate.getFullYear()) * 12 +
+          (currentDate.getMonth() - startDate.getMonth());
+
+          // finding how life expectancy lost
+             // Every cigarette a man smokes reduces his life by 11 minutes.
+          
+             const minutesPassed = Math.floor(daysPassed * 24 * 60);
+             const minLost = cigarettesSmoked * 11;
+
+             // Calculate the number of days, hours, and minutes
+            const daysLost = Math.floor(minLost / (60 * 24));
+            const hoursLost = Math.floor((minLost % (60 * 24)) / 60);
+            const minutesLost = minLost % 60;
+
+            // Calculate the number of years and months from the daysLost
+            const yearsLost = Math.floor(daysLost / 365);
+            const monthsLost = Math.floor((daysLost % 365) / 30);
+            const remainingDaysLost = (daysLost % 365) % 30;
+          
+          // percentage for 3 weeks
+          const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());
+           const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
+          
+          const numeratorDays = daysPassedCurrent;
+          const denominator = 21;
+          const percentage = ( numeratorDays / denominator) * 100;
+
+          // percentage for one month
+          const denominatorMonth = 30;
+          const percentageMonth = ( numeratorDays / denominatorMonth ) * 100;
+
+          // percentage for one year
+          const denominatorYear = 365;
+          const percentageYear = ( numeratorDays / denominatorYear ) * 100;
+
+          // currency
+          const profileCurrency = profile.smokingHabit.selectedCurrency;
+
+          
+          // setting the states
+          
+          setThreeWeeksPercentage(percentage)
+          setMonthPercentage(percentageMonth);
+          setYearPercentage(percentageYear);
+          setYears(yearsLost);
+          setMonths(monthsLost);
+          setDays(remainingDaysLost);
+          setCigarettes(cigarettesSmoked);
+          setMoneySpent(totalMoneySpent);
+          setCurrency(profileCurrency);
+
+          localStorage.setItem('monthPercentage', percentageMonth);
+          localStorage.setItem('threeWeeksPercentage', percentage);
+          localStorage.setItem('yearPercentage', percentageYear);
+        }
+        
+      } catch (error) {
+        console.error("Error cauculating save money:", error);
+        
+      }
     }
-  });
+    const fetchData = async () => {
+      try {
+        await fetchUserProfile();
+        accumulatedTime();
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [ ]);
 
 
+  
   return (
+
+
     <div>
-
-      <div className='progress-container'>
-        <div className='progress-wrapper'>
-          <div className='progress-text'>
-            <h2 className='progress-headline'>Improved lung function:</h2>
-            <p>Your lung function begins to improve. Your lung capacity increases, making it easier to breathe and engage in physical activities.</p>
-          </div>
-
-          <div className="progress-chart">
-            <DoughnutChart chartData={chartData} hidePercentage={true} />
-          </div>
+      {isLoading ? (
+        <div className="form-box sign-up">
+          <p>Loading profilee...</p>
         </div>
-      </div>
+      ) : profile ? (
+        <div className="min-h-screen py-20 px-10 ">
+            <div className="grid grid-cols-1 gap-20 lg:grid-cols-2 lg:gap-10">
+      
+            <div className="flex items-center fit-content bg-white shadow-xl rounded-2xl h-30">
+            <ProgressBar percent={threeWeeksPercentage.toFixed(2)} color="gray-600" />
+            <p className="ml-4 font-medium text-gray-600 sm:text-xl">In between 2 weeks – 3 months your lung function starts to improve.</p>
+            </div>
 
-      <div className='progress-container'>
-        <div className='progress-wrapper'>
-          <div className='progress-text'>
-            <h2 className='progress-headline'>Reduced risk of respiratory infections:</h2>
-            <p>Quitting smoking lowers your susceptibility to respiratory infections. Your respiratory system becomes healthier and better equipped to fight off infections.</p>
-          </div>
+            <div className="flex items-center fit-content bg-white shadow-xl rounded-2xl h-30">
+            <ProgressBar percent={monthPercentage.toFixed(2)} color="blue-500" />
+            <p className="ml-4 font-medium text-gray-600 sm:text-xl">After one month you will reduce risks of respiratory infections:</p>
+            </div>
 
-          <div className="progress-chart">
-            <DoughnutChart chartData={chartData} hidePercentage={true} />
-          </div>
+            <div className="flex  bg-white shadow-xl rounded-2xl h-30">
+            <ProgressBar percent={yearPercentage.toFixed(2)} color="grey-600" />
+            <p className="ml-4 font-medium text-gray-600 sm:text-xl">After one year you will enhance your cardiovacular health:</p>
+            </div>
+        </div><br></br>
+        
+        <div className="flex-col justify-items-start justify-evenly bg-white shadow-xl rounded-2xl h-60">
+              <h3>During your period of smoking:</h3>
+              <p>You lost {years} year {months} months and {days} days off your life expectancy</p>
+              <p>You smoked {cigarettes} cigarettes</p>
+              <p>You spent {moneySpent} {currency}</p>
         </div>
-      </div>
-
-      <div className='progress-container'>
-        <div className='progress-wrapper'>
-          <div className='progress-text'>
-            <h2 className='progress-headline'>Enhanced cardiovascular health:</h2>
-            <p>Your blood pressure and heart rate normalise, improving blood circulation and reducing the strain on your cardiovascular system.</p>
-          </div>
-
-          <div className="progress-chart">
-            <DoughnutChart chartData={chartData} hidePercentage={true} />
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom container */}
-      <div className="progress-container">
-        <div className='progress-extra-box'>
-        </div>
-    
-        <div className='progress-extra-box'>
-         <span className='icon-progress'><FontAwesomeIcon icon={faHourglass} name='password'></FontAwesomeIcon></span>
-          <p>You lost 3 years and 2 months off your life expactancy</p>
-        </div>
-    
-        <div className='progress-extra-box'>
-          <span className='icon-progress'><FontAwesomeIcon icon={faSmoking} name='password'></FontAwesomeIcon></span>
-          <p>You smoked 1257 cigarettes</p>
-        </div>
-    
-        <div className='progress-extra-box'>
-          <span className='icon-progress'><FontAwesomeIcon icon={faCoins} name='password'></FontAwesomeIcon></span>
-          <p>You spent $5438.00</p>
-        </div>
-
-      </div>
-
-
-      {/* Unlocked achievements */}
-      <div className="progress-container">
-          <span className='icon-progress'><FontAwesomeIcon icon={faUnlock}></FontAwesomeIcon></span>
-          <p>1 day smoke free!</p>
-      </div>
-
-      <div className="progress-container">
-          <span><FontAwesomeIcon icon={faUnlock}></FontAwesomeIcon></span>
-          <p>10 days' smoke free!</p>
-      </div>
-
-      <div className="progress-container">
-          <span><FontAwesomeIcon icon={faUnlock}></FontAwesomeIcon></span>
-          <p>100 days' smoke free!</p>
-      </div>
-
-      <div className="progress-container-uncompleted">
-          <span><FontAwesomeIcon icon={faLock}></FontAwesomeIcon></span>
-          <p>6 months' smoke free!</p>
-      </div>
-
-
 
     </div>
+
+        
+      ) : (
+        <p>Unable to fetch profile data.</p>
+      )}
+
+    
+  </div>
   );
-}
+};
 
 export default Progress;
+

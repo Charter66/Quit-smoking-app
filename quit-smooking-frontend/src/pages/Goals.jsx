@@ -1,13 +1,18 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
 
+
 import axios from 'axios';
 import '../Styles/Goals.css';
 
 // Chart
 import DoughnutChart from '../components/DoughnutChart.jsx';
 
+
+import SavedMoney from '../components/SavedMoney.jsx';
+
 const Goals = () => {
+  const {hasToken, profile, fetchUserProfile } = useContext(ProfileContext);
   const [goals, setGoals] = useState([]);
   const [description, setDescription] = useState('');
   const [goalCost, setGoalCost] = useState(0);
@@ -37,17 +42,14 @@ console.log(profile)
 
 
   useEffect(() => {
-    // Retrieve goals from local storage when the component mounts
-    const storedGoals = localStorage.getItem('goals');
-    if (storedGoals) {
-      setGoals(JSON.parse(storedGoals));
-    }
+    fetchUserProfile();
   }, []);
 
   useEffect(() => {
-    // Update local storage when goals state changes
-    localStorage.setItem('goals', JSON.stringify(goals));
-  }, [goals]);
+    if (profile && profile.goals) {
+      setGoals(profile.goals);
+    }
+  }, [profile]);
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
@@ -64,54 +66,78 @@ console.log(profile)
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Set goalSaved to true after submitting the form
-    setGoalSaved(true);
-
+  
     try {
       const token = hasToken;
-
-      console.log('description:', description);
-      console.log('goalCost:', goalCost);
-      console.log('currency:', currency);
-
-      const { status } = await axios.put(
-        'http://localhost:3000/api/users/goals',
-        {
-          description,
-          targetDate: new Date().toISOString(), // Modify this line based on your target date input
-          achieved: false,
-          goalCost,
-          currency,
-        },
+  
+      const newGoalData = {
+        description,
+        achieved: false,
+        goalCost,
+        currency,
+      };
+  
+      // Make an API request to save the new goal
+      const response = await axios.put(
+        'https://quit-smoking-app.onrender.com/api/users/goals',
+        newGoalData,
         {
           headers: {
             Authorization: token,
           },
         }
       );
-      console.log(status);
+  
+      if (response.status === 200 && response.data && response.data.goals && response.data.goals.length > 0) {
+        const goalsArray = response.data.goals;
+        const newGoal = goalsArray[goalsArray.length - 1];
+        if (newGoal) {
+          // Access the properties of newGoal here
+          const { description, goalCost, currency } = newGoal;
+          // Do something with the properties
+        }
+      
+        setGoals((prevGoals) => [...prevGoals, newGoal]);
+  
+        // Reset the form
+        setDescription('');
+        setGoalCost(0);
+        setCurrency('');
+        setShowNewGoalForm(false);
+      }
     } catch (error) {
       console.error(error);
     }
-
-    // Create a new goal object
-    const newGoal = {
-      description: description,
-      targetDate: new Date().toISOString(), // Modify this line based on your target date input
-      achieved: false,
-      goalCost: goalCost,
-      currency: currency,
-    };
-
-    // Update the goals array with the new goal
-    setGoals([newGoal, ...goals]);
-
-    // Reset the form
-    setDescription('');
-    setGoalCost(0);
-    setCurrency('');
-    setShowNewGoalForm(false);
   };
+
+  //Delete a Goal
+  const handleDeleteGoal = async (goalId) => {
+    try {
+      const token = hasToken;
+  
+      // Make an API request to delete the goal
+      const response = await axios.delete(
+        `https://quit-smoking-app.onrender.com/api/users/goals/${goalId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+  
+      if (response.status === 200) {
+        // If the goal is successfully deleted from the database,
+        // update the goals array by removing the deleted goal
+        setGoals((prevGoals) =>
+          prevGoals.filter((goal) => goal._id !== goalId)
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
+  
 
   const handleToggleForm = () => {
     setShowNewGoalForm(!showNewGoalForm);
@@ -195,32 +221,41 @@ console.log(profile)
               </div>
   
               <button type="submit" className="goals_saveGoal_btn">
-                Save Goal
+                Save Goalll
               </button>
             </form>
           )}
         </div>
+
+
       </div>
   
       <div className="mt-4">
-        {goals ? (
-          goals.map((goal, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between"
-            >
-              <div>
-                <p>Description: {goal.description}</p>
-                <p>
-                  Goal Cost: {goal.goalCost}
-                  {goal.currency}
-                </p>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>No goals found.</p>
-        )}
+      {goals && goals.length > 0 ? (
+  goals.map((goal, index) => (
+    <div
+      key={index}
+      className="bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between"
+    >
+      <div>
+        <p>Description: {goal.description}</p>
+        <p>
+          Goal Cost: {goal.goalCost}
+          {goal.currency}
+        </p>
+      </div>
+      <button
+        className="text-red-500 hover:text-red-700"
+        onClick={() => handleDeleteGoal(goal._id)}
+      >
+        Delete
+      </button>
+    </div>
+  ))
+) : (
+  <p>No goals found.</p>
+)}
+
       </div>
     </div>
   );
