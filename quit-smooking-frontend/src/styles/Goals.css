@@ -1,0 +1,153 @@
+/*----------Create a New Goal--------*/
+.goals_createGoal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.newGoal {
+    color: #66bec7;
+    font-size: 1.5em;
+}
+
+.goals_addGoal_btn {
+    width: 40%;
+    height: 45px;
+    background: #66bec7;
+    border: 1px solid #66bec7;
+    outline: none;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
+.goals_addGoal_btn:hover {
+    width: 40%;
+    height: 45px;
+    background: #1f93a0;
+    border: 1px solid #1f93a0;
+    outline: none;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+ }
+
+/*--------------Details of the new goal-----------*/
+ .goals-background {
+    background-image: url("../images/quitSmoking.png");
+    height: auto;
+    width: 100%;
+    border-radius: 20px;
+   }
+ 
+ .goals-wrapper {
+    position: relative;
+    width: 100%;
+    height: 14em;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+    padding: 2em 0 2em 0;
+ }
+
+.goals-formArea{
+    height: auto;
+    width: 100%;
+    padding: 1em 1em 1em 1em;
+   }
+
+.goals-label {
+    margin-left: 1em;
+    color: #1f93a0;
+}
+
+.goals-input-box {
+    position:absolute;
+    right: 8px;
+    font-size: 1em;
+    color:#1f93a0;
+ }
+
+.goals-survey-currency {
+    color: #1f93a0;
+    margin-left: 17.5em;
+    margin-top: 1em;
+
+}
+
+.goals_saveGoal_btn {
+    width: 40%;
+    height: 45px;
+    border: 23px solid #66bec7;
+    border-radius: 6px;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2em;
+    margin-left: 13em;
+}
+
+.hidden {
+    display: none;
+  }
+
+/*-------------Saved items container--------------*/
+
+.goals-saved-background {
+    background-color: #fce7e6;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .goals-saved-wrapper {
+    background-color: #fce7e6;
+    border: 3px solid #ec6464;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .goals-progress {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .saved-goal-desc {
+    flex-grow: 1;
+    margin-bottom: 5px;
+    margin-left: 10px;
+  }
+  
+  .goals-chart {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 8em;
+  }
+  
+
+
+
+
+

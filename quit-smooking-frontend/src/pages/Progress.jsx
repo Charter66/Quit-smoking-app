@@ -1,3 +1,4 @@
+
 import React, { useContext, useState, useEffect } from 'react';
 import ProgressBar from '../components/ProgressBar';
 import { ProfileContext } from '../context/ProfileContext';
@@ -132,7 +133,7 @@ const Progress = () => {
   return (
 
 
-    <div className="wrapper">
+    <div>
       {isLoading ? (
         <div className="form-box sign-up">
           <p>Loading profilee...</p>
@@ -143,16 +144,16 @@ const Progress = () => {
       
             <div className="flex items-center fit-content bg-white shadow-xl rounded-2xl h-30">
             <ProgressBar percent={threeWeeksPercentage.toFixed(2)} color="gray-600" />
-            <p className="ml-4 font-medium text-gray-600 sm:text-xl">In between 2 weeks–3 months your lung function starts to improve.</p>
+            <p className="ml-4 font-medium text-gray-600 sm:text-xl">In between 2 weeks – 3 months your lung function starts to improve.</p>
             </div>
 
             <div className="flex items-center fit-content bg-white shadow-xl rounded-2xl h-30">
-            <ProgressBar percent={monthPercentage.toFixed(2)} color="gray-600" />
+            <ProgressBar percent={monthPercentage.toFixed(2)} color="blue-500" />
             <p className="ml-4 font-medium text-gray-600 sm:text-xl">After one month you will reduce risks of respiratory infections:</p>
             </div>
 
             <div className="flex  bg-white shadow-xl rounded-2xl h-30">
-            <ProgressBar percent={yearPercentage.toFixed(2)} color="gray-600" />
+            <ProgressBar percent={yearPercentage.toFixed(2)} color="grey-600" />
             <p className="ml-4 font-medium text-gray-600 sm:text-xl">After one year you will enhance your cardiovacular health:</p>
             </div>
         </div><br></br>
@@ -177,3 +178,4 @@ const Progress = () => {
 };
 
 export default Progress;
+

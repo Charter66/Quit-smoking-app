@@ -28,6 +28,7 @@ function SavedMoney() {
           localStorage.setItem('savedMoney', savedMoney); // Cache the saved money value in localStorage
           localStorage.setItem('currency', profile.smokingHabit.selectedCurrency); // Cache the currency in localStorage
           localStorage.setItem('lastUpdate', new Date().toISOString()); // Cache the timestamp of the last update
+          localStorage.setItem('daysPassed',daysPassed)
     
           // Split the saved money among the goals
           const totalGoalsCost = profile.goals.reduce((total, goal) => total + goal.goalCost, 0);
@@ -79,19 +80,18 @@ function SavedMoney() {
   }, [fetchUserProfile]);
 
   return (
-    <div className="text-center">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="bg-white rounded-lg shadow-lg p-4">
-          <h2 className="text-xl font-bold">Saved Money</h2>
-          <p className="mt-4">
-            You have saved {savedMoney.toFixed(2)} {currency}.
-          </p>
+    <div>
+      {!isLoading ? (
+        <div>
+          <h2>Saved Money</h2>
+          <p>You have saved {savedMoney.toFixed(2)} {currency}</p>
         </div>
+      ) : (
+        <p>Loading...</p>
       )}
     </div>
   );
+  
 }
 
 export default SavedMoney;
