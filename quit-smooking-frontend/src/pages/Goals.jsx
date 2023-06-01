@@ -157,7 +157,7 @@ console.log(profile)
           {showNewGoalForm ? 'Cancel' : 'Add Goal'}
         </button>
       </div>
-
+  
       {/* Add details of new goal */}
       <div className="goals-background">
         <div className="goals-wrapper">
@@ -172,7 +172,7 @@ console.log(profile)
                   onChange={handleDescriptionChange}
                 />
               </div>
-
+  
               <div className="goals-formArea">
                 <label className="goals-label">Goal Cost:</label>
                 <input
@@ -193,14 +193,15 @@ console.log(profile)
                   {/* Add more currency options as needed */}
                 </select>
               </div>
-
+  
               <button type="submit" className="goals_saveGoal_btn">
                 Save Goal
               </button>
             </form>
           )}
         </div>
-
+      </div>
+  
       <div className="mt-4">
         {goals ? (
           goals.map((goal, index) => (
@@ -223,6 +224,7 @@ console.log(profile)
       </div>
     </div>
   );
+  
 };
 
 export default Goals;
