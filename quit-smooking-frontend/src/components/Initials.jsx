@@ -37,10 +37,6 @@ function Initials() {
       
           fetchData();
         
-          
-        const fullName = 'John Doe';
-        //const initials = getInitials(fullName);
-        console.log(initials); // Output: JD
     }, [])
 
     
