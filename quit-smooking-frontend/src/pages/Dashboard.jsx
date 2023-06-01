@@ -1,14 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import "../styles/Dashboard.css";
-<<<<<<< HEAD
-import SavedMoney from "../components/savedMoney";
-import Initials from "../components/Initials";
-=======
->>>>>>> 2585437b228885047fe4be9042f289b88cf689b7
 //images
 import unlocking from '../images/unlocking.png';
 import journey from '../images/journey.png';
+import Scraping from "../components/Scraping";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,6 +13,7 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 // Popup
 import Popup from "reactjs-popup";
 import "../styles/Popup.css";
+import Initials from "../components/Initials";
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -56,11 +53,9 @@ function Dashboard() {
             <div className="form-box-dashboard">
               <h2>Good morning {profile.name},</h2>
               <p>You are doing great!</p>
-<<<<<<< HEAD
               <Initials/>
-              <SavedMoney />
-=======
->>>>>>> 2585437b228885047fe4be9042f289b88cf689b7
+              <Scraping/>
+
             <div className="input-box-dashboard">
                 <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCoins} name="password" />

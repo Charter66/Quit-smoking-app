@@ -12,15 +12,15 @@
   "dependencies": {
     "@canvasjs/charts": "^3.7.7",
     "@canvasjs/react-charts": "^1.0.0",
-
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
-
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "chart.js": "^4.3.0",
+    "cheerio": "^1.0.0-rc.12",
     "js-cookie": "^3.0.5",
+    "jsdom": "^22.1.0",
     "postcss": "^8.4.23",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
