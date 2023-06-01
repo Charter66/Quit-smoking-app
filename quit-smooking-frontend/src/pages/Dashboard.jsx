@@ -56,7 +56,7 @@ function Dashboard() {
       ) : profile ? (
         <div className="form-box-dashboard">
 
-          <h2>Good morning {profile.name},</h2>
+          <h2>Goood morning {profile.name},</h2>
           <p>You are doing great!</p>
           <div className="input-box-dashboard">
             <span className="icon-dashboard">
