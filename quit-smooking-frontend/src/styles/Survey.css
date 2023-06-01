@@ -1,0 +1,25 @@
+.survey-container{
+    height: auto;
+    background-color: #66bec7;
+    width: 100%;
+    border-radius: 20px;
+    padding: 1em 1em 1em 1em;
+    color:#47868d;
+   }
+
+.survey-formArea{
+    height: auto;
+    background-color: #66bdc7af;
+    width: 100%;
+    padding: 1em 1em 1em 1em;
+   }
+
+.survey-label {
+    margin-left: 1em;
+    color: white
+}
+
+.survey-currency {
+    color: white;
+    margin-left: 15em;
+}

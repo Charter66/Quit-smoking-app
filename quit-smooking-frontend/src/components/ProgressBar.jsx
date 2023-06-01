@@ -5,6 +5,7 @@ const ProgressBar = ({ percent, color }) => {
     strokeDashoffset: 100 - percent,
   };
 
+
   return (
     <div className="flex items-center justify-center">
       <svg className="w-24 h-24">
