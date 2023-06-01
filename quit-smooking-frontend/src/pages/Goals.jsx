@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
+
 import axios from 'axios';
 import '../Styles/Goals.css';
 
@@ -14,7 +15,39 @@ const Goals = () => {
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
   const [goalSaved, setGoalSaved] = useState(false);
 
-  const { hasToken } = useContext(ProfileContext);
+  const { hasToken , profile} = useContext(ProfileContext);
+
+console.log(profile)
+
+
+  useEffect(() => {
+    // Retrieve goals from local storage when the component mounts
+    const storedGoals = localStorage.getItem('goals');
+    if (storedGoals) {
+      setGoals(JSON.parse(storedGoals));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update local storage when goals state changes
+    localStorage.setItem('goals', JSON.stringify(goals));
+  }, [goals]);
+
+console.log(profile)
+
+
+  useEffect(() => {
+    // Retrieve goals from local storage when the component mounts
+    const storedGoals = localStorage.getItem('goals');
+    if (storedGoals) {
+      setGoals(JSON.parse(storedGoals));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Update local storage when goals state changes
+    localStorage.setItem('goals', JSON.stringify(goals));
+  }, [goals]);
 
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
@@ -168,27 +201,25 @@ const Goals = () => {
           )}
         </div>
 
-        {/* Add details of saved goals */}
-        <div className="goals-saved-background">
-          {goals ? (
-            goals.map((goal, index) => (
-              <div key={index} className="goals-saved-wrapper">
-                <div className="goals-progress">
-                  <div className="saved-goal-desc">
-                    <p>Description: {goal.description}</p>
-                    <p>Goal Cost: {currency}{goal.goalCost}</p>
-                  </div>
-
-                  <div className="goals-chart">
-                    <DoughnutChart chartData={chartData} hidePercentage={true} />
-                  </div>
-                </div>
+      <div className="mt-4">
+        {goals ? (
+          goals.map((goal, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between"
+            >
+              <div>
+                <p>Description: {goal.description}</p>
+                <p>
+                  Goal Cost: {goal.goalCost}
+                  {goal.currency}
+                </p>
               </div>
-            ))
-          ) : (
-            <p>No goals saved yet.</p>
-          )}
-        </div>
+            </div>
+          ))
+        ) : (
+          <p>No goals found.</p>
+        )}
       </div>
     </div>
   );
