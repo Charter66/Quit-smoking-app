@@ -4,7 +4,6 @@ import "../styles/Dashboard.css";
 //images
 import unlocking from '../images/unlocking.png';
 import journey from '../images/journey.png';
-import Scraping from "../components/Scraping";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,6 +21,12 @@ function Dashboard() {
   const savedMoney = localStorage.getItem('savedMoney') 
   const daysPassed = localStorage.getItem('daysPassed')
   const currency = localStorage.getItem('currency')
+
+
+  function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,17 +56,15 @@ function Dashboard() {
             </div>
           ) : profile ? (
             <div className="form-box-dashboard">
-              <h2>Good morning {profile.name},</h2>
+              <h2>Good morning {capitalizeFirstLetter(profile.name)},</h2>
               <p>You are doing great!</p>
               <Initials/>
-              <Scraping/>
-
             <div className="input-box-dashboard">
                 <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCoins} name="password" />
                 </span>
                 <label>
-                  You saved: <p>{savedMoney}{currency}</p>
+                  You saved: <p>{savedMoney.toLocaleString()}{currency}</p>
                 </label>
             </div>
 

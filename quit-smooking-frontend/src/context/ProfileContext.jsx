@@ -36,9 +36,26 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
+   const fetchFromScrape = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/scrape');
+      const data = response.data;
+  
+      // Process the scraped data here
+      console.log(data.title);
+  
+      data.links.forEach(link => {
+        console.log('Link:', link.text, 'URL:', link.href);
+      });
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  
 
   useEffect(() => {
 
+    fetchFromScrape();
     fetchUserProfile();
     
   }, [hasToken]);

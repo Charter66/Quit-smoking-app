@@ -160,9 +160,9 @@ const Progress = () => {
         
         <div className="flex-col justify-items-start justify-evenly bg-white shadow-xl rounded-2xl h-60">
               <h3>During your period of smoking:</h3>
-              <p>You lost {years} year {months} months and {days} days off your life expectancy</p>
-              <p>You smoked {cigarettes} cigarettes</p>
-              <p>You spent {moneySpent} {currency}</p>
+              <p>You lost {years} years {months} months and {days} days off your life expectancy</p>
+              <p>You smoked {cigarettes.toLocaleString()} cigarettes</p>
+              <p>You spent {moneySpent.toLocaleString()} {currency}</p>
         </div>
 
     </div>
