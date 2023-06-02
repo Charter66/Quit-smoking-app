@@ -41,8 +41,9 @@
  }
 
  .progress-extra-box {
-   display:flex;
-   
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
  }
 
  .progress-icon-color{
@@ -59,6 +60,9 @@
     padding: 1em 1em 1em 1em;
     color: white;
     margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
    }
 
    .progress-container-uncompleted{
