@@ -1,5 +1,5 @@
 const express = require('express');
-const { register, login, logout, profile, survey, getOneUser , goals, deleteGoal} = require('../controllers/userController');
+const { register, login, logout, profile, survey, getOneUser , goals, deleteGoal, scrapeWebsite} = require('../controllers/userController');
 
 const checkToken = require('../middlewares/checkToken');
 
@@ -22,6 +22,9 @@ router.put('/goals', goals)
 
 //router.get('/me', checkToken, getOneUser);
 router.delete('/goals/:id', deleteGoal)
+
+// Scraping
+router.get('/scrape', scrapeWebsite)
 
 
 module.exports = router;

@@ -2,6 +2,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+const request = require('request');
+const cheerio = require('cheerio');
+
 const register = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -279,6 +282,46 @@ const deleteGoal = async (req, res) => {
   }
 };
 
+// Scraping controler /api/users/scrape
+
+
+
+const scrapeWebsite = async (req, res) => {
+  try {
+    const html = await getRequest('https://www.medicalnewstoday.com/');
+
+    // Load the HTML content into Cheerio
+    const $ = cheerio.load(html);
+
+    // Find elements in the HTML using CSS selectors
+    const title = $('title').text();
+    console.log('Title:', title);
+
+    // Extract specific data from the website
+    const links = [];
+    $('a').each((index, element) => {
+      const href = $(element).attr('href');
+      const text = $(element).text();
+      links.push({ text, href });
+    });
+
+    res.json({ title, links });
+  } catch (error) {
+    res.status(500).json({ error: 'Error scraping website' });
+  }
+};
+
+function getRequest(url) {
+  return new Promise((resolve, reject) => {
+    request(url, (error, response, html) => {
+      if (!error && response.statusCode === 200) {
+        resolve(html);
+      } else {
+        reject(error);
+      }
+    });
+  });
+}
 
 
 module.exports = {
@@ -290,5 +333,6 @@ module.exports = {
   getOneUser,
   goals,
   deleteGoal,
+  scrapeWebsite,
  
 };
