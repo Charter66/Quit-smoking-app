@@ -40,10 +40,10 @@
         console.error(error);
       }
     };
-    console.log(isLoggedIn)
+    // console.log(isLoggedIn)
 
     useEffect(() => {
-      console.log('Redirecting to login...');
+      // console.log('Redirecting to login...');
 
       navigate('/login', { replace: true });
     }, [navigate]);
