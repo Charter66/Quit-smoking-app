@@ -286,7 +286,7 @@ const Progress = () => {
 
             <div className="progress-extra-box">
               <span className="icon-progress">
-                <FontAwesomeIcon icon={faHourglass} name="password" />
+                <FontAwesomeIcon className="progress-icon-color" icon={faHourglass} name="password" />
               </span>
               <p>
                 You lost {years} year {months} months and {days} days off your
@@ -296,14 +296,14 @@ const Progress = () => {
 
             <div className="progress-extra-box">
               <span className="icon-progress">
-                <FontAwesomeIcon icon={faSmoking} name="password" />
+                <FontAwesomeIcon className="progress-icon-color" icon={faSmoking} name="password" />
               </span>
               <p>You smoked {cigarettes} cigarettes</p>
             </div>
 
             <div className="progress-extra-box">
               <span className="icon-progress">
-                <FontAwesomeIcon icon={faCoins} name="password" />
+                <FontAwesomeIcon className="progress-icon-color" icon={faCoins} name="password" />
               </span>
               <p>
                 You spent {moneySpent} {currency}

@@ -58,6 +58,10 @@ function Profile() {
           </div>
 
           <div className='user-extra-box'>
+            <p>EDIT SURVEY</p>
+          </div>
+
+          <div className='user-extra-box'>
             <LogoutBtn profile={profile} />
           </div>
         </div>
