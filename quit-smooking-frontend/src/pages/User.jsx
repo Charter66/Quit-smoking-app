@@ -1,14 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
-
+import ShareButtons from "../components/ShareButtons";
 import "../Styles/User.css";
 
 function Profile() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
-  
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,8 +53,14 @@ function Profile() {
           </div>
 
           <div className='user-extra-box'>
-            <p>TELL A FRIEND</p>
-          </div>
+      
+      <button onClick={toggleDropdown}>TELL A FRIEND</button>
+      {isOpen && (
+        <div className='dropdown-content'>
+          <ShareButtons />
+        </div>
+      )}
+    </div>
 
           <div className='user-extra-box'>
             <p>ABOUT US</p>
