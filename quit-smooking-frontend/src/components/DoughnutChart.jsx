@@ -21,7 +21,7 @@ function DoughnutChart({ chartData, importanteNumber }) {
         yValueFormatString: "#,###'%'",
         dataPoints: [
           { name: "not finished", y: 100 - importanteNumber, color: "#FFF" },
-          { name: "finished", y: importanteNumber, color: "#66bec7" },
+          { name: "finished", y: importanteNumber, color: "#1f93a0" },
         ],
       },
     ],

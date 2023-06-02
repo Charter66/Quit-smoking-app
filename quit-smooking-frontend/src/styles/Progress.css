@@ -29,26 +29,22 @@
 
 /*---------bottom container------------*/
 
-.progress-background {
-    height: auto;
-    width: 100%;
-    border-radius: 20px;
-   }
- 
- .progress-wrapper .user-form-box {
-    width: 100%;
-    padding: 1rem 1rem 1rem 2rem;
- }
-
- .progress-extra-box {
-   display: flex;
-   justify-content: space-between;
-   align-items: flex-start;
- }
-
  .progress-icon-color{
    color: #EC6464;
  }
+
+ .progress-container-period{
+   height: auto;
+   background-color: #8cc3c9;
+   width: 100%;
+   border-radius: 20px;
+   padding: 1em 1em 1em 1em;
+   color: white;
+   margin-top: 2px;
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+  }
 
  /*-------Uncocked Achievments---------*/
 
@@ -59,7 +55,7 @@
     border-radius: 20px;
     padding: 1em 1em 1em 1em;
     color: white;
-    margin-top: 20px;
+    margin-top: 15px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -72,7 +68,10 @@
     border-radius: 20px;
     padding: 1em 1em 1em 1em;
     color: white;
-    margin-top: 20px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
    }
 
 

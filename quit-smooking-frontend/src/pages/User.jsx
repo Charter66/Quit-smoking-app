@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
 import "../Styles/User.css";
+import { Link } from 'react-router-dom';
+import { Survey } from "./Survey";
 
 function Profile() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -46,7 +48,7 @@ function Profile() {
           </div>
 
           <div className='user-extra-box'>
-            <p>TELL A FRIEND</p>
+            <Link to="/TellAFriendPage">TELL A FRIEND</Link>
           </div>
 
           <div className='user-extra-box'>
@@ -58,7 +60,7 @@ function Profile() {
           </div>
 
           <div className='user-extra-box'>
-            <p>EDIT SURVEY</p>
+            <Link to="/Survey">EDIT SURVEY</Link>
           </div>
 
           <div className='user-extra-box'>

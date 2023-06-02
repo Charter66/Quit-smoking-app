@@ -49,14 +49,15 @@ function Dashboard() {
             </div>
           ) : profile ? (
             <div className="form-box-dashboard">
-              <h2>Good morning {profile.name},</h2>
-              <p>You are doing great!</p>
+              <h2 className="dashboard-h2">Good morning {profile.name},</h2>
+              <p className="great-do">You are doing great!</p>
+              <div className="dashboard-container">
             <div className="input-box-dashboard">
                 <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCoins} name="password" />
                 </span>
                 <label>
-                  You saved: <p>{savedMoney}{currency}</p>
+                  You saved: <p><strong>{savedMoney}{currency}</strong></p>
                 </label>
             </div>
 
@@ -65,10 +66,12 @@ function Dashboard() {
                   <FontAwesomeIcon icon={faCalendarDays} name="password" />
                 </span>
                 <label>
-                  You have not smoked for:<p>{daysPassed} days</p>
+                  You have been smoke free for:<p><strong>{daysPassed} days</strong></p>
                 </label>
               </div>
+              </div>
             </div>
+            
           ) : null}
         </div>
       </div>

@@ -91,7 +91,6 @@ const Progress = () => {
           // finding how many days have passed...
           const timeDiff = Math.abs(startDate.getTime() - quitDate.getTime());
           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
-          console.log(daysPassed);
 
           // finding how many cigarettes were smoked
           const cigarettesSmoked =
@@ -107,7 +106,6 @@ const Progress = () => {
           // finding the hours passed without smoking
           const millisecondsPassed = currentDate - quitDate;
           const hoursPassed = Math.ceil(millisecondsPassed / (1000 * 60 * 60));
-          console.log(hoursPassed);
 
           // finding how many years have been lost
           const timeDiffYear = quitDate.getTime() - startDate.getTime();
@@ -160,7 +158,7 @@ const Progress = () => {
           setThreeWeeksPercentage(percentage);
           setMonthPercentage(percentageMonth);
           setYearPercentage(percentageYear);
-          console.log(percentageYear)
+
           setYears(yearsLost);
           setMonths(monthsLost);
           setDays(remainingDaysLost);
@@ -279,80 +277,84 @@ const Progress = () => {
           </div>
 
           {/* Bottom container */}
-          <div className="progress-container">
-            <div className="progress-extra-box"></div>
-
-            <h3>During your period of smoking:</h3>
-
+        <div className="progress-period>">
+          <div className="progress-container-period">
             <div className="progress-extra-box">
+            <h3><strong>During your period of smoking:</strong></h3>
+            </div>
+          </div>
+
+            <div className="progress-container-period">
+              <p>
+              <p>You lost {years} year {months} months and {days} days off your
+                life expectancy</p>
+              </p>
               <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faHourglass} name="password" />
               </span>
-              <p>
-                You lost {years} year {months} months and {days} days off your
-                life expectancy
-              </p>
             </div>
 
-            <div className="progress-extra-box">
-              <span className="icon-progress">
-                <FontAwesomeIcon className="progress-icon-color" icon={faSmoking} name="password" />
-              </span>
-              <p>You smoked {cigarettes} cigarettes</p>
-            </div>
-
-            <div className="progress-extra-box">
-              <span className="icon-progress">
-                <FontAwesomeIcon className="progress-icon-color" icon={faCoins} name="password" />
-              </span>
-              <p>
-                You spent {moneySpent} {currency}
-              </p>
-            </div>
+          <div className="progress-container-period">
+            <p>
+            <p>You smoked {cigarettes} cigarettes</p>
+            </p>
+            <span className="icon-progress">
+                <FontAwesomeIcon className="progress-icon-color" icon={faSmoking} name="cigarettes" />
+            </span>
           </div>
+
+          <div className="progress-container-period">
+            <p>
+                You spent {moneySpent} {currency}
+            </p>
+            <span className="icon-progress">
+                <FontAwesomeIcon className="progress-icon-color" icon={faCoins} name="money" />
+              </span>
+          </div>
+        </div>
 
           {/* Unlocked achievements */}
           <div className="progress-container">
+            <p>1 day smoke free!</p>
             <span className="icon-progress">
               <FontAwesomeIcon icon={faUnlock} />
             </span>
-            <p>1 day smoke free!</p>
           </div>
 
           <div className="progress-container">
-            <span>
-              <FontAwesomeIcon icon={faUnlock} />
-            </span>
             <p>10 days' smoke free!</p>
-          </div>
-
-          <div className="progress-container">
             <span>
               <FontAwesomeIcon icon={faUnlock} />
             </span>
+          </div>
+
+          <div className="progress-container">
             <p>1 month smoke free!</p>
+            <span>
+              <FontAwesomeIcon icon={faUnlock} />
+            </span>
           </div>
 
           {/* Locked achievements */}
-          <div className="progress-container">
-            <span>
-              <FontAwesomeIcon icon={faLock} />
-            </span>
+          <div className="progress-container-uncompleted">
             <p>3 months smoke free!</p>
-          </div>
-
-          <div className="progress-container">
             <span>
               <FontAwesomeIcon icon={faLock} />
             </span>
+          </div>
+
+          <div className="progress-container-uncompleted">
             <p>6 months smoke free!</p>
-          </div>
-
-          <div className="progress-container">
             <span>
               <FontAwesomeIcon icon={faLock} />
             </span>
+          </div>
+
+          <div className="progress-container-uncompleted">
             <p>1 year smoke free!</p>
+            <span>
+              <FontAwesomeIcon icon={faLock} />
+            </span>
           </div>
         </div>
       ) : (
