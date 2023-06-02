@@ -279,6 +279,65 @@ const deleteGoal = async (req, res) => {
   }
 };
 
+const updateSavedMoney = async (req, res) => {
+  try {
+    // The problem was the token so far
+    const token = req.headers.authorization;
+    // const token = req.cookie.token
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken._id;
+    const { savedMoney } = req.body;
+
+    console.log('Decoded Token:', decodedToken);
+    console.log('User ID:', userId);
+    console.log('New Saved Money:', savedMoney);
+
+    // Update the savedMoney in the database
+    const user = await User.findByIdAndUpdate(userId, { savedMoney }, { new: true });
+
+    console.log('Updated User:', user);
+
+    // Return the updated savedMoney in the response
+    res.json({ savedMoney: user.savedMoney });
+  } catch (error) {
+    console.error('Error updating saved money:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+const achieveGoal = async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken._id;
+    const { goalId } = req.params;
+
+    console.log('Decoded Token:', decodedToken);
+    console.log('User ID:', userId);
+    console.log('Goal ID:', goalId);
+
+    // Find the user and the goal by their IDs
+    const user = await User.findById(userId);
+    const goal = user.goals.id(goalId);
+
+    if (!goal) {
+      return res.status(404).json({ error: 'Goal not found' });
+    }
+
+    // Mark the goal as achieved
+    goals.achieved = true;
+
+    // Save the changes to the user
+    await user.save();
+
+    // Return the updated goal in the response
+    res.json({ goal });
+  } catch (error) {
+    console.error('Error achieving goal:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 
 
 module.exports = {
@@ -290,5 +349,6 @@ module.exports = {
   getOneUser,
   goals,
   deleteGoal,
- 
+  updateSavedMoney,
+  achieveGoal
 };
