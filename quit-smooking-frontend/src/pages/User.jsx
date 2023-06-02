@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
+
 import "../Styles/User.css";
 
 function Profile() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
+
+  
 
   useEffect(() => {
     const fetchData = async () => {
