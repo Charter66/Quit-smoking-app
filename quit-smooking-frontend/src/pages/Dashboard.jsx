@@ -47,11 +47,46 @@ function Dashboard() {
 
   return (
     <div>
+
+      <div>
+        <div>
+          {isLoading ? (
+            <div className="form-box-dashboard">
+              <p>Loading profile...</p>
+            </div>
+          ) : profile ? (
+            <div className="form-box-dashboard">
+              <h2 className="dashboard-h2">Good morning {profile.name},</h2>
+              <p className="great-do">You are doing great!</p>
+              <div className="dashboard-container">
+            <div className="input-box-dashboard">
+                <span className="icon-dashboard">
+                  <FontAwesomeIcon icon={faCoins} name="password" />
+                </span>
+                <label>
+                  You saved: <p><strong>{savedMoney}{currency}</strong></p>
+                </label>
+            </div>
+
+            <div className="input-box-dashboard">
+                <span className="icon-dashboard">
+                  <FontAwesomeIcon icon={faCalendarDays} name="password" />
+                </span>
+                <label>
+                  You have been smoke free for:<p><strong>{daysPassed} days</strong></p>
+                </label>
+              </div>
+              </div>
+            </div>
+            
+          ) : null}
+
         <Initials />
 
       {isLoading ? (
         <div className="form-box-dashboard">
           <p>Loading profile...</p>
+
         </div>
       ) : profile ? (
         <div className="form-box-dashboard">

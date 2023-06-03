@@ -40,13 +40,7 @@
         console.error(error);
       }
     };
-    console.log(isLoggedIn)
-
-    // useEffect(() => {
-    //   console.log('Redirecting to login...');
-
-    //   navigate('/login', { replace: true });
-    // }, [navigate]);
+    
 
     if (isLoggedIn) return <Navigate to={initPath.includes('login') ? '/me/dashboard' : initPath} />
     return (

@@ -8,42 +8,43 @@
  .progress-wrapper {
     position: relative;
     width: 100%;
-    height: 20em;
+    height: 28em;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .5);
     border-radius: 20px;
     backdrop-filter: blur(20px);
     padding: 2em 2em 2em 2em;
-    margin-bottom: 1em;
  }
 
 .progress-headline {
     color:#1f93a0;
     font-size: 1.3em;
  }
- 
-.progress-chart {
-    width: 50%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    margin-top: -8em;
+
+ .progress-chart {
+   margin: -6em -10em 0 2em; 
 }
   
 
 
 /*---------bottom container------------*/
 
-.progress-background {
-    height: auto;
-    width: 100%;
-    border-radius: 20px;
-   }
- 
- .progress-wrapper .user-form-box {
-    width: 100%;
-    padding: 1rem 1rem 1rem 2rem;
+ .progress-icon-color{
+   color: #EC6464;
  }
+
+ .progress-container-period{
+   height: auto;
+   background-color: #8cc3c9;
+   width: 100%;
+   border-radius: 20px;
+   padding: 1em 1em 1em 1em;
+   color: white;
+   margin-top: 2px;
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-start;
+  }
 
  /*-------Uncocked Achievments---------*/
 
@@ -54,7 +55,10 @@
     border-radius: 20px;
     padding: 1em 1em 1em 1em;
     color: white;
-    margin-top: 20px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
    }
 
    .progress-container-uncompleted{
@@ -64,7 +68,10 @@
     border-radius: 20px;
     padding: 1em 1em 1em 1em;
     color: white;
-    margin-top: 20px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
    }
 
 
