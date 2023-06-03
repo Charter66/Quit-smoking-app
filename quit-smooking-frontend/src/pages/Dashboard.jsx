@@ -62,7 +62,7 @@ function Dashboard() {
                   <FontAwesomeIcon icon={faCoins} name="password" />
                 </span>
                 <label>
-                  You saved: <p><strong>{savedMoney}{currency}</strong></p>
+                  You saved: <p><strong>{profile.savedMoney}{currency}</strong></p>
                 </label>
             </div>
 
