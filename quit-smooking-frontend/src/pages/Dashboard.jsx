@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import "../styles/Dashboard.css";
 
-import SavedMoney from "../components/savedMoney";
+import SavedMoney from "../components/SavedMoney";
 import Initials from "../components/Initials";
 
 //images
@@ -16,7 +16,7 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 // Popup
 import Popup from "reactjs-popup";
 import "../styles/Popup.css";
-import Initials from "../components/Initials";
+
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -71,10 +71,7 @@ function Dashboard() {
                   <FontAwesomeIcon icon={faCoins} name="password" />
                 </span>
                 <label>
-
-
                   You saved: <p><strong>{profile.savedMoney}{currency}</strong></p>
-
                 </label>
             </div>
 
@@ -91,9 +88,8 @@ function Dashboard() {
             
           ) : null}
 
-        <Initials />
-
-      {isLoading ? (
+            
+      {/* {isLoading ? (
         <div className="form-box-dashboard">
           <p>Loading profile...</p>
 
@@ -116,7 +112,7 @@ function Dashboard() {
             <div>{daysPassed} days</div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
 
       <div className="background-articles">
         <div>
