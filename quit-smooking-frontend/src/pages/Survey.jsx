@@ -46,7 +46,7 @@ const Survey = () => {
       );      
   
       console.log(status);
-      if (status === 200) navigate('/me/dashboard'); // Redirect to the home page after submitting the survey
+      if (isLoggedIn) navigate('/me/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
       console.error(error);
       // Handle error state or display error message to the user

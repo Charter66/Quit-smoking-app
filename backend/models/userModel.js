@@ -84,8 +84,9 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  spendedMoney: {
-    type: Number,
+
+  savedMoney: {
+    type:Number,
   }
 });
 

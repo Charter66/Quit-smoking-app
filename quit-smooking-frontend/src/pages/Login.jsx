@@ -9,7 +9,7 @@
   import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons';
 
   const Login = () => {
-    const { hasToken, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+    const { hasToken, isLoggedIn, setLoggedIn, initPath } = useContext(ProfileContext);
     const navigate = useNavigate();
     //console.log(hasToken)
     const [formData, setFormData] = useState({
@@ -40,15 +40,9 @@
         console.error(error);
       }
     };
-    console.log(isLoggedIn)
+    
 
-    useEffect(() => {
-      console.log('Redirecting to login...');
-
-      navigate('/login', { replace: true });
-    }, [navigate]);
-
-    if (hasToken) return <Navigate to='/me/dashboard' />
+    if (isLoggedIn) return <Navigate to={initPath.includes('login') ? '/me/dashboard' : initPath} />
     return (
       <>
         <div className='background'></div>

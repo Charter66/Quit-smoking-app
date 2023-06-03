@@ -1,0 +1,18 @@
+.bg-custom-blue {
+    background-color: rgba(244, 249, 249, 0.9);
+ }
+
+.custom-blue {
+    color: #8cc3c9;
+  }
+  
+.custom-blue:hover {
+    color: #1f93a0;
+  }
+
+.navbar {
+    padding: 1em 1em 1em 1em;
+    width: 110%;
+    height: 5em;
+    border-radius: 20px;
+  }

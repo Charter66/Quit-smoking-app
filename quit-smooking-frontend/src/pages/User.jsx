@@ -3,6 +3,7 @@ import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
 import ShareButtons from "../components/ShareButtons";
 import "../Styles/User.css";
+import { Link } from 'react-router-dom';
 
 function Profile() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -102,6 +103,10 @@ function Profile() {
 
           <div className='flex-col'>
             <p>PRIVACY POLICY</p>
+          </div>
+
+          <div className='user-extra-box'>
+            <Link to="#">EDIT SURVEY</Link>
           </div>
 
           <div className='user-extra-box'>
