@@ -3,7 +3,6 @@ import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
 import "../Styles/User.css";
 import { Link } from 'react-router-dom';
-import { Survey } from "./Survey";
 
 function Profile() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -60,7 +59,7 @@ function Profile() {
           </div>
 
           <div className='user-extra-box'>
-            <Link to="/Survey">EDIT SURVEY</Link>
+            <Link to="#">EDIT SURVEY</Link>
           </div>
 
           <div className='user-extra-box'>

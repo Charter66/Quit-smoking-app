@@ -47,9 +47,7 @@ function Dashboard() {
 
   return (
     <div>
-
-      <div>
-        <div>
+      <Initials />
           {isLoading ? (
             <div className="form-box-dashboard">
               <p>Loading profile...</p>
