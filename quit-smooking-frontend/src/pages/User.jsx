@@ -57,7 +57,7 @@ function Profile() {
             <button onClick={fetchUserProfile}>REFRESH PROFILE</button>
           </div>
 
-          <div className='flex-col'>
+          <div className='flex-col user-extra-box'>
             <button onClick={toggleDropdown}>TELL A FRIEND</button>
             {isOpen && (
               <div className='dropdown-content'>
