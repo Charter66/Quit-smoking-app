@@ -177,8 +177,8 @@ const Goals = () => {
 
   const updateSavedMoneyInDatabase = async (newSavedMoney) => {
     try {
-      const token = hasToken;
 
+      const token = hasToken;
       const updatedUserData = {
         savedMoney: newSavedMoney,
       };
@@ -195,6 +195,30 @@ const Goals = () => {
       );
 
       
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateAchievedStatusInDatabase = async (goalId) => {
+    try {
+      const token = hasToken;
+      const updatedGoalData = {
+        achieved: true,
+      };
+  
+      // Make an API request to update the achieved status in the database
+      await axios.put(
+        `http://localhost:5000/api/users/goals/achieve/${goalId}`,
+        updatedGoalData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+  
+      // Handle the response if needed
     } catch (error) {
       console.error(error);
     }
@@ -291,7 +315,9 @@ const Goals = () => {
               {goal.goalCost <= savedMoney && !goal.achieved && (
                 <button
                   className="text-green-600 hover:text-green-700"
-                  onClick={() => handleGoalComplete(goal)}
+                  onClick={() => {handleGoalComplete(goal);
+                    updateAchievedStatusInDatabase(goal._id)
+                  }}
                 >
                   Select this Goal as Done
                 </button>
