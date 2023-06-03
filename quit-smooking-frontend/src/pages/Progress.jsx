@@ -172,6 +172,7 @@ const Progress = () => {
         }
       } catch (error) {
         console.error("Error cauculating the progress:", error);
+
       }
     };
 
@@ -286,17 +287,18 @@ const Progress = () => {
 
             <div className="progress-container-period">
               <p>
-              <p>You lost {years} year {months} months and {days} days off your
-                life expectancy</p>
+              <p>You lost {years > 0 ? `${years} years` : null} {months > 0 ? `${months} months` : null} and {days} days off your life expectancy</p>
+              
               </p>
               <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faHourglass} name="password" />
               </span>
             </div>
 
+
           <div className="progress-container-period">
             <p>
-            <p>You smoked {cigarettes} cigarettes</p>
+              <p>You smoked {cigarettes.toLocaleString()} cigarettes</p>
             </p>
             <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faSmoking} name="cigarettes" />
@@ -304,9 +306,8 @@ const Progress = () => {
           </div>
 
           <div className="progress-container-period">
-            <p>
-                You spent {moneySpent} {currency}
-            </p>
+                <p>You spent {moneySpent.toLocaleString()} {currency}</p>
+
             <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faCoins} name="money" />
               </span>

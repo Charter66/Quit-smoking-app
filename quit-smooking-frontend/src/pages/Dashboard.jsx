@@ -16,6 +16,7 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 // Popup
 import Popup from "reactjs-popup";
 import "../styles/Popup.css";
+import Initials from "../components/Initials";
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -24,6 +25,11 @@ function Dashboard() {
   // const savedMoney = localStorage.getItem('savedMoney') 
   const daysPassed = localStorage.getItem('daysPassed')
   const currency = localStorage.getItem('currency')
+
+
+  function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
 
 
   useEffect(() => {
@@ -54,15 +60,21 @@ function Dashboard() {
             </div>
           ) : profile ? (
             <div className="form-box-dashboard">
-              <h2 className="dashboard-h2">Good morning {profile.name},</h2>
-              <p className="great-do">You are doing great!</p>
+
+              <h2>Good morning {capitalizeFirstLetter(profile.name)},</h2>
+              <p>You are doing great!</p>
+
               <div className="dashboard-container">
+
             <div className="input-box-dashboard">
                 <span className="icon-dashboard">
                   <FontAwesomeIcon icon={faCoins} name="password" />
                 </span>
                 <label>
+
+
                   You saved: <p><strong>{profile.savedMoney}{currency}</strong></p>
+
                 </label>
             </div>
 
