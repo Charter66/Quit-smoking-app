@@ -171,7 +171,7 @@ const Progress = () => {
           localStorage.setItem("yearPercentage", percentageYear);
         }
       } catch (error) {
-        console.error("Error calculating save money:", error);
+        console.error("Error cauculating the progress:", error);
       }
     };
 
