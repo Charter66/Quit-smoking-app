@@ -22,11 +22,15 @@ function Dashboard() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
   const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
-  // const savedMoney = localStorage.getItem('savedMoney') 
-  const daysPassed = localStorage.getItem('daysPassed')
+ const savedMoney = localStorage.getItem('savedMoney') 
   const currency = localStorage.getItem('currency')
 
+  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
+  
   function capitalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
 }

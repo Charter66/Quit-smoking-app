@@ -7,7 +7,7 @@ function SavedMoney() {
   const [savedMoney, setSavedMoney] = useState(0);
   const [currency, setCurrency] = useState("");
   const { profile, fetchUserProfile, hasToken } = useContext(ProfileContext);
-
+  
   useEffect(() => {
     const calculateSavedMoney = () => {
       try {

@@ -1,170 +1,188 @@
-/*----------Create a New Goal--------*/
-.saved-money {
-  height: auto;
+/* Goals Component CSS */
+@keyframes rotate360 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  border-radius: 20px;
-  width: 100%;
-  padding: 1rem 1rem 1rem 2rem;
-  height: auto;
-  background-color: #66bec7;
-  width: 100%;
-  border-radius: 20px;
-  padding: 1em 1em 1em 1em;
-  color: white;
-  margin-top: 20px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }
 
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.modal-message {
+  margin-bottom: 10px;
+}
+
+.modal-close-button {
+  background-color: #d3d60a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-close-button:hover {
+  background-color: red;
+}
+
+/* "Create a New Goal" Section */
 .goals_createGoal {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .newGoal {
-    color: #66bec7;
-    font-size: 1.5em;
+  font-size: 24px;
+  color: #333333;
+  margin-right: 20px;
 }
 
 .goals_addGoal_btn {
-    width: 40%;
-    height: 45px;
-    background: #66bec7;
-    border: 1px solid #66bec7;
-    outline: none;
-    border-radius: 6px;
-    font-size: 1em;
-    color: #fff;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2em;
+  background-color: #67cce3;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.goals_addGoal_btn:hover {
-    width: 40%;
-    height: 45px;
-    background: #1f93a0;
-    border: 1px solid #1f93a0;
-    outline: none;
-    border-radius: 6px;
-    font-size: 1em;
-    color: #fff;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2em;
- }
+/* Background Section */
+.goals-background {
+  padding: 20px;
+  border-radius: 4px;
+}
+.goalBack{
+  background-color: #d3d60a;
+}
 
-/*--------------Details of the new goal-----------*/
- .goals-background {
-    background-image: url("../images/quitSmoking.png");
-    height: auto;
-    width: 100%;
-    border-radius: 20px;
-   }
- 
- .goals-wrapper {
-    position: relative;
-    width: 100%;
-    height: 14em;
-    background: transparent;
-    border: 2px solid rgba(255, 255, 255, .5);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1em;
-    padding: 2em 0 2em 0;
- }
 
-.goals-formArea{
-    height: auto;
-    width: 100%;
-    padding: 1em 1em 1em 1em;
-   }
+.savedmoney{
+  display: flex;
+  justify-content: center;
+}
+/* Goal Form Box */
+.goals-form-box {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.goals-formArea {
+  margin-bottom: 10px;
+}
 
 .goals-label {
-    margin-left: 1em;
-    color: #1f93a0;
+  font-size: 16px;
+  color: #333333;
 }
 
 .goals-input-box {
-    position:absolute;
-    right: 8px;
-    font-size: 1em;
-    color:#1f93a0;
- }
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
 
 .goals-survey-currency {
-    color: #1f93a0;
-    margin-left: 17.5em;
-    margin-top: 1em;
+  padding: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333333;
+  background-color: #ffffff;
+}
+.goals_saveGoal_btn{
+  background-color: #f6b801
 
 }
 
 .goals_saveGoal_btn {
-    width: 40%;
-    height: 45px;
-    border: 23px solid #66bec7;
-    border-radius: 6px;
-    font-size: 1em;
-    color: #fff;
-    font-weight: 500;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2em;
-    margin-left: 13em;
+  background-color: #8e9797;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.hidden {
-    display: none;
-  }
+/* Goal Card */
+.goal-card {
+  background-color:#f0c648 ;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
-/*-------------Saved items container--------------*/
+.goal-card-achieved {
+  background-color: #71bb71;
+}
 
-.goals-saved-background {
-    background-color: #fce7e6;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .goals-saved-wrapper {
-    background-color: #fce7e6;
-    border: 4px solid #ec6464;
-    border-radius: 6px;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-  }
-  
-  .goals-progress {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .saved-goal-desc {
-    margin: 0;
-    margin-bottom: 5px;
-    flex-grow: 1;
-    margin-left: 10px;
-  }
-  
-  .goals-chart {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 8em;
-  }
-  
+.goal-card p {
+  margin: 0;
+  font-size: 16px;
+  color:whitesmoke;
+}
+
+.check-button,
+.delete-button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: #36c9b0;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.check-button:hover
+ {
+  color: #00ff00;
+}
+.delete-button:hover{
+  color:red
+}
+
+.achieved-icon {
+  font-size: 20px;
+  color: #008000;
+  margin-right: 10px;
+}
 
 
+.achieved-icon{
+  animation: rotate360 10s linear infinite;
 
-
-
+} 

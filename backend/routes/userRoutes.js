@@ -23,9 +23,10 @@ router.put('/goals', goals)
 
 router.delete('/goals/:id', deleteGoal)
 
-router.post('/goals/achieve/:goalId',achieveGoal);
+router.put('/goals/achieve/:goalId',achieveGoal);
 
 router.get('/scrape', scrapeWebsite)
+
 
 router.put('/update-saved-money', updateSavedMoney);
 
