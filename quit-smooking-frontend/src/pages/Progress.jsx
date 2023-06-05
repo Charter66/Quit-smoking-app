@@ -363,7 +363,7 @@ const Progress = () => {
             </span>
           </div>
 
-          <div className={ daysSmokeFree >= 180 ? "progress-container" : "progress-container-uncompleted"}>
+          <div className={ daysSmokeFree >= 182 ? "progress-container" : "progress-container-uncompleted"}>
             <p>6 months smoke free!</p>
             <span className="icon-progress">
               {daysSmokeFree >= 180 ? (
