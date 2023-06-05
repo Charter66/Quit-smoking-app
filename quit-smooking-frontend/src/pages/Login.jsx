@@ -45,7 +45,6 @@
     if (isLoggedIn) return <Navigate to={initPath.includes('login') ? '/me/dashboard' : initPath} />
     return (
       <>
-        <div className='background'></div>
 
       <div className='background-login'>
         <div className="wrapper-dashboard">
