@@ -99,7 +99,7 @@ const Progress = () => {
           // finding how much money was spent
           const cigaretesInPackage = profile.smokingHabit.cigarettesInPackage;
           const packageCost = profile.smokingHabit.packageCost;
-
+            
           const totalMoneySpent =
             (cigarettesSmoked / cigaretesInPackage) * packageCost;
 
@@ -286,10 +286,10 @@ const Progress = () => {
           </div>
 
             <div className="progress-container-period">
-              <p>
+              
               <p>You lost {years > 0 ? `${years} years` : null} {months > 0 ? `${months} months` : null} and {days} days off your life expectancy</p>
               
-              </p>
+             
               <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faHourglass} name="password" />
               </span>
@@ -297,9 +297,9 @@ const Progress = () => {
 
 
           <div className="progress-container-period">
-            <p>
+          
               <p>You smoked {cigarettes.toLocaleString()} cigarettes</p>
-            </p>
+         
             <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faSmoking} name="cigarettes" />
             </span>

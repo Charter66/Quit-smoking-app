@@ -13,7 +13,7 @@ const Survey = () => {
   const [cigarettesInPackage, setCigarettesInPackage] = useState(0);
   const [startSmokingDate, setStartSmokingDate] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
-
+  
   const { isLoggedIn } = useContext(ProfileContext);
   const { isAuth } = useContext(AuthContext); // Access the isAuth state from AuthContext
 

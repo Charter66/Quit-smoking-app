@@ -1,8 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
 import axios from 'axios';
-import '../Styles/Goals.css';
-import Popup from '../components/PopUp'
 
 // Chart
 import SavedMoney from '../components/SavedMoney.jsx';
@@ -17,7 +15,8 @@ const Goals = () => {
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
   const [goalSaved, setGoalSaved] = useState(false);
   const [savedMoney, setSavedMoney] = useState(0);
-  const [showPopup, setShowPopup] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
   useEffect(() => {
     localStorage.setItem('goals', JSON.stringify(goals));
@@ -205,9 +204,42 @@ const Goals = () => {
 
   return (
     <div>
+
+
+      {showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+         
+                {/*body*/}
+                <div className="relative p-6 flex-auto">
+                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
+                  Action completed successfully!                  </p>
+                </div>
+                {/*footer*/}
+                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                  <button
+                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    type="button"
+                    onClick={() => setShowModal(false)}
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
+      <SavedMoney />
+
       <div className="goals_createGoal">
-        <SavedMoney />
-        <h1 className="newGoal">Create a New Goal</h1>
         <button className="goals_addGoal_btn" onClick={handleToggleForm}>
           {showNewGoalForm ? 'Cancel' : 'Add Goal'}
         </button>
@@ -218,7 +250,7 @@ const Goals = () => {
           {showNewGoalForm && (
             <form onSubmit={handleSubmit} className="goals-form-box">
               <div className="goals-formArea">
-                <label className="goals-label">Description:</label>
+                <label className="goals-label">Goal Title:</label>
                 <input
                   type="text"
                   className="goals-input-box"
@@ -247,7 +279,7 @@ const Goals = () => {
                 </select>
               </div>
 
-              <button type="submit" className="goals_saveGoal_btn">
+              <button type="submit" className="goals_saveGoal_btn" >
                 Save Goal
               </button>
             </form>
@@ -262,8 +294,8 @@ const Goals = () => {
             .map((goal, index) => (
               <div
                 key={index}
-                className={`bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between ${
-                  goal.achieved ? 'goal-card-achieved' : ''
+                className={`bg-blue rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between ${
+                goal.achieved ? 'goal-card-achieved' : ''
                 }`}
               >
                 <div>
@@ -278,7 +310,8 @@ const Goals = () => {
                     className="text-green-600 hover:text-green-700"
                     onClick={() => {
                       handleGoalComplete(goal);
-                      updateAchievedStatusInDatabase(goal._id);
+                       updateAchievedStatusInDatabase(goal._id);
+                      setShowModal(true)
                     }}
                   >
                     <FaCheck />
@@ -291,8 +324,9 @@ const Goals = () => {
                 )}
                 <button
                   className="text-red-500 hover:text-red-700"
-                  onClick={() => handleDeleteGoal(goal._id)}
-                  
+                  onClick={() => {handleDeleteGoal(goal._id);
+                    setShowModal(true)}}
+                    
 
                 >
                   <FaTrash />
@@ -305,6 +339,8 @@ const Goals = () => {
       </div>
     </div>
   );
-};
+}; 
+
+
 
 export default Goals;
