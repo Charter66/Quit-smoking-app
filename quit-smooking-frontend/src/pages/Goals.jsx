@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
 import axios from 'axios';
-import '../Styles/Goals.css';
 
 // Chart
 import SavedMoney from '../components/SavedMoney.jsx';
+import { FaCheck, FaTrash , FaHourglassHalf} from 'react-icons/fa'; // Example icons from FontAwesome
 
 const Goals = () => {
   const { hasToken, profile, fetchUserProfile } = useContext(ProfileContext);
@@ -15,37 +15,26 @@ const Goals = () => {
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
   const [goalSaved, setGoalSaved] = useState(false);
   const [savedMoney, setSavedMoney] = useState(0);
-  console.log(savedMoney);
-  // console.log(profile)
+  const [showModal, setShowModal] = useState(false);
 
 
   useEffect(() => {
-    // Update local storage when goals state changes
     localStorage.setItem('goals', JSON.stringify(goals));
   }, [goals]);
 
-
-
   useEffect(() => {
     fetchUserProfile();
-    
-    const storedSavedMoney = profile.savedMoney
-    if(storedSavedMoney){
-      setSavedMoney(parseFloat(storedSavedMoney))
+
+    const storedSavedMoney = profile.savedMoney;
+    if (storedSavedMoney) {
+      setSavedMoney(parseFloat(storedSavedMoney));
     }
-    // // Retrieve savedMoney from local storage
-    // const storedSavedMoney = localStorage.getItem('savedMoney');
-    // if (storedSavedMoney) {
-    //   setSavedMoney(parseFloat(storedSavedMoney));
-    // }
-  
-    // Retrieve goals from local storage when the component mounts
+
     const storedGoals = localStorage.getItem('goals');
     if (storedGoals) {
       setGoals(JSON.parse(storedGoals));
     }
   }, []);
-  
 
   useEffect(() => {
     if (profile && profile.goals) {
@@ -78,7 +67,6 @@ const Goals = () => {
         currency,
       };
 
-      // Make an API request to save the new goal
       const response = await axios.put(
         'http://localhost:5000/api/users/goals',
         newGoalData,
@@ -98,14 +86,12 @@ const Goals = () => {
         const goalsArray = response.data.goals;
         const newGoal = goalsArray[goalsArray.length - 1];
         if (newGoal) {
-          // Access the properties of newGoal here
           const { description, goalCost, currency } = newGoal;
           // Do something with the properties
         }
 
         setGoals((prevGoals) => [...prevGoals, newGoal]);
 
-        // Reset the form
         setDescription('');
         setGoalCost(0);
         setCurrency('');
@@ -116,12 +102,10 @@ const Goals = () => {
     }
   };
 
-  // Delete a Goal
   const handleDeleteGoal = async (goalId) => {
     try {
       const token = hasToken;
 
-      // Make an API request to delete the goal
       const response = await axios.delete(
         `http://localhost:5000/api/users/goals/${goalId}`,
         {
@@ -132,8 +116,6 @@ const Goals = () => {
       );
 
       if (response.status === 200) {
-        // If the goal is successfully deleted from the database,
-        // update the goals array by removing the deleted goal
         setGoals((prevGoals) =>
           prevGoals.filter((goal) => goal._id !== goalId)
         );
@@ -148,19 +130,14 @@ const Goals = () => {
     setGoalSaved(false);
   };
 
- 
-
   useEffect(() => {
     localStorage.setItem('savedMoney', savedMoney.toString());
   }, [savedMoney]);
 
   const handleGoalComplete = async (goal) => {
-    // Deduct the goal cost from saved money
     const updatedSavedMoney = savedMoney - goal.goalCost;
-
-  console.log(savedMoney)
     setSavedMoney(updatedSavedMoney);
-    // Update the goals array to mark the goal as achieved
+
     const updatedGoals = goals.map((g) => {
       if (g._id === goal._id) {
         return { ...g, achieved: true };
@@ -171,19 +148,16 @@ const Goals = () => {
 
     setGoalSaved(true);
 
-    // Update the saved money in the database
     await updateSavedMoneyInDatabase(updatedSavedMoney);
   };
 
   const updateSavedMoneyInDatabase = async (newSavedMoney) => {
     try {
       const token = hasToken;
-
       const updatedUserData = {
         savedMoney: newSavedMoney,
       };
 
-      // Make an API request to update the saved money in the database
       await axios.put(
         'http://localhost:5000/api/users/update-saved-money',
         updatedUserData,
@@ -193,48 +167,64 @@ const Goals = () => {
           },
         }
       );
-
-      
     } catch (error) {
       console.error(error);
     }
   };
 
-  // useEffect(() => {
-  //   // Calculate the total cost of all achieved goals
-  //   const achievedGoalsCost = goals
-  //     .filter((goal) => goal.achieved)
-  //     .reduce((total, goal) => total + goal.goalCost, 0);
+  const updateAchievedStatusInDatabase = async (goalId) => {
+    try {
+      const token = hasToken;
+      const updatedGoalData = {
+        achieved: true,
+      };
 
-  //   // Calculate the remaining saved money after deducting the achieved goals cost
-  //   const updatedSavedMoney = savedMoney - achievedGoalsCost;
-  //   setSavedMoney(updatedSavedMoney);
+      await axios.put(
+        `http://localhost:5000/api/users/goals/achieve/${goalId}`,
+        updatedGoalData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
-  //   // Update the saved money in the database
-  //   updateSavedMoneyInDatabase(updatedSavedMoney);
+      const updatedGoalIndex = profile.goals.findIndex(
+        (goal) => goal._id === goalId
+      );
 
-  //   // Update the saved money in local storage
-  //   localStorage.setItem('savedMoney', updatedSavedMoney.toString());
-  // }, [goals]);
+      if (updatedGoalIndex !== -1) {
+        const updatedGoal = profile.goals.splice(updatedGoalIndex, 1)[0];
+        profile.goals.push(updatedGoal);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  return (
+   return (
     <div>
-      {/* Add new goals as much as needed */}
-      <SavedMoney className="saved-money" />
-      <div className="goals_createGoal">
-        <h1 className="newGoal">Create a New Goal</h1>
-        <button className="goals_addGoal_btn" onClick={handleToggleForm}>
-          {showNewGoalForm ? 'Cancel' : 'Add Goal'}
-        </button>
-      </div>
+    <div className="bg-gray-100 rounded-lg shadow-lg p-4 savedmoney">
+  <SavedMoney />
+</div>
+      {showModal && (
+        <>
+          <div className="modal-overlay" onClick={() => setShowModal(false)}></div>
+          <div className="modal">
+            <p className="modal-message">Action completed successfully!</p>
+            <button className="modal-close-button" onClick={() => setShowModal(false)}>
+              Close
+            </button>
+          </div>
+        </>
+      )}
 
-      {/* Add details of new goal */}
       <div className="goals-background">
         <div className="goals-wrapper">
           {showNewGoalForm && (
             <form onSubmit={handleSubmit} className="goals-form-box">
-              <div className="goals-formArea">
-                <label className="goals-label">Description:</label>
+              <div className="goals-formArea ">
+                <label className="goals-label">Goal Title:</label>
                 <input
                   type="text"
                   className="goals-input-box"
@@ -260,51 +250,69 @@ const Goals = () => {
                   <option value="USD">$</option>
                   <option value="EUR">€</option>
                   <option value="GBP">£</option>
-                  {/* Add more currency options as needed */}
                 </select>
               </div>
-
-              <button type="submit" className="goals_saveGoal_btn">
-                Save Goal
-              </button>
+              <button
+  type="submit"
+  className="text-white font-semibold py-2 px-4 rounded-lg shadow-lg"
+  style={{ backgroundColor: "#f6b801" }}
+>
+  Save Goal
+</button>
             </form>
           )}
+
+          <div className="goals_createGoal">
+        <button className="goals_addGoal_btn" onClick={handleToggleForm}>
+          {showNewGoalForm ? 'Cancel' : 'Add Goal'}
+        </button>
+      </div>
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="goals-list">
         {goals && goals.length > 0 ? (
-          goals.map((goal, index) => (
-            <div
-              key={index}
-              className={`bg-white rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between ${
-                goal.achieved ? 'goal-card-achieved' : ''
-              }`}
-            >
-              <div>
-                <p>Description: {goal.description}</p>
-                <p>
-                  Goal Cost: {goal.goalCost}
-                  {goal.currency}
-                </p>
-              </div>
-              {goal.goalCost <= savedMoney && !goal.achieved && (
-                <button
-                  className="text-green-600 hover:text-green-700"
-                  onClick={() => handleGoalComplete(goal)}
-                >
-                  Select this Goal as Done
-                </button>
-              )}
-              {goal.achieved && <span>Achieved</span>}
-              <button
-                className="text-red-500 hover:text-red-700"
-                onClick={() => handleDeleteGoal(goal._id)}
+          goals
+            .sort((a, b) => (a.achieved && !b.achieved ? 1 : -1))
+            .map((goal, index) => (
+              <div
+                key={index}
+                className={`goal-card ${goal.achieved ? 'goal-card-achieved' : ''}`}
               >
-                Delete
-              </button>
-            </div>
-          ))
+                <div className="goal-card-content">
+                  <p className="goal-card-title">Goal: {goal.description}</p>
+                  <p className="goal-card-cost">
+                    Goal Cost: {goal.goalCost}
+                    {goal.currency}
+                  </p>
+                </div>
+                {goal.goalCost <= savedMoney && !goal.achieved ? (
+                  <button
+                    className="check-button"
+                    onClick={() => {
+                      handleGoalComplete(goal);
+                      updateAchievedStatusInDatabase(goal._id);
+                      setShowModal(true);
+                    }}
+                  >
+                    <FaCheck />
+                  </button>
+                ) : (
+                  <span >
+                    {goal.achieved ? <FaCheck className="achieved-icon-check"/> : <FaHourglassHalf className="achieved-icon"/>}
+                  </span>
+                )}
+                <button
+                  className="delete-button"
+                  onClick={() => {
+                    handleDeleteGoal(goal._id);
+                    setShowModal(true);
+                  }}
+                >
+                  <FaTrash />
+                </button>
+              </div>
+            ))
         ) : (
           <p>No goals found.</p>
         )}
@@ -312,5 +320,6 @@ const Goals = () => {
     </div>
   );
 };
+
 
 export default Goals;

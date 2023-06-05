@@ -101,7 +101,7 @@ const Progress = () => {
           // finding how much money was spent
           const cigaretesInPackage = profile.smokingHabit.cigarettesInPackage;
           const packageCost = profile.smokingHabit.packageCost;
-
+            
           const totalMoneySpent =
             (cigarettesSmoked / cigaretesInPackage) * packageCost;
 
@@ -136,12 +136,15 @@ const Progress = () => {
           const monthsLost = Math.floor((daysLost % 365) / 30);
           const remainingDaysLost = (daysLost % 365) % 30;
 
-          // percentage for 3 weeks
-          const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
-          const numeratorDays = daysPassedCurrent;
-          const denominator = 21;
+          // percentage for 3 
+          // const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());
+          // const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
+          const numeratorDays = daysPassed;
+          console.log(daysPassed)
+          const denominator = 90;
           let percentage = (numeratorDays / denominator) * 100;
           percentage = Math.min(percentage, 100);
+          console.log(numeratorDays)
 
           // percentage for one month
           const denominatorMonth = 30;
@@ -291,8 +294,7 @@ const Progress = () => {
             <div className="progress-container-period">
               
               <p>You lost {years > 0 ? `${years} years` : null} {months > 0 ? `${months} months` : null} and {days} days off your life expectancy</p>
-              
-              
+
               <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faHourglass} name="password" />
               </span>
@@ -300,9 +302,11 @@ const Progress = () => {
 
 
           <div className="progress-container-period">
+
            
               <p>You smoked {cigarettes.toLocaleString()} cigarettes</p>
             
+
             <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faSmoking} name="cigarettes" />
             </span>

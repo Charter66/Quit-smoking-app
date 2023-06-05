@@ -53,7 +53,6 @@ const userSchema = new mongoose.Schema({
     {
       description: {
         type: String,
-        required: true,
       },
       goalCost: {
         type:Number,

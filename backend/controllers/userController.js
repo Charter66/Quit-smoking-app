@@ -327,17 +327,20 @@ const updateSavedMoney = async (req, res) => {
     // const token = req.cookie.token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken._id;
-    const { savedMoney } = req.body;
 
+    // const {indexInArray} = req.body
+    //  let indexForDatabase = `goals[${indexInArray}].achieved`
+    const { savedMoney } = req.body;
     console.log('Decoded Token:', decodedToken);
     console.log('User ID:', userId);
     console.log('New Saved Money:', savedMoney);
 
     // Update the savedMoney in the database
-    const user = await User.findByIdAndUpdate(userId, { savedMoney }, { new: true });
-
-    console.log('Updated User:', user);
-
+    const user = await User.findByIdAndUpdate(userId, { 
+        savedMoney,
+        // 'goals[0].achieved':achieved,
+    }, 
+      { new: true });
     // Return the updated savedMoney in the response
     res.json({ savedMoney: user.savedMoney });
   } catch (error) {
@@ -352,27 +355,33 @@ const achieveGoal = async (req, res) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken._id;
     const { goalId } = req.params;
+    const { achieved } = req.body;
 
     console.log('Decoded Token:', decodedToken);
     console.log('User ID:', userId);
     console.log('Goal ID:', goalId);
+    console.log('Achieved:', achieved);
 
-    // Find the user and the goal by their IDs
-    const user = await User.findById(userId);
-    const goal = user.goals.id(goalId);
+    // Find the user and update the achieved field of the goal
+    const updatedUser = await User.findOneAndUpdate(
+      { _id: userId, 'goals._id': goalId },
+      { $set: { 'goals.$.achieved': achieved } },
+      { new: true }
+    );
 
-    if (!goal) {
-      return res.status(404).json({ error: 'Goal not found' });
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User or goal not found' });
     }
 
-    // Mark the goal as achieved
-    goals.achieved = true;
+    // Find the updated goal in the user document
+    const updatedGoal = updatedUser.goals.find((goal) =>
+      goal._id.equals(goalId)
+    );
 
-    // Save the changes to the user
-    await user.save();
+    console.log(updatedUser)
 
     // Return the updated goal in the response
-    res.json({ goal });
+    res.json({ goal: updatedGoal });
   } catch (error) {
     console.error('Error achieving goal:', error);
     res.status(500).json({ error: 'Internal server error' });

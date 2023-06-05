@@ -16,9 +16,16 @@ function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
-  const { isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+  const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
+  const savedMoney = localStorage.getItem('savedMoney') 
+  const currency = localStorage.getItem('currency')
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
+
+  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
@@ -27,11 +34,7 @@ function Dashboard() {
   const handleOpenReadMe2 = () => {
     setOpenReadMe2(!openReadMe2);
   };
-
-  // const savedMoney = localStorage.getItem('savedMoney')
-  const daysPassed = localStorage.getItem("daysPassed");
-  const currency = localStorage.getItem("currency");
-
+  
   function capitalizeFirstLetter(string) {
     return string[0].toUpperCase() + string.slice(1);
   }
