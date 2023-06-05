@@ -93,6 +93,7 @@ const Progress = () => {
           // finding how many days have passed...
           const timeDiff = Math.abs(startDate.getTime() - quitDate.getTime());
           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          console.log(daysPassed)
 
           // finding how many cigarettes were smoked
           const cigarettesSmoked =
@@ -136,12 +137,15 @@ const Progress = () => {
           const monthsLost = Math.floor((daysLost % 365) / 30);
           const remainingDaysLost = (daysLost % 365) % 30;
 
-          // percentage for 3 weeks
-          const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
-          const numeratorDays = daysPassedCurrent;
-          const denominator = 21;
+          // percentage for 3 
+          // const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());
+          // const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
+          const numeratorDays = daysPassed;
+          console.log(daysPassedCurrent)
+          const denominator = 90;
           let percentage = (numeratorDays / denominator) * 100;
           percentage = Math.min(percentage, 100);
+          console.log(numeratorDays)
 
           // percentage for one month
           const denominatorMonth = 30;
