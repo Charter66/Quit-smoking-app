@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // Chart
 import SavedMoney from '../components/SavedMoney.jsx';
-import { FaCheck, FaTrash } from 'react-icons/fa'; // Example icons from FontAwesome
+import { FaCheck, FaTrash , FaHourglassHalf} from 'react-icons/fa'; // Example icons from FontAwesome
 
 const Goals = () => {
   const { hasToken, profile, fetchUserProfile } = useContext(ProfileContext);
@@ -204,52 +204,26 @@ const Goals = () => {
 
   return (
     <div>
-
-
-      {showModal ? (
+    <div className="bg-gray-100 rounded-lg shadow-lg p-4 savedmoney">
+  <SavedMoney />
+</div>
+      {showModal && (
         <>
-          <div
-            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-          >
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-         
-                {/*body*/}
-                <div className="relative p-6 flex-auto">
-                  <p className="my-4 text-slate-500 text-lg leading-relaxed">
-                  Action completed successfully!                  </p>
-                </div>
-                {/*footer*/}
-                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                  <button
-                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                    onClick={() => setShowModal(false)}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </div>
-            
+          <div className="modal-overlay" onClick={() => setShowModal(false)}></div>
+          <div className="modal">
+            <p className="modal-message">Action completed successfully!</p>
+            <button className="modal-close-button" onClick={() => setShowModal(false)}>
+              Close
+            </button>
           </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : null}
-      <SavedMoney />
-
-      <div className="goals_createGoal">
-        <button className="goals_addGoal_btn" onClick={handleToggleForm}>
-          {showNewGoalForm ? 'Cancel' : 'Add Goal'}
-        </button>
-      </div>
+      )}
 
       <div className="goals-background">
         <div className="goals-wrapper">
           {showNewGoalForm && (
             <form onSubmit={handleSubmit} className="goals-form-box">
-              <div className="goals-formArea">
+              <div className="goals-formArea ">
                 <label className="goals-label">Goal Title:</label>
                 <input
                   type="text"
@@ -278,56 +252,62 @@ const Goals = () => {
                   <option value="GBP">£</option>
                 </select>
               </div>
-
-              <button type="submit" className="goals_saveGoal_btn" >
-                Save Goal
-              </button>
+              <button
+  type="submit"
+  className="text-white font-semibold py-2 px-4 rounded-lg shadow-lg"
+  style={{ backgroundColor: "#f6b801" }}
+>
+  Save Goal
+</button>
             </form>
           )}
+
+          <div className="goals_createGoal">
+        <button className="goals_addGoal_btn" onClick={handleToggleForm}>
+          {showNewGoalForm ? 'Cancel' : 'Add Goal'}
+        </button>
+      </div>
         </div>
       </div>
 
-      <div className="mt-4">
+      <div className="goals-list">
         {goals && goals.length > 0 ? (
           goals
             .sort((a, b) => (a.achieved && !b.achieved ? 1 : -1))
             .map((goal, index) => (
               <div
                 key={index}
-                className={`bg-blue rounded-lg shadow-lg p-4 mb-4 flex items-center justify-between ${
-                goal.achieved ? 'goal-card-achieved' : ''
-                }`}
+                className={`goal-card ${goal.achieved ? 'goal-card-achieved' : ''}`}
               >
-                <div>
-                  <p>Description: {goal.description}</p>
-                  <p>
+                <div className="goal-card-content">
+                  <p className="goal-card-title">Goal: {goal.description}</p>
+                  <p className="goal-card-cost">
                     Goal Cost: {goal.goalCost}
                     {goal.currency}
                   </p>
                 </div>
-                {goal.goalCost <= savedMoney && !goal.achieved && (
+                {goal.goalCost <= savedMoney && !goal.achieved ? (
                   <button
-                    className="text-green-600 hover:text-green-700"
+                    className="check-button"
                     onClick={() => {
                       handleGoalComplete(goal);
-                       updateAchievedStatusInDatabase(goal._id);
-                      setShowModal(true)
+                      updateAchievedStatusInDatabase(goal._id);
+                      setShowModal(true);
                     }}
                   >
                     <FaCheck />
                   </button>
-                )}
-                {goal.achieved && (
-                  <span>
-                    <FaCheck />
+                ) : (
+                  <span >
+                    {goal.achieved ? <FaCheck className="achieved-icon-check"/> : <FaHourglassHalf className="achieved-icon"/>}
                   </span>
                 )}
                 <button
-                  className="text-red-500 hover:text-red-700"
-                  onClick={() => {handleDeleteGoal(goal._id);
-                    setShowModal(true)}}
-                    
-
+                  className="delete-button"
+                  onClick={() => {
+                    handleDeleteGoal(goal._id);
+                    setShowModal(true);
+                  }}
                 >
                   <FaTrash />
                 </button>
@@ -339,8 +319,7 @@ const Goals = () => {
       </div>
     </div>
   );
-}; 
-
+};
 
 
 export default Goals;
