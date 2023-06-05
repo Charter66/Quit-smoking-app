@@ -1,47 +1,50 @@
-
-import React, {useState, useEffect} from 'react'
-
+import React, { useState } from 'react';
+import "../styles/CardGame.css"
+import One from '../images/1.png';
+import Two from '../images/2.png';
+import Three from '../images/3.png';
+import Four from '../images/4.png';
+import Five from '../images/5.png';
+import Six from '../images/6.png';
+import Seven from '../images/7.png';
+import Back from '../images/back.png';
+import SingleCard from '../components/SingleCard';
 
 const cardImages = [
-    {"src": "../images/1.png"},
-    {"src": "../images/2.png"},
-    {"src": "../images/3.png"},
-    {"src": "../images/4.png"},
-    {"src": "../images/5.png"},
-    {"src": "../images/6.png"},
-    {"src": "../images/7.png"},
-]
+  { src: One },
+  { src: Two },
+  { src: Three },
+  { src: Four },
+  { src: Five },
+  { src: Six },
+  { src: Seven },
+];
 
 function CardMatch() {
-    const [cards, setCards] = useState([]);
-    const [turns, setTurns] = useState(0);
-  
-    const shuffleCards = () => {
-      const shuffledCards = [...cardImages, ...cardImages]
-        .sort(() => Math.random() - 0.5)
-        .map((card) => ({ ...card, id: Math.random() }));
-  
-      setCards(shuffledCards);
-      setTurns(0);
-    };
-  
-    useEffect(() => {
+  const [cards, setCards] = useState([]);
+  const [turns, setTurns] = useState(0);
 
-    console.log(cards);
+  const shuffleCards = () => {
+    const shuffledCards = [...cardImages, ...cardImages]
+      .sort(() => Math.random() - 0.5)
+      .map((card) => ({ ...card, id: Math.random() }));
 
-    }, [cards]);
-  
-    console.log(turns);
-  
-    return (
-      <div className="card">
-        <button onClick={shuffleCards}>New Game</button>
-        <div className="image-container">
-          <img src="../images/2.png" alt="Image" />
-        </div>
+    setCards(shuffledCards);
+    setTurns(0);
+  };
+
+  console.log(turns);
+
+  return (
+    <div className="card">
+      <button onClick={shuffleCards}>New Game</button>
+      <div className="card-grid">
+        {cards.map((card) => (
+            <SingleCard key={card.id} card={card}/>
+        ))}
       </div>
-    );
-  }
-  
-  export default CardMatch;
-  
+    </div>
+  );
+}
+
+export default CardMatch;
