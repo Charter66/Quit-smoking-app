@@ -3,8 +3,9 @@ import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
 import ShareButtons from "../components/ShareButtons";
 import "../Styles/User.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from 'react-router-dom';
 import Survey from "./Survey";
+
 
 function Profile() {
   const { profile, fetchUserProfile } = useContext(ProfileContext);
@@ -24,6 +25,7 @@ function Profile() {
   const handleOpenPrivacyPolicy = () => {
     setOpenPrivacyPolicy(!openPrivacyPolicy);
   };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -198,8 +200,8 @@ function Profile() {
             )}
           </div>
 
-          <div className="user-extra-box">
-            <Link to="/survey">EDIT SURVEY</Link>
+          <div className='user-extra-box'>
+            <Link to="/me/survey">EDIT SURVEY</Link>
           </div>
 
           <div className="user-extra-box">
