@@ -4,7 +4,7 @@ import "../Styles/Navbar.css";
 
 const Navbar = () => {
   return (
-    <nav className="sticky bottom-0 left-0 bg-custom-blue w-full navbar">
+    <nav className="sticky bottom-0 left-0 bg-custom-blue w-full navbar rounded">
       <ul className="flex items-center justify-around">
 
         <li>
