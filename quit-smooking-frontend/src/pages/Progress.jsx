@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import ProgressBar from "../components/ProgressBar";
+import ProgressCircle from "../components/ProgressCircle";
 import { ProfileContext } from "../context/ProfileContext";
 import "../Styles/Progress.css";
 
@@ -205,7 +205,7 @@ const Progress = () => {
       ) : profile ? (
         <div>
           <div className="progress-container">
-            <div className="progress-wrapper">
+            <div className="progress-wrapper flex-row">
               <div className="progress-text">
                 <h2 className="progress-headline">Improved lung function:</h2>
                 <p>
@@ -214,19 +214,13 @@ const Progress = () => {
                   capacity increases, making it easier to breathe and engage in
                   physical activities.
                 </p>
+                 <div className="m-14">
+                    <ProgressCircle progress={threeWeeksPercentage}/>
+                  </div>
               </div>
 
-              <div
-                className="progress-chart"
-                style={{ width: "200px", height: "200px" }}
-              >
-                <DoughnutChart
-                  chartData={chartData}
-                  importanteNumber={threeWeeksPercentage}
-                  percent={threeWeeksPercentage.toFixed(0)}
-                  hidePercentage={true}
-                />
-              </div>
+             
+              
             </div>
           </div>
 
@@ -243,17 +237,11 @@ const Progress = () => {
                 </p>
               </div>
 
-              <div
-                className="progress-chart"
-                style={{ width: "200px", height: "200px" }}
-              >
-                <DoughnutChart
-                  chartData={chartData}
-                  importanteNumber={monthPercentage}
-                  percent={monthPercentage.toFixed(2)}
-                  hidePercentage={true}
-                  />
-              </div>
+              <div className="m-14">
+                    <ProgressCircle progress={monthPercentage}/>
+                  </div>
+
+             
             </div>
           </div>
 
@@ -269,17 +257,10 @@ const Progress = () => {
                   system.
                 </p>
               </div>
-              <div
-                className="progress-chart"
-                style={{ width: "200px", height: "200px" }}
-                >
-                <DoughnutChart
-                  chartData={chartData}
-                  importanteNumber={yearPercentage}
-                  percent={yearPercentage.toFixed(2)}
-                  hidePercentage={true}
-                />
-              </div>
+              <div className="m-14">
+                    <ProgressCircle progress={yearPercentage.toFixed()}/>
+                  </div>
+              
             </div>
           </div>
 
