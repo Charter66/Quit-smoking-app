@@ -1,4 +1,19 @@
 /*----------Create a New Goal--------*/
+.saved-money {
+  height: auto;
+  width: 100%;
+  border-radius: 20px;
+  width: 100%;
+  padding: 1rem 1rem 1rem 2rem;
+  height: auto;
+  background-color: #66bec7;
+  width: 100%;
+  border-radius: 20px;
+  padding: 1em 1em 1em 1em;
+  color: white;
+  margin-top: 20px;
+}
+
 .goals_createGoal {
     display: flex;
     justify-content: space-between;

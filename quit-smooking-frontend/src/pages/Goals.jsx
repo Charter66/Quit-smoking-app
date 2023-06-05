@@ -220,8 +220,8 @@ const Goals = () => {
   return (
     <div>
       {/* Add new goals as much as needed */}
+      <SavedMoney className="saved-money" />
       <div className="goals_createGoal">
-        <SavedMoney />
         <h1 className="newGoal">Create a New Goal</h1>
         <button className="goals_addGoal_btn" onClick={handleToggleForm}>
           {showNewGoalForm ? 'Cancel' : 'Add Goal'}
