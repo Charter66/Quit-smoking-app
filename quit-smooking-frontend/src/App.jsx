@@ -12,7 +12,7 @@ import Survey from './pages/Survey';
 import ProtectRoutes from './pages/ProtectRoutes';
 import withAuthProtection from './components/withAuthProtection';
 import { ProfileContext } from './context/ProfileContext';
-
+import MatchTheCardsGame from './pages/CardGame'
 
 
 const ProtectedDashboard = withAuthProtection(Dashboard);
@@ -20,7 +20,7 @@ const ProtectedGoals = withAuthProtection(Goals);
 const ProtectedProgress = withAuthProtection(Progress);
 const ProtectedUser = withAuthProtection(User);
 const ProtectedSurvey = withAuthProtection(Survey);
-
+const ProtectedGame = withAuthProtection(MatchTheCardsGame)
 const App = () => {
   const { isLoggedIn } = useContext(ProfileContext);
 
@@ -36,6 +36,7 @@ const App = () => {
             <Route path="progress" element={<Progress />} />
             <Route path="user" element={<User />} />
             <Route path="survey" element={<Survey />} />
+            <Route path="cardgame" element={<MatchTheCardsGame />} />
           </Route>
           <Route
             path="/signup"
