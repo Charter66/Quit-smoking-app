@@ -26,6 +26,7 @@ function DoughnutChart({ chartData, importanteNumber }) {
       },
     ],
     backgroundColor: "transparent",
+    
   });
 
   return (

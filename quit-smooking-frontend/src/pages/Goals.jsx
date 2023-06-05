@@ -202,7 +202,7 @@ const Goals = () => {
     }
   };
 
-  return (
+   return (
     <div>
     <div className="bg-gray-100 rounded-lg shadow-lg p-4 savedmoney">
   <SavedMoney />

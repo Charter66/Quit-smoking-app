@@ -29,6 +29,7 @@ const Progress = () => {
   const [yearPercentage, setYearPercentage] = useState(0);
   const { profile, fetchUserProfile } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [daysSmokeFree, setDaysSmokeFree] = useState(0)
   
 //Doughnut Chart
   const [progress, setProgress] = useState(false);
@@ -43,6 +44,7 @@ const Progress = () => {
       { name: "not finished", y: 100 },
       { name: "finished", y: 300 },
     ],
+
   };
 
   const totalDataPoints = chartData.dataPoints.reduce(
@@ -165,6 +167,7 @@ const Progress = () => {
           setCigarettes(cigarettesSmoked);
           setMoneySpent(totalMoneySpent);
           setCurrency(profileCurrency);
+          setDaysSmokeFree(daysPassed)
 
           localStorage.setItem("monthPercentage", percentageMonth);
           localStorage.setItem("threeWeeksPercentage", percentage);
@@ -288,8 +291,7 @@ const Progress = () => {
             <div className="progress-container-period">
               
               <p>You lost {years > 0 ? `${years} years` : null} {months > 0 ? `${months} months` : null} and {days} days off your life expectancy</p>
-              
-             
+
               <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faHourglass} name="password" />
               </span>
@@ -297,9 +299,11 @@ const Progress = () => {
 
 
           <div className="progress-container-period">
-          
+
+           
               <p>You smoked {cigarettes.toLocaleString()} cigarettes</p>
-         
+            
+
             <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faSmoking} name="cigarettes" />
             </span>
@@ -315,46 +319,70 @@ const Progress = () => {
         </div>
 
           {/* Unlocked achievements */}
-          <div className="progress-container">
+          <div className={ daysSmokeFree >= 1 ? "progress-container" : "progress-container-uncompleted"}>
             <p>1 day smoke free!</p>
             <span className="icon-progress">
-              <FontAwesomeIcon icon={faUnlock} />
+              {daysSmokeFree >= 1 ? (
+                <FontAwesomeIcon icon={faUnlock} />
+              ) : (
+                <FontAwesomeIcon icon={faLock} />
+              )}
             </span>
           </div>
 
-          <div className="progress-container">
+          <div className={ daysSmokeFree >= 10 ? "progress-container" : "progress-container-uncompleted"}>
             <p>10 days' smoke free!</p>
-            <span>
-              <FontAwesomeIcon icon={faUnlock} />
+            <span className="icon-progress">
+              {daysSmokeFree >= 10 ? (
+                <FontAwesomeIcon icon={faUnlock} />
+              ) : (
+                <FontAwesomeIcon icon={faLock} />
+              )}
             </span>
           </div>
 
-          <div className="progress-container">
+          <div className={ daysSmokeFree >= 30 ? "progress-container" : "progress-container-uncompleted"}>
             <p>1 month smoke free!</p>
-            <span>
-              <FontAwesomeIcon icon={faUnlock} />
+            <span className="icon-progress">
+              {daysSmokeFree >= 30 ? (
+                <FontAwesomeIcon icon={faUnlock} />
+              ) : (
+                <FontAwesomeIcon icon={faLock} />
+              )}
             </span>
           </div>
 
           {/* Locked achievements */}
-          <div className="progress-container-uncompleted">
+          <div className={ daysSmokeFree >= 90 ? "progress-container" : "progress-container-uncompleted"}>
             <p>3 months smoke free!</p>
-            <span>
-              <FontAwesomeIcon icon={faLock} />
+            <span className="icon-progress">
+              {daysSmokeFree >= 90 ? (
+                <FontAwesomeIcon icon={faUnlock} />
+              ) : (
+                <FontAwesomeIcon icon={faLock} />
+              )}
             </span>
           </div>
 
-          <div className="progress-container-uncompleted">
+          <div className={ daysSmokeFree >= 182 ? "progress-container" : "progress-container-uncompleted"}>
             <p>6 months smoke free!</p>
-            <span>
-              <FontAwesomeIcon icon={faLock} />
+            <span className="icon-progress">
+              {daysSmokeFree >= 180 ? (
+                <FontAwesomeIcon icon={faUnlock} />
+              ) : (
+                <FontAwesomeIcon icon={faLock} />
+              )}
             </span>
           </div>
 
-          <div className="progress-container-uncompleted">
+          <div className={ daysSmokeFree >= 365 ? "progress-container" : "progress-container-uncompleted"}>
             <p>1 year smoke free!</p>
-            <span>
-              <FontAwesomeIcon icon={faLock} />
+            <span className="icon-progress">
+              {daysSmokeFree >= 365 ? (
+                <FontAwesomeIcon icon={faUnlock} />
+              ) : (
+                <FontAwesomeIcon icon={faLock} />
+              )}
             </span>
           </div>
         </div>
