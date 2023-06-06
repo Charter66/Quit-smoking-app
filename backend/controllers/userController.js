@@ -25,12 +25,12 @@ const register = async (req, res) => {
 
     // Generate JWT token
     const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
-    res.cookie('token', token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60,
-      sameSite: 'lax',
-      secure: false,
-    });
+    // res.cookie('token', token, {
+    //   httpOnly: true,
+    //   maxAge: 1000 * 60 * 60,
+    //   sameSite: 'lax',
+    //   secure: false,
+    // });
     
     res.json({ token });
    
@@ -68,12 +68,12 @@ const login= async (req, res) => {
 
     const token = jwt.sign({ _id: checkUser._id }, process.env.JWT_SECRET);
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60,
-      sameSite: 'lax',
-      secure: false,
-    });
+    // res.cookie('token', token, {
+    //   httpOnly: true,
+    //   maxAge: 1000 * 60 * 60,
+    //   sameSite: 'lax',
+    //   secure: false,
+    // });
     
     res.json({ token });
 
@@ -94,7 +94,6 @@ const logout = async (req, res) => {
   try {
     // Clear the token from the client-side
     res.clearCookie('token');
-
     console.log('Logout successful'); // Add console log
     res.setHeader('Set-Cookie', '');
     res.status(200).json({ message: 'Logout successful' });

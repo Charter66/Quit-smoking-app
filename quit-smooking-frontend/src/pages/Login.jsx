@@ -35,6 +35,21 @@ const Login = () => {
         // Store the token in local storage
         localStorage.setItem("token", token);
         setLoggedIn(true);
+
+        // Let's see
+        const fetchData = async () => {
+          try {
+            await fetchUserProfile();
+            setLoggedIn(true);
+          } catch (error) {
+            console.error("Error fetching user profile:", error);
+          } finally {
+            setIsLoading(false);
+          }
+        };
+    
+        fetchData();
+
         navigate("/me/dashboard");
       }
     } catch (error) {

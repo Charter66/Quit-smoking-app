@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { RegisterContext } from "../context/SignUpContext";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Navigate, Link } from "react-router-dom";
 import "../Styles/SignUp.css";
 import { AuthContext } from "../context/AuthContext";
 import { ProfileContext } from "../context/ProfileContext";
@@ -22,14 +22,14 @@ const SignUp = () => {
     passwordValidation
   } = useContext(RegisterContext) || {};
   const navigate = useNavigate();
-  const { isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+  const { isLoggedIn, setLoggedIn, initPath } = useContext(ProfileContext);
   const { hasToken } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      await handleRegister();
+      handleRegister();
       // Handle successful registration, if needed
       setLoggedIn(true);
     } catch (error) {
@@ -39,12 +39,16 @@ const SignUp = () => {
   };
   console.log(isLoggedIn);
 
-  useEffect(() => {
-    if (hasToken) {
-      navigate("/me/survey");
-    }
-  }, [hasToken, navigate]);
+  // useEffect(() => {
+  //   if (hasToken) {
+  //     navigate("/me/survey");
+  //   }
+  // }, [hasToken, navigate]);
 
+  if (isLoggedIn)
+  return (
+    <Navigate to={initPath.includes("signup") ? "/me/survey" : initPath} />
+  );
   return (
     <>
       <div className="signup-background">
