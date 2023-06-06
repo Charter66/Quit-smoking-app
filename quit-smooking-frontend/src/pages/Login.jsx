@@ -57,10 +57,10 @@ const Login = () => {
     }
   };
 
-  // if (isLoggedIn)
-  //   return (
-  //     <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
-  //   );
+  if (isLoggedIn)
+    return (
+      <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
+    );
   return (
     <>
       <div className="background-login">

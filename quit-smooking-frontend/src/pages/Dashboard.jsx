@@ -110,7 +110,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {savedMoney} {currency}
+                    {savedMoney.toFixed(2)} {currency}
                   </strong>
                 </p>
               </label>
