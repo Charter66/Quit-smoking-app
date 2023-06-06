@@ -50,6 +50,21 @@ function Dashboard() {
     return capitalizedWords.join(" ");
   }
   
+  function getGreeting() {
+    const currentHour = new Date().getHours();
+    let greeting = "";
+  
+    if (currentHour >= 5 && currentHour < 12) {
+      greeting = "Good morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      greeting = "Good afternoon";
+    } else {
+      greeting = "Good evening";
+    }
+  
+    return greeting;
+  }
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,7 +94,10 @@ function Dashboard() {
         //form-box-dashboard is not used!
         <div className="form-box-dashboard">
           <div className="dashboard-good-morning">
-            <h2 id="good-morning">Good morning {capitalizeFirstLetter(profile.name)},</h2>
+            <strong>
+            <h2 id="greeting">{getGreeting()} {capitalizeFirstLetter(profile.name)},</h2>
+            </strong>
+          
             <p>You are doing great!</p>
           </div>
 
@@ -92,8 +110,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {savedMoney}
-                    {currency}
+                    {savedMoney} {currency}
                   </strong>
                 </p>
               </label>
@@ -115,9 +132,9 @@ function Dashboard() {
       ) : null}
 
 
-      <div className="background-articles">
+      <div className="background-articles flex flex-col">
         <div>
-          <div className="form-box-article">
+          <div className="form-box-article space-x-14">
             <h2>Unlocking the Path to Freedom:</h2>
             <img
               src={unlocking}
@@ -180,9 +197,9 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="background-articles">
+      <div className="background-articles flex flex-col">
         <div>
-          <div className="form-box-article">
+          <div className="form-box-article space-x-14">
             <h2>Journey of Resilience:</h2>
             <img
               src={journey}
