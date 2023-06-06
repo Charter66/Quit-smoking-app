@@ -96,7 +96,7 @@ const logout = async (req, res) => {
     res.clearCookie('token');
 
     console.log('Logout successful'); // Add console log
-
+    res.setHeader('Set-Cookie', '');
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Error during logout:', error);

@@ -137,7 +137,7 @@ const Survey = () => {
             <select
               value={selectedCurrency}
               onChange={(e) => setSelectedCurrency(e.target.value)}
-              className="ml-2 bg-transparent focus:outline-none survey-currency"
+              className="ml-2 bg-transparent focus:outline-none"
             >
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>

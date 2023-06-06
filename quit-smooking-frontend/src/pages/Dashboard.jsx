@@ -14,10 +14,9 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
-  const { profile, fetchUserProfile } = useContext(ProfileContext);
+  const { profile, fetchUserProfile, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
-  const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
-  const savedMoney = localStorage.getItem('savedMoney') 
+  //const savedMoney = localStorage.getItem('savedMoney') 
   const currency = localStorage.getItem('currency')
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
@@ -26,6 +25,14 @@ function Dashboard() {
   const currentDate = new Date();
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
   const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  // Saved money 
+ const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+ const packageCost = profile.smokingHabit.packageCost;
+ const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+ console.log(packageCost)
+ const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
+ const savedMoney = daysPassed * priceForOneCigarret
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
@@ -36,8 +43,28 @@ function Dashboard() {
   };
   
   function capitalizeFirstLetter(string) {
-    return string[0].toUpperCase() + string.slice(1);
+    const words = string.split(" ");
+    const capitalizedWords = words.map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+    return capitalizedWords.join(" ");
   }
+  
+  function getGreeting() {
+    const currentHour = new Date().getHours();
+    let greeting = "";
+  
+    if (currentHour >= 5 && currentHour < 12) {
+      greeting = "Good morning";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      greeting = "Good afternoon";
+    } else {
+      greeting = "Good evening";
+    }
+  
+    return greeting;
+  }
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +94,10 @@ function Dashboard() {
         //form-box-dashboard is not used!
         <div className="form-box-dashboard">
           <div className="dashboard-good-morning">
-            <h2 id="good-morning">Good morning {capitalizeFirstLetter(profile.name)},</h2>
+            <strong>
+            <h2 id="greeting">{getGreeting()} {capitalizeFirstLetter(profile.name)}</h2>
+            </strong>
+          
             <p>You are doing great!</p>
           </div>
 
@@ -80,8 +110,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {profile.savedMoney}
-                    {currency}
+                    {savedMoney} {currency}
                   </strong>
                 </p>
               </label>
@@ -103,9 +132,9 @@ function Dashboard() {
       ) : null}
 
 
-      <div className="background-articles">
+      <div className="background-articles flex flex-col">
         <div>
-          <div className="form-box-article">
+          <div className="form-box-article space-x-14">
             <h2>Unlocking the Path to Freedom:</h2>
             <img
               src={unlocking}
@@ -168,9 +197,9 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="background-articles">
+      <div className="background-articles flex flex-col">
         <div>
-          <div className="form-box-article">
+          <div className="form-box-article space-x-14">
             <h2>Journey of Resilience:</h2>
             <img
               src={journey}
