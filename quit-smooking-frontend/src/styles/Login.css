@@ -47,16 +47,6 @@
     color:#f6b801;
  }
 
- .form-box-dashboard h2 {
-    font-size: 2em;
-    color: #f6b801;
-    text-align: center;
- }
- 
- .wrapper-dashboard .form-box {
-    width: 100%;
-    padding: 1rem 1rem 1rem 2rem;
- }
  
  .btn-login {
     width: 100%;
@@ -99,6 +89,10 @@
     text-decoration: underline;
  }
 
+ input:-webkit-autofill {
+   -webkit-box-shadow:0 0 0 35px rgb(102,190,199) inset;
+   -webkit-text-fill-color: #fff;
+}
 
 
 
