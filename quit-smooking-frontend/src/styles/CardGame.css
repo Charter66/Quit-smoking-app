@@ -18,6 +18,38 @@ button:hover{
 .card-grid{
     margin-top:40px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr ;
     grid-gap:20px;
 }
+.turns {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: white;
+    background-color: #d3d60a;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .NewGame {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin-top:10px;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }

@@ -57,7 +57,10 @@ const SignUp = () => {
             <div className='signup-input-box'>
             <span className='signup-icon'><FontAwesomeIcon icon={faUser} name='name'></FontAwesomeIcon></span>
               <label> name:
-                <input className='signup-submit-box' type="text" name="name" value={name}
+                <input 
+                className='signup-submit-box' 
+                type="text" name="name"
+                 value={name}
                 onChange={handleNameChange}
                 />
               </label>
