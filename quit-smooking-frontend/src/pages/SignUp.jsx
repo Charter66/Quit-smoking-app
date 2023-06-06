@@ -19,6 +19,7 @@ const SignUp = () => {
     handlePasswordChange,
     handleRegister,
     nameValidation,
+    passwordValidation
   } = useContext(RegisterContext) || {};
   const navigate = useNavigate();
   const { isLoggedIn, setLoggedIn } = useContext(ProfileContext);
@@ -61,9 +62,10 @@ const SignUp = () => {
                   name="name"
                   value={name}
                   onChange={handleNameChange}
+                  
                 />
               </label>
-              {nameValidation && <p>{nameValidation}</p>}
+              {nameValidation && <p style={{ color: 'red', fontSize: '12px', marginTop: '-15px' }}>{nameValidation}</p>}
             </div>
 
             <div className="signup-input-box">
@@ -93,15 +95,19 @@ const SignUp = () => {
                 ></FontAwesomeIcon>
               </span>
               <label>
-                {" "}
                 password:
                 <input
                   type="password"
                   name="password"
                   value={password}
                   onChange={handlePasswordChange}
+                  style={{ marginBottom: '0' }}
                 />
               </label>
+              {passwordValidation && (
+                <p style={{ color: 'red', fontSize: '12px', marginTop: '-20px', marginBottom: '0' }}>
+                  {passwordValidation}
+                </p>)}
             </div>
 
             <div className="signup-btn">

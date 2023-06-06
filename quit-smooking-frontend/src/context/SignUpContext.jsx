@@ -7,9 +7,10 @@ const RegisterContext = createContext();
 
 const RegisterProvider = ({ children }) => {
   const [name, setName] = useState('');
-  const [nameValidation, setNameValidation] = useState('')
+  const [nameValidation, setNameValidation] = useState('');
+  const [passwordValidation, setPasswordValidation] = useState('');
   const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
+  const [password, setPassword] = useState('');
   const { setIsAuth } = useContext(AuthContext); // Access setIsAuth from AuthContext
   const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ const [password, setPassword] = useState('');
       setNameValidation('')
     } else {
       setName(inputValue);
-      setNameValidation('Your username must be between 8 and 16 characters long')
+      setNameValidation('Name must be between 8 and 16 characters long.')
     }
   };
 
@@ -35,8 +36,18 @@ const [password, setPassword] = useState('');
   };
 
   const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
+    const inputValue = event.target.value;
+    const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{4,100}$/;
+  
+    if (inputValue.match(regex)) {
+      setPassword(inputValue);
+      setPasswordValidation('');
+    } else {
+      setPassword(inputValue);
+      setPasswordValidation('Password must contain at least one letter and one number, and min 4 characters.');
+    }
   };
+  
 
   const handleRegister = () => {
     axios
@@ -72,7 +83,10 @@ const [password, setPassword] = useState('');
     handleEmailChange,
     handlePasswordChange,
     handleRegister,
-    nameValidation, setNameValidation
+    nameValidation, 
+    setNameValidation,
+    passwordValidation,
+    setPasswordValidation
   };
 
   return (

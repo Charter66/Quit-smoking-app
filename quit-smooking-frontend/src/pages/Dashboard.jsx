@@ -95,7 +95,7 @@ function Dashboard() {
         <div className="form-box-dashboard">
           <div className="dashboard-good-morning">
             <strong>
-            <h2 id="greeting">{getGreeting()} {capitalizeFirstLetter(profile.name)},</h2>
+            <h2 id="greeting">{getGreeting()} {capitalizeFirstLetter(profile.name)}</h2>
             </strong>
           
             <p>You are doing great!</p>
