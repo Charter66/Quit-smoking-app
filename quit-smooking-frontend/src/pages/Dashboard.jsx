@@ -26,13 +26,13 @@ function Dashboard() {
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
   const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-  // Saved money 
- const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
- const packageCost = profile.smokingHabit.packageCost;
- const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
- console.log(packageCost)
- const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
- const savedMoney = daysPassed * priceForOneCigarret
+//   // Saved money 
+//  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+//  const packageCost = profile.smokingHabit.packageCost;
+//  const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+//  console.log(packageCost)
+//  const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
+//  const savedMoney = daysPassed * priceForOneCigarret
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
@@ -110,7 +110,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {savedMoney.toFixed(2)} {currency}
+                    {profile.savedMoney.toFixed(2)} {currency}
                   </strong>
                 </p>
               </label>
