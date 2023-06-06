@@ -11,7 +11,7 @@ const RegisterProvider = ({ children }) => {
   const [passwordValidation, setPasswordValidation] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setIsAuth } = useContext(AuthContext); // Access setIsAuth from AuthContext
+  const { setIsAuth, setLoggedIn } = useContext(AuthContext); // Access setIsAuth from AuthContext
   const navigate = useNavigate();
 
   const handleNameChange = (event) => {
@@ -65,6 +65,7 @@ const RegisterProvider = ({ children }) => {
         // You can then store the token in local storage or use it as needed
         // For example, you can set it in the AuthProvider's state
         setIsAuth({ token });
+        
         localStorage.setItem('token', token); // Store the token in local storage
   
         // Redirect the user to the survey page after successful registration

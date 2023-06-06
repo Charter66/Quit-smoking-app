@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { ProfileContext } from '../context/ProfileContext';
 import axios from 'axios';
+import '../styles/Goals.css'
 
 // Chart
 import SavedMoney from '../components/SavedMoney.jsx';
@@ -130,9 +131,9 @@ const Goals = () => {
     setGoalSaved(false);
   };
 
-  useEffect(() => {
-    localStorage.setItem('savedMoney', savedMoney.toString());
-  }, [savedMoney]);
+   useEffect(() => {
+     localStorage.setItem('savedMoney', savedMoney.toString());
+   }, [savedMoney]);
 
   const handleGoalComplete = async (goal) => {
     const updatedSavedMoney = savedMoney - goal.goalCost;

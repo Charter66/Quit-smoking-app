@@ -9,7 +9,7 @@ const Survey = () => {
   const navigate = useNavigate();
   const [cigarettesPerDay, setCigarettesPerDay] = useState(0);
   const [quitDate, setQuitDate] = useState('');
-  const [packageCost, setPackageCost] = useState(0);
+  const [packageCost, setPackageCost] = useState();
   const [cigarettesInPackage, setCigarettesInPackage] = useState(0);
   const [startSmokingDate, setStartSmokingDate] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
@@ -130,6 +130,7 @@ const Survey = () => {
             id="packageCost"
             name="PackageCost"
             value={packageCost}
+            placeholder='0'
             onChange={(e) => setPackageCost(parseInt(e.target.value))}
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
