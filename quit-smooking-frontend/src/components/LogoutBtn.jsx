@@ -18,25 +18,14 @@ const LogoutBtn = () => {
           Authorization: `${hasToken}` // Replace `token` with the actual token value
         }
       });
-      setLoggedIn(false);
+
+
+     localStorage.clear()
+    setLoggedIn(false);
       setProfile(null)
       setHasToken(null)
-      localStorage.removeItem('savedMoney');
-      localStorage.removeItem('token');
-      localStorage.removeItem('goals');
-      localStorage.removeItem('lastUpdate');
-      localStorage.removeItem('currency');
-      localStorage.removeItem('threeWeeksPercentage');
-      localStorage.removeItem('monthPercentage');
-      localStorage.removeItem('moneySpent');
-      localStorage.removeItem('yearPercentage');
-      localStorage.removeItem('daysPassed');
-      
-      //
-      
-      // Update the logged-in status in the context
-      
-      // Redirect to the login page
+
+ 
 
       navigate('/login');
     } catch (error) {

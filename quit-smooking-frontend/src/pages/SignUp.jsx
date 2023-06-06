@@ -54,6 +54,7 @@ const SignUp = () => {
       <div className="signup-background">
         <div className="signup-wrapper">
           <form onSubmit={handleSubmit}>
+
             <div className="signup-input-box">
               <span className="signup-icon">
                 <FontAwesomeIcon icon={faUser} name="name"></FontAwesomeIcon>
@@ -67,6 +68,7 @@ const SignUp = () => {
                   value={name}
                   onChange={handleNameChange}
                   
+
                 />
               </label>
               {nameValidation && <p style={{ color: 'red', fontSize: '12px', marginTop: '-15px' }}>{nameValidation}</p>}
