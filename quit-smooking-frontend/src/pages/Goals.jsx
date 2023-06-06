@@ -18,19 +18,32 @@ const Goals = () => {
   const [savedMoney, setSavedMoney] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
+  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
+
+  // Saved money 
+  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+  const packageCost = profile.smokingHabit.packageCost;
+  const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+  const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
+   const savedMoneyy = daysPassed * priceForOneCigarret
+
+
+  
   useEffect(() => {
     localStorage.setItem('goals', JSON.stringify(goals));
   }, [goals]);
 
   useEffect(() => {
     fetchUserProfile();
-
-    const storedSavedMoney = profile.savedMoney;
-    if (storedSavedMoney) {
-      setSavedMoney(parseFloat(storedSavedMoney));
-    }
-
+    // const storedSavedMoney = profile.savedMoney;
+    // if (storedSavedMoney) {
+    //   setSavedMoney(parseFloat(storedSavedMoney));
+    // }
+    setSavedMoney(savedMoneyy)
     const storedGoals = localStorage.getItem('goals');
     if (storedGoals) {
       setGoals(JSON.parse(storedGoals));
@@ -203,11 +216,15 @@ const Goals = () => {
     }
   };
 
+  console.log(currency)
+
    return (
     <div>
     <div className="bg-gray-100 rounded-lg shadow-lg p-4 savedmoney">
-  <SavedMoney />
-</div>
+    <p className="font-bold">
+  <span className="text-yellow-500">Total saved:</span>
+  <span className="text-green-500"> {profile.savedMoney}{profile.smokingHabit.selectedCurrency}</span>
+</p></div>
       {showModal && (
         <>
           <div className="modal-overlay" onClick={() => setShowModal(false)}></div>
