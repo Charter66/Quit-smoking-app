@@ -14,10 +14,9 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
-  const { profile, fetchUserProfile } = useContext(ProfileContext);
+  const { profile, fetchUserProfile, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
   const [isLoading, setIsLoading] = useState(true);
-  const { isLoggedIn, setLoggedIn} = useContext(ProfileContext);
-  const savedMoney = localStorage.getItem('savedMoney') 
+  //const savedMoney = localStorage.getItem('savedMoney') 
   const currency = localStorage.getItem('currency')
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
@@ -26,6 +25,14 @@ function Dashboard() {
   const currentDate = new Date();
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
   const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  // Saved money 
+ const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+ const packageCost = profile.smokingHabit.packageCost;
+ const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+ console.log(packageCost)
+ const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
+ const savedMoney = daysPassed * priceForOneCigarret
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
@@ -36,8 +43,13 @@ function Dashboard() {
   };
   
   function capitalizeFirstLetter(string) {
-    return string[0].toUpperCase() + string.slice(1);
+    const words = string.split(" ");
+    const capitalizedWords = words.map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+    return capitalizedWords.join(" ");
   }
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,7 +92,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {profile.savedMoney}
+                    {savedMoney}
                     {currency}
                   </strong>
                 </p>

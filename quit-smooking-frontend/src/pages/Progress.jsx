@@ -3,8 +3,6 @@ import ProgressCircle from "../components/ProgressCircle";
 import { ProfileContext } from "../context/ProfileContext";
 import "../Styles/Progress.css";
 
-//Chart
-import DoughnutChart from "../components/DoughnutChart.jsx";
 
 //Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,51 +29,7 @@ const Progress = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [daysSmokeFree, setDaysSmokeFree] = useState(0)
   
-//Doughnut Chart
-  const [progress, setProgress] = useState(false);
 
-  useEffect(() => {
-    setProgress(true);
-  }, []);
-
-  // Chart
-  const chartData = {
-    dataPoints: [
-      { name: "not finished", y: 100 },
-      { name: "finished", y: 300 },
-    ],
-
-  };
-
-  const totalDataPoints = chartData.dataPoints.reduce(
-    (total, dataPoint) => total + dataPoint.y,
-    0
-  );
-  const collectedDataPoints = chartData.dataPoints.find(
-    (dataPoint) => dataPoint.name === "finished"
-  ).y;
-
-  const positivePercentage = (
-    (collectedDataPoints / totalDataPoints) *
-    100
-  ).toFixed(1);
-
-  chartData.positivePercentage = positivePercentage;
-
-  // Modify the color of the doughnut chart sections
-  chartData.dataPoints = chartData.dataPoints.map((dataPoint) => {
-    if (dataPoint.name === "finished") {
-      return {
-        ...dataPoint,
-        color: "#66bec7", // Change the color to the desired color for the 'finished' section
-      };
-    } else {
-      return {
-        ...dataPoint,
-        color: "#FFF", // Change the color to the desired color for other sections
-      };
-    }
-  });
 
   useEffect(() => {
     const accumulatedTime = () => {
@@ -91,7 +45,7 @@ const Progress = () => {
           const currentDate = new Date();
 
           // finding how many days have passed...
-          const timeDiff = Math.abs(startDate.getTime() - quitDate.getTime());
+          const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
           // finding how many cigarettes were smoked
@@ -215,7 +169,7 @@ const Progress = () => {
                   physical activities.
                 </p>
                  <div className="m-14">
-                    <ProgressCircle progress={threeWeeksPercentage}/>
+                    <ProgressCircle progress={threeWeeksPercentage.toFixed()}/>
                   </div>
               </div>
             </div>
@@ -234,7 +188,7 @@ const Progress = () => {
                 </p>  
               </div> 
               <div className="m-6">
-                    <ProgressCircle progress={monthPercentage}/>
+                    <ProgressCircle progress={monthPercentage.toFixed()}/>
               </div>            
             </div>
           </div>

@@ -12,8 +12,8 @@ const ProgressCircle = ({ progress }) => {
         styles={buildStyles({
           textColor: '#3f3f3f',
           textSize: 20,
-          pathColor: `rgba(31, 147, 160, ${progress / 100})`,
-          trailColor: '#fff',
+          pathColor: `rgba(0, 123, 255, 0.5)`,
+          trailColor: '#e4e4e4',
           strokeLinecap: 'round',
         })}
       />
