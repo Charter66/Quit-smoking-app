@@ -61,7 +61,7 @@ const ProfileProvider = ({ children }) => {
 
   return (
     <ProfileContext.Provider
-      value={{ profile, fetchUserProfile, hasToken, isLoggedIn, setLoggedIn, initPath }}
+      value={{ profile, fetchUserProfile, hasToken, setHasToken, isLoggedIn, setLoggedIn, initPath }}
     >
       {children}
     </ProfileContext.Provider>

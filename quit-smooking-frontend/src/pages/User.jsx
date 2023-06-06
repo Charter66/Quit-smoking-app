@@ -27,6 +27,16 @@ function Profile() {
   };
 
 
+  function capitalizeFirstLetter(string) {
+    const words = string.split(" ");
+    const capitalizedWords = words.map((word) => {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+    return capitalizedWords.join(" ");
+  }
+  
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,17 +62,14 @@ function Profile() {
         ) : profile ? (
           <div className="user-info-box">
             <p>Email: {profile.email}</p>
-            <p>Name: {profile.name}</p>
+            <p>Name: {capitalizeFirstLetter(profile.name)}</p>
           </div>
         ) : (
           <p>Unable to fetch profile data.</p>
         )}
 
         <div className="user-container">
-          <div className="user-extra-box">
-            <button onClick={fetchUserProfile}>REFRESH PROFILE</button>
-          </div>
-
+      
           <div className="user-extra-box">
             <button onClick={toggleDropdown}>TELL A FRIEND</button>
             {isOpen && (
@@ -201,7 +208,7 @@ function Profile() {
           </div>
 
           <div className='user-extra-box'>
-            <Link to="/me/survey">EDIT SURVEY</Link>
+            <Link to="/me/survey"><strong>EDIT SURVEY</strong></Link>
           </div>
 
           <div className="user-extra-box">

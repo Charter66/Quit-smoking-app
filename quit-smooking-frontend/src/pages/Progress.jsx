@@ -1,10 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import ProgressBar from "../components/ProgressBar";
+import ProgressCircle from "../components/ProgressCircle";
 import { ProfileContext } from "../context/ProfileContext";
 import "../Styles/Progress.css";
 
-//Chart
-import DoughnutChart from "../components/DoughnutChart.jsx";
 
 //Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,51 +29,7 @@ const Progress = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [daysSmokeFree, setDaysSmokeFree] = useState(0)
   
-//Doughnut Chart
-  const [progress, setProgress] = useState(false);
 
-  useEffect(() => {
-    setProgress(true);
-  }, []);
-
-  // Chart
-  const chartData = {
-    dataPoints: [
-      { name: "not finished", y: 100 },
-      { name: "finished", y: 300 },
-    ],
-
-  };
-
-  const totalDataPoints = chartData.dataPoints.reduce(
-    (total, dataPoint) => total + dataPoint.y,
-    0
-  );
-  const collectedDataPoints = chartData.dataPoints.find(
-    (dataPoint) => dataPoint.name === "finished"
-  ).y;
-
-  const positivePercentage = (
-    (collectedDataPoints / totalDataPoints) *
-    100
-  ).toFixed(1);
-
-  chartData.positivePercentage = positivePercentage;
-
-  // Modify the color of the doughnut chart sections
-  chartData.dataPoints = chartData.dataPoints.map((dataPoint) => {
-    if (dataPoint.name === "finished") {
-      return {
-        ...dataPoint,
-        color: "#66bec7", // Change the color to the desired color for the 'finished' section
-      };
-    } else {
-      return {
-        ...dataPoint,
-        color: "#FFF", // Change the color to the desired color for other sections
-      };
-    }
-  });
 
   useEffect(() => {
     const accumulatedTime = () => {
@@ -91,7 +45,7 @@ const Progress = () => {
           const currentDate = new Date();
 
           // finding how many days have passed...
-          const timeDiff = Math.abs(startDate.getTime() - quitDate.getTime());
+          const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
           // finding how many cigarettes were smoked
@@ -136,12 +90,15 @@ const Progress = () => {
           const monthsLost = Math.floor((daysLost % 365) / 30);
           const remainingDaysLost = (daysLost % 365) % 30;
 
-          // percentage for 3 weeks
-          const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
-          const numeratorDays = daysPassedCurrent;
-          const denominator = 21;
+          // percentage for 3 
+          // const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());
+          // const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
+          const numeratorDays = daysPassed;
+          console.log(daysPassed)
+          const denominator = 90;
           let percentage = (numeratorDays / denominator) * 100;
           percentage = Math.min(percentage, 100);
+          console.log(numeratorDays)
 
           // percentage for one month
           const denominatorMonth = 30;
@@ -202,7 +159,7 @@ const Progress = () => {
       ) : profile ? (
         <div>
           <div className="progress-container">
-            <div className="progress-wrapper">
+            <div className="progress-wrapper flex flex-col items-center content-evenly">
               <div className="progress-text">
                 <h2 className="progress-headline">Improved lung function:</h2>
                 <p>
@@ -211,24 +168,15 @@ const Progress = () => {
                   capacity increases, making it easier to breathe and engage in
                   physical activities.
                 </p>
-              </div>
-
-              <div
-                className="progress-chart"
-                style={{ width: "200px", height: "200px" }}
-              >
-                <DoughnutChart
-                  chartData={chartData}
-                  importanteNumber={threeWeeksPercentage}
-                  percent={threeWeeksPercentage.toFixed(0)}
-                  hidePercentage={true}
-                />
+                 <div className="m-14">
+                    <ProgressCircle progress={threeWeeksPercentage.toFixed()}/>
+                  </div>
               </div>
             </div>
           </div>
 
           <div className="progress-container">
-            <div className="progress-wrapper">
+            <div className="progress-wrapper flex flex-col items-center content-evenly">
               <div className="progress-text">
                 <h2 className="progress-headline">
                   Reduced risk of respiratory infections:
@@ -237,25 +185,16 @@ const Progress = () => {
                   Quitting smoking lowers your susceptibility to respiratory
                   infections. Your respiratory system becomes healthier and
                   better equipped to fight off infections.
-                </p>
-              </div>
-
-              <div
-                className="progress-chart"
-                style={{ width: "200px", height: "200px" }}
-              >
-                <DoughnutChart
-                  chartData={chartData}
-                  importanteNumber={monthPercentage}
-                  percent={monthPercentage.toFixed(2)}
-                  hidePercentage={true}
-                  />
-              </div>
+                </p>  
+              </div> 
+              <div className="m-6">
+                    <ProgressCircle progress={monthPercentage.toFixed()}/>
+              </div>            
             </div>
           </div>
 
           <div className="progress-container">
-            <div className="progress-wrapper">
+            <div className="progress-wrapper flex flex-col items-center content-evenly">
               <div className="progress-text">
                 <h2 className="progress-headline">
                   Enhanced cardiovascular health:
@@ -266,16 +205,8 @@ const Progress = () => {
                   system.
                 </p>
               </div>
-              <div
-                className="progress-chart"
-                style={{ width: "200px", height: "200px" }}
-                >
-                <DoughnutChart
-                  chartData={chartData}
-                  importanteNumber={yearPercentage}
-                  percent={yearPercentage.toFixed(2)}
-                  hidePercentage={true}
-                />
+              <div className="m-14">
+                    <ProgressCircle progress={yearPercentage.toFixed()}/>
               </div>
             </div>
           </div>
