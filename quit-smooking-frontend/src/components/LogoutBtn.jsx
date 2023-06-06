@@ -16,17 +16,13 @@ const LogoutBtn = () => {
           Authorization: `${hasToken}` // Replace `token` with the actual token value
         }
       });
-      localStorage.removeItem('savedMoney');
-      localStorage.removeItem('token');
-      localStorage.removeItem('goals');
-      localStorage.removeItem('lastUpdate');
-      localStorage.removeItem('currency');
-      localStorage.removeItem('threeWeeksPercentage');
-      localStorage.removeItem('monthPercentage');
-      localStorage.removeItem('moneySpent');
-      localStorage.removeItem('yearPercentage');
-      localStorage.removeItem('daysPassed');
 
+
+     localStorage.clear()
+
+
+    //  delete axios.headers['Authorization'];
+    delete axios.defaults.headers.common['Authorization'];
 
       // Update the logged-in status in the context
       setLoggedIn(false);
