@@ -205,7 +205,7 @@ const Progress = () => {
       ) : profile ? (
         <div>
           <div className="progress-container">
-            <div className="progress-wrapper flex-row">
+            <div className="progress-wrapper flex flex-col items-center content-evenly">
               <div className="progress-text">
                 <h2 className="progress-headline">Improved lung function:</h2>
                 <p>
@@ -218,14 +218,11 @@ const Progress = () => {
                     <ProgressCircle progress={threeWeeksPercentage}/>
                   </div>
               </div>
-
-             
-              
             </div>
           </div>
 
           <div className="progress-container">
-            <div className="progress-wrapper">
+            <div className="progress-wrapper flex flex-col items-center content-evenly">
               <div className="progress-text">
                 <h2 className="progress-headline">
                   Reduced risk of respiratory infections:
@@ -234,19 +231,16 @@ const Progress = () => {
                   Quitting smoking lowers your susceptibility to respiratory
                   infections. Your respiratory system becomes healthier and
                   better equipped to fight off infections.
-                </p>
-              </div>
-
-              <div className="m-14">
+                </p>  
+              </div> 
+              <div className="m-6">
                     <ProgressCircle progress={monthPercentage}/>
-                  </div>
-
-             
+              </div>            
             </div>
           </div>
 
           <div className="progress-container">
-            <div className="progress-wrapper">
+            <div className="progress-wrapper flex flex-col items-center content-evenly">
               <div className="progress-text">
                 <h2 className="progress-headline">
                   Enhanced cardiovascular health:
@@ -259,8 +253,7 @@ const Progress = () => {
               </div>
               <div className="m-14">
                     <ProgressCircle progress={yearPercentage.toFixed()}/>
-                  </div>
-              
+              </div>
             </div>
           </div>
 
