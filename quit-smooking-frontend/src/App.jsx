@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route ,Link} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Goals from './pages/Goals';
@@ -29,7 +29,15 @@ const App = () => {
   return (
     <div className="flex flex-col h-screen">
       <div className="flex-grow">
-        <Routes>
+      {isLoggedIn &&(
+  <Link
+    to="/me/cardgame"
+    className="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+  >
+    Play a Game
+  </Link>
+)}
+       <Routes>
           <Route path='/me' element={<ProtectRoutes />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="goals" element={<Goals />} />

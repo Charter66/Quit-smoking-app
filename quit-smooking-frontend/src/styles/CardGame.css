@@ -1,27 +1,21 @@
-
-button {
-    background: none;
-    border: 2px solid #fff;
-    padding:6px 12px;
-    border-radius: 4px;
-    color: #fff;
-    font-weight: bold;
-    cursor:pointer;
-    font-size:1em;
-}
-
-button:hover{
-    background: #c23866;
-    color: #fff;
-}
-
-.card-grid{
-    margin-top:40px;
+.card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+  }
+  
+  .card-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
-    grid-gap:20px;
-}
-.turns {
+    margin-top: 40px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+    z-index: 1;
+  }
+  
+  .turns {
     display: flex;
     justify-content: center;
     font-weight: bold;
@@ -30,26 +24,35 @@ button:hover{
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     color: white;
     background-color: #d3d60a;
+    margin-top:40px;
+    margin-left: 40%;
     padding: 10px;
     border-radius: 5px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
   }
-
+  
   .NewGame {
     display: flex;
     justify-content: center;
     font-weight: bold;
-    margin-top:10px;
+    margin-top: 10px;
     margin-bottom: 10px;
     font-family: Arial, sans-serif;
     font-size: 16px;
-
     width: 100%;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
-    cursor: pointer;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    z-index: 2;
   }
+  

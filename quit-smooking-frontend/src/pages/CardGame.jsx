@@ -8,6 +8,7 @@ import Five from '../images/5.png';
 import Six from '../images/6.png';
 import Back from '../images/back.png';
 import SingleCard from '../components/SingleCard';
+import Confetti from 'react-confetti';
 
 const cardImages = [
   { src: One ,matched:false},
@@ -74,6 +75,7 @@ const resetTurn = () => {
 useEffect(()=>{
   shuffleCards()
 },[])
+const allCardsMatched = cards.every(card => card.matched);
   return (
     <div className="card">
       <div className="card-grid">
@@ -89,9 +91,13 @@ useEffect(()=>{
         ))}
 
       </div>
+      {allCardsMatched && <Confetti />}
+      {allCardsMatched ?<div>
       <button className="NewGame"  onClick={shuffleCards}>New Game</button>
 
       <p className='turns'>Turns : {turns} </p>
+      </div> : null}
+      
     </div>
   );
 }
