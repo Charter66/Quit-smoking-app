@@ -4,7 +4,7 @@ import { ProfileContext } from '../context/ProfileContext';
 import { useNavigate } from 'react-router-dom';
 
 const LogoutBtn = () => {
-  const { hasToken,setLoggedIn } = useContext(ProfileContext);
+  const { hasToken,setLoggedIn, profile, setProfile } = useContext(ProfileContext);
   //console.log(hasToken)
   const navigate = useNavigate();
 
@@ -26,13 +26,15 @@ const LogoutBtn = () => {
       localStorage.removeItem('moneySpent');
       localStorage.removeItem('yearPercentage');
       localStorage.removeItem('daysPassed');
-
-
+      
+      //
+      
       // Update the logged-in status in the context
       setLoggedIn(false);
-
+      
       // Redirect to the login page
       navigate('/login');
+      setProfile(null)
     } catch (error) {
       console.error('Error during logout:', error);
     }
