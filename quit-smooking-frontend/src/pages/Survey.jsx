@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ProfileContext } from '../context/ProfileContext';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
-import "../Styles/Survey.css";
+import "../styles/Survey.css";
 
 const Survey = () => {
   const navigate = useNavigate();

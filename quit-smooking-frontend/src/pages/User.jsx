@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import LogoutBtn from "../components/LogoutBtn";
 import ShareButtons from "../components/ShareButtons";
-import "../Styles/User.css";
+import "../styles/User.css";
 import { Link, Navigate } from 'react-router-dom';
 import Survey from "./Survey";
 

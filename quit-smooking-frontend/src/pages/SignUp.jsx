@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 import { RegisterContext } from "../context/SignUpContext";
 import { useNavigate, Navigate, Link } from "react-router-dom";
-import "../Styles/SignUp.css";
+import "../styles/SignUp.css";
 import { AuthContext } from "../context/AuthContext";
 import { ProfileContext } from "../context/ProfileContext";
 

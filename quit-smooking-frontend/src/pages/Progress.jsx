@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import ProgressCircle from "../components/ProgressCircle";
 import { ProfileContext } from "../context/ProfileContext";
-import "../Styles/Progress.css";
+import "../styles/Progress.css";
 
 
 //Icons
