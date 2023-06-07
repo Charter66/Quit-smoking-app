@@ -301,8 +301,7 @@ const Goals = () => {
                 <div className="goal-card-content">
                   <p className="goal-card-title">Goal: {goal.description}</p>
                   <p className="goal-card-cost">
-                    Goal Cost: {goal.goalCost}
-                    {goal.currency}
+                    Goal Cost: {goal.goalCost} {goal.currency}
                   </p>
                 </div>
                 {goal.goalCost <= savedMoney && !goal.achieved ? (

@@ -20,7 +20,7 @@ const ProfileProvider = ({ children }) => {
           Authorization: hasToken,
         },
       });
-
+        console.log(response)
       if (response.status === 200) {
         setProfile(response.data.user);
         setLoggedIn(true);
