@@ -58,7 +58,11 @@ const ProfileProvider = ({ children }) => {
 
   return (
     <ProfileContext.Provider
+<<<<<<< HEAD
       value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoggedIn, setLoggedIn, isLoading, setIsLoading, initPath }}
+=======
+      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoggedIn, setLoggedIn, setIsLoading, initPath }}
+>>>>>>> 754284ef14e60dee2001427712dbd722acceed79
     >
       {children}
     </ProfileContext.Provider>

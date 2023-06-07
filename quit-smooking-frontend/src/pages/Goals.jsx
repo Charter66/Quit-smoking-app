@@ -18,19 +18,41 @@ const Goals = () => {
   const [savedMoney, setSavedMoney] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
+  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
+
+  // Saved money 
+  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+  const packageCost = profile.smokingHabit.packageCost;
+  const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+  const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
+   const savedMoneyy = daysPassed * priceForOneCigarret
+
+
+  
   useEffect(() => {
     localStorage.setItem('goals', JSON.stringify(goals));
   }, [goals]);
 
   useEffect(() => {
     fetchUserProfile();
+<<<<<<< HEAD
 
     const storedSavedMoney = profile && profile.savedMoney;
     if (storedSavedMoney) {
       setSavedMoney(parseFloat(storedSavedMoney));
     }
 
+=======
+    // const storedSavedMoney = profile.savedMoney;
+    // if (storedSavedMoney) {
+    //   setSavedMoney(parseFloat(storedSavedMoney));
+    // }
+    setSavedMoney(savedMoneyy)
+>>>>>>> 754284ef14e60dee2001427712dbd722acceed79
     const storedGoals = localStorage.getItem('goals');
     if (storedGoals) {
       setGoals(JSON.parse(storedGoals));
@@ -69,7 +91,7 @@ const Goals = () => {
       };
 
       const response = await axios.put(
-        'http://localhost:5000/api/users/goals',
+        'http://https://quit-smoking-app.onrender.com/api/users/goals',
         newGoalData,
         {
           headers: {
@@ -108,7 +130,7 @@ const Goals = () => {
       const token = hasToken;
 
       const response = await axios.delete(
-        `http://localhost:5000/api/users/goals/${goalId}`,
+        `https://quit-smoking-app.onrender.com/api/users/goals/${goalId}`,
         {
           headers: {
             Authorization: token,
@@ -160,7 +182,7 @@ const Goals = () => {
       };
 
       await axios.put(
-        'http://localhost:5000/api/users/update-saved-money',
+        'http://quit-smoking-app.onrender.com/api/users/update-saved-money',
         updatedUserData,
         {
           headers: {
@@ -181,7 +203,7 @@ const Goals = () => {
       };
 
       await axios.put(
-        `http://localhost:5000/api/users/goals/achieve/${goalId}`,
+        `https://quit-smoking-app.onrender.com/api/users/goals/achieve/${goalId}`,
         updatedGoalData,
         {
           headers: {
@@ -203,11 +225,15 @@ const Goals = () => {
     }
   };
 
+  console.log(currency)
+
    return (
     <div>
     <div className="bg-gray-100 rounded-lg shadow-lg p-4 savedmoney">
-  <SavedMoney />
-</div>
+    <p className="font-bold">
+  <span className="text-yellow-500">Total saved:</span>
+  <span className="text-green-500"> {profile &&  profile.savedMoney &&  profile.savedMoney.toFixed(2)}{profile.smokingHabit.selectedCurrency}</span>
+</p></div>
       {showModal && (
         <>
           <div className="modal-overlay" onClick={() => setShowModal(false)}></div>

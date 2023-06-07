@@ -9,7 +9,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
+<<<<<<< HEAD
   const { hasToken, isLoggedIn, setLoggedIn, setIsLoading, fetchUserProfile, initPath } =
+=======
+  const { hasToken, isLoggedIn, setLoggedIn, initPath, fetchUserProfile, setIsLoading } =
+>>>>>>> 754284ef14e60dee2001427712dbd722acceed79
     useContext(ProfileContext);
   const navigate = useNavigate();
   //console.log(hasToken)

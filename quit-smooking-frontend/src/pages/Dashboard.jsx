@@ -14,13 +14,13 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
-  const { profile, fetchUserProfile, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const { profile, fetchUserProfile, isLoggedIn, setLoggedIn, isLoading, setIsLoading } = useContext(ProfileContext);
   //const savedMoney = localStorage.getItem('savedMoney') 
   const currency = localStorage.getItem('currency')
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
 
+<<<<<<< HEAD
 const quitDate = profile && profile.smokingHabit && new Date(profile.smokingHabit.quitDate);
 const currentDate = new Date();
 const timeDiff = quitDate && currentDate && Math.abs(currentDate.getTime() - quitDate.getTime());
@@ -32,6 +32,21 @@ const packageCost = profile && profile.smokingHabit && profile.smokingHabit.pack
 const cigarettesPerDay = profile && profile.smokingHabit && profile.smokingHabit.cigarettesPerDay;
 const priceForOneCigarret = (packageCost / cigarettesInPackage) * cigarettesPerDay;
 const savedMoney = daysPassed && priceForOneCigarret && daysPassed * priceForOneCigarret;
+=======
+  // const quitDate = new Date(profile.smokingHabit.quitDate);
+  // const currentDate = new Date();
+  // const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  // const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+//   // Saved money 
+//  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+//  const packageCost = profile.smokingHabit.packageCost;
+//  const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+//  console.log(packageCost)
+//  const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
+//  const savedMoney = daysPassed * priceForOneCigarret
+
+>>>>>>> 754284ef14e60dee2001427712dbd722acceed79
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
@@ -79,6 +94,10 @@ const savedMoney = daysPassed && priceForOneCigarret && daysPassed * priceForOne
 
     fetchData();
   }, [isLoading]);
+  const quitDate = new Date(profile && profile.smokingHabit &&  profile.smokingHabit.quitDate);
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
   return (
     <div>
@@ -109,7 +128,11 @@ const savedMoney = daysPassed && priceForOneCigarret && daysPassed * priceForOne
                 You saved:{" "}
                 <p>
                   <strong>
+<<<<<<< HEAD
                     {profile && profile.savedMoney && savedMoney.toFixed(2)} {currency}
+=======
+                    {profile && profile.savedMoney && profile.savedMoney.toFixed(2)} {currency}
+>>>>>>> 754284ef14e60dee2001427712dbd722acceed79
                   </strong>
                 </p>
               </label>
