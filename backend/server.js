@@ -15,6 +15,7 @@ app.use(cookieParserMiddleware);
 
 // Middleware
 app.use(express.json());
+app.use(express.static("public"))
 
 //CORS
 app.use(cors());

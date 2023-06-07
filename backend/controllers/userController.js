@@ -92,7 +92,7 @@ const login= async (req, res) => {
 
 const logout = async (req, res) => {
   try {
-    // Clear the token from the client-side
+    // Clear the token from the client-side by removing the cookie
     res.clearCookie('token');
     console.log('Logout successful'); // Add console log
     res.setHeader('Set-Cookie', '');

@@ -20,20 +20,19 @@ function Dashboard() {
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
 
-  
+  // const quitDate = new Date(profile.smokingHabit.quitDate);
+  // const currentDate = new Date();
+  // const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  // const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-  const quitDate = new Date(profile.smokingHabit.quitDate);
-  const currentDate = new Date();
-  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
-  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+//   // Saved money 
+//  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
+//  const packageCost = profile.smokingHabit.packageCost;
+//  const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+//  console.log(packageCost)
+//  const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
+//  const savedMoney = daysPassed * priceForOneCigarret
 
-  // Saved money 
- const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
- const packageCost = profile.smokingHabit.packageCost;
- const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
- console.log(packageCost)
- const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
- const savedMoney = daysPassed * priceForOneCigarret
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
@@ -81,6 +80,10 @@ function Dashboard() {
 
     fetchData();
   }, [isLoading]);
+  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
   return (
     <div>
