@@ -54,7 +54,7 @@ const ProfileProvider = ({ children }) => {
 
   useEffect(() => {
     fetchUserProfile();
-  }, [hasToken]);
+  }, [isLoggedIn]);
 
   return (
     <ProfileContext.Provider
