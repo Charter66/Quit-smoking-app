@@ -15,7 +15,7 @@ ReactDOM.render(
     <ProfileProvider>
     <AuthProvider>
       <div className="bg-gray-500">
-        <div className="bg-white sm:bg-white sm:mx-auto sm:max-w-[414px] h-[800px] w-[414px] overflow-y-auto scrollbar-hide">
+        <div className="bg-white sm:bg-white sm:mx-auto sm:max-w-[412px] h-[800px] w-[414px] overflow-y-auto scrollbar-hide">
           <div className="logo">
           <img src={logo} width="200" height="150" />
           </div>
