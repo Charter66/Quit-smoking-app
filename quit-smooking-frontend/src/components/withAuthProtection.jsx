@@ -16,7 +16,7 @@ const withAuthProtection = (Component) => {
         // Perform any asynchronous operations here
         // For example, you can fetch data before rendering the component
         try {
-          const response = await fetch('https://quit-smoking-app.onrender.com/api/data');
+          const response = await fetch('https://quit-smoking-app.onrender.com/api/users/profile');
           const data = await response.json();
           console.log('Data:', data);
         } catch (error) {
