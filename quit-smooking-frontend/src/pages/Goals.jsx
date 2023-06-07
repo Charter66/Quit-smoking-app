@@ -18,16 +18,16 @@ const Goals = () => {
   const [savedMoney, setSavedMoney] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
-  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const quitDate = new Date(profile && profile.smokingHabit && profile.smokingHabit.quitDate);
   const currentDate = new Date();
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
   const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
 
   // Saved money 
-  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
-  const packageCost = profile.smokingHabit.packageCost;
-  const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
+  const cigarettesInPackage = profile && profile.smokingHabit && profile.smokingHabit.cigarettesInPackage;
+  const packageCost =profile && profile.smokingHabit &&  profile.smokingHabit.packageCost;
+  const cigarettesPerDay =profile && profile.smokingHabit &&  profile.smokingHabit.cigarettesPerDay;
   const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
    const savedMoneyy = daysPassed * priceForOneCigarret
 
