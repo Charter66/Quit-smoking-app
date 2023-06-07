@@ -80,7 +80,7 @@ function Dashboard() {
 
     fetchData();
   }, [isLoading]);
-  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const quitDate = new Date(profile && profile.smokingHabit &&  profile.smokingHabit.quitDate);
   const currentDate = new Date();
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
   const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));

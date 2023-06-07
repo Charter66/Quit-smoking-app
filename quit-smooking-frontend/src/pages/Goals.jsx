@@ -82,7 +82,7 @@ const Goals = () => {
       };
 
       const response = await axios.put(
-        'http://localhost:5000/api/users/goals',
+        'http://https://quit-smoking-app.onrender.com/api/users/goals',
         newGoalData,
         {
           headers: {
@@ -121,7 +121,7 @@ const Goals = () => {
       const token = hasToken;
 
       const response = await axios.delete(
-        `http://localhost:5000/api/users/goals/${goalId}`,
+        `https://quit-smoking-app.onrender.com/api/users/goals/${goalId}`,
         {
           headers: {
             Authorization: token,
@@ -173,7 +173,7 @@ const Goals = () => {
       };
 
       await axios.put(
-        'http://localhost:5000/api/users/update-saved-money',
+        'http://quit-smoking-app.onrender.com/api/users/update-saved-money',
         updatedUserData,
         {
           headers: {
@@ -194,7 +194,7 @@ const Goals = () => {
       };
 
       await axios.put(
-        `http://localhost:5000/api/users/goals/achieve/${goalId}`,
+        `https://quit-smoking-app.onrender.com/api/users/goals/achieve/${goalId}`,
         updatedGoalData,
         {
           headers: {
