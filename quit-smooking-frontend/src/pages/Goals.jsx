@@ -121,7 +121,7 @@ const Goals = () => {
       const token = hasToken;
 
       const response = await axios.delete(
-        `http://quit-smoking-app.onrender.com/api/users/goals/${goalId}`,
+        `https://quit-smoking-app.onrender.com/api/users/goals/${goalId}`,
         {
           headers: {
             Authorization: token,
@@ -173,7 +173,7 @@ const Goals = () => {
       };
 
       await axios.put(
-        'http://quit-smoking-app.onrender.com/api/users/update-saved-money',
+        'https://quit-smoking-app.onrender.com/api/users/update-saved-money',
         updatedUserData,
         {
           headers: {
