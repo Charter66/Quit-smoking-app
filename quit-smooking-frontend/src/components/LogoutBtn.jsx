@@ -26,7 +26,7 @@ const LogoutBtn = () => {
       setHasToken(null)
 
  
-
+      console.log("bagigstesgfnsdjtrhdd")
       navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);
