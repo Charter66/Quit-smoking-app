@@ -15,13 +15,13 @@ const Goals = () => {
   const [currency, setCurrency] = useState('');
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
   const [goalSaved, setGoalSaved] = useState(false);
-  const [savedMoney, setSavedMoney] = useState(0);
+  const [savedMoney, setSavedMoney] = useState();
   const [showModal, setShowModal] = useState(false);
-  console.log("profile:", profile)
   const quitDate = new Date(profile && profile.smokingHabit && profile.smokingHabit.quitDate);
   const currentDate = new Date();
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
   const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
 
 
   // Saved money 
@@ -29,7 +29,7 @@ const Goals = () => {
   const packageCost =profile && profile.smokingHabit &&  profile.smokingHabit.packageCost;
   const cigarettesPerDay =profile && profile.smokingHabit &&  profile.smokingHabit.cigarettesPerDay;
   const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
-   const savedMoneyy = daysPassed * priceForOneCigarret
+ const savedMoneyy = profile.savedMoney
 
 
   
@@ -39,10 +39,10 @@ const Goals = () => {
 
   useEffect(() => {
     fetchUserProfile();
-    // const storedSavedMoney = profile.savedMoney;
-    // if (storedSavedMoney) {
-    //   setSavedMoney(parseFloat(storedSavedMoney));
-    // }
+    const storedSavedMoney = profile.savedMoney;
+    if (storedSavedMoney) {
+      setSavedMoney(parseFloat(storedSavedMoney));
+    }
     setSavedMoney(savedMoneyy)
     const storedGoals = localStorage.getItem('goals');
     if (storedGoals) {
@@ -144,9 +144,9 @@ const Goals = () => {
     setGoalSaved(false);
   };
 
-   useEffect(() => {
-     localStorage.setItem('savedMoney', savedMoney.toString());
-   }, [savedMoney]);
+  //  useEffect(() => {
+  //    localStorage.setItem('savedMoney', savedMoney.toString());
+  //  }, [savedMoney]);
 
   const handleGoalComplete = async (goal) => {
     const updatedSavedMoney = savedMoney - goal.goalCost;
