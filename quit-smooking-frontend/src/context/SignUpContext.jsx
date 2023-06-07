@@ -17,7 +17,7 @@ const RegisterProvider = ({ children }) => {
   const handleNameChange = (event) => {
     const inputValue = event.target.value;
     const regex =/^[a-zA-Z\s]*$/ ;
-    const regex2 = /^[a-zA-Z0-9\s.!#&]{8,16}$/g ;
+    const regex2 = /^[a-zA-Z0-9\s.!#&]{2,16}$/g ;
 
     console.log(inputValue)
     console.log(inputValue.match(regex2))
@@ -27,7 +27,7 @@ const RegisterProvider = ({ children }) => {
       setNameValidation('')
     } else {
       setName(inputValue);
-      setNameValidation('Name must be between 8 and 16 characters long.')
+      setNameValidation('Name must be between 2 and 16 characters long.')
     }
   };
 
@@ -44,7 +44,7 @@ const RegisterProvider = ({ children }) => {
       setPasswordValidation('');
     } else {
       setPassword(inputValue);
-      setPasswordValidation('Password must contain at least one letter and one number, and min 4 characters.');
+      setPasswordValidation('It must contain at least one letter and one number, and min 4 characters.');
     }
   };
   

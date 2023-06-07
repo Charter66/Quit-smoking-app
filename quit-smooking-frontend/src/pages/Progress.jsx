@@ -221,7 +221,7 @@ const Progress = () => {
 
             <div className="progress-container-period">
               
-              <p>You lost {years > 0 ? `${years} years` : null} {months > 0 ? `${months} months` : null} and {days} days off your life expectancy</p>
+              <p>You lost {years > 0 ? `${years} years` : null} {months > 0 ? `${months} months and` : null}  {days} days off your life expectancy</p>
 
               <span className="icon-progress">
                 <FontAwesomeIcon className="progress-icon-color" icon={faHourglass} name="password" />

@@ -11,7 +11,7 @@ const Goals = () => {
   const { hasToken, profile, fetchUserProfile } = useContext(ProfileContext);
   const [goals, setGoals] = useState([]);
   const [description, setDescription] = useState('');
-  const [goalCost, setGoalCost] = useState(0);
+  const [goalCost, setGoalCost] = useState('');
   const [currency, setCurrency] = useState('');
   const [showNewGoalForm, setShowNewGoalForm] = useState(false);
   const [goalSaved, setGoalSaved] = useState(false);
@@ -257,6 +257,7 @@ const Goals = () => {
                   type="number"
                   className="goals-input-box"
                   value={goalCost}
+                  placeholder='0'
                   onChange={handleGoalCostChange}
                 />
                 <select
