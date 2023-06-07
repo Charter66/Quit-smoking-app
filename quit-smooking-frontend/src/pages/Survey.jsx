@@ -9,8 +9,8 @@ const Survey = () => {
   const navigate = useNavigate();
   const [cigarettesPerDay, setCigarettesPerDay] = useState(0);
   const [quitDate, setQuitDate] = useState('');
-  const [packageCost, setPackageCost] = useState();
-  const [cigarettesInPackage, setCigarettesInPackage] = useState(0);
+  const [packageCost, setPackageCost] = useState('');
+  const [cigarettesInPackage, setCigarettesInPackage] = useState('');
   const [startSmokingDate, setStartSmokingDate] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
   
@@ -88,6 +88,7 @@ const Survey = () => {
             id="cigarettesPerDay"
             name="cigarettesPerDay"
             value={cigarettesPerDay}
+            placeholder='0'
             onChange={(e) => setCigarettesPerDay(parseInt(e.target.value))}
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
@@ -116,6 +117,7 @@ const Survey = () => {
             id="cigarettesInPackage"
             name="cigarettesInPackage"
             value={cigarettesInPackage}
+            placeholder='0'
             onChange={(e) => setCigarettesInPackage(parseInt(e.target.value))}
             className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
           />
