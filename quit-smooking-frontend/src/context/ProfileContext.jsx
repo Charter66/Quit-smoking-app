@@ -10,9 +10,6 @@ const ProfileProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [hasToken, setHasToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setLoggedIn] = useState(false);
-
-
-
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserProfile = async () => {
@@ -61,7 +58,7 @@ const ProfileProvider = ({ children }) => {
 
   return (
     <ProfileContext.Provider
-      value={{ profile, fetchUserProfile, hasToken, setHasToken, isLoggedIn, setLoggedIn, initPath }}
+      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoggedIn, setLoggedIn, setIsLoading, initPath }}
     >
       {children}
     </ProfileContext.Provider>

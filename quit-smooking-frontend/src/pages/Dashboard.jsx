@@ -14,12 +14,12 @@ import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
-  const { profile, fetchUserProfile, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const { profile, fetchUserProfile, isLoggedIn, setLoggedIn, isLoading, setIsLoading } = useContext(ProfileContext);
   //const savedMoney = localStorage.getItem('savedMoney') 
   const currency = localStorage.getItem('currency')
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
+
   // const quitDate = new Date(profile.smokingHabit.quitDate);
   // const currentDate = new Date();
   // const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
@@ -32,6 +32,7 @@ function Dashboard() {
 //  console.log(packageCost)
 //  const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
 //  const savedMoney = daysPassed * priceForOneCigarret
+
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
