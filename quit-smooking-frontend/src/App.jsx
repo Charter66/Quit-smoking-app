@@ -39,7 +39,7 @@ const App = () => {
     Play a Game
   </Link>
        <Routes>
-          <Route path='/' element={<ProtectRoutes />}>
+          <Route path='/me' element={<ProtectRoutes />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="goals" element={<Goals />} />
             <Route path="progress" element={<Progress />} />
