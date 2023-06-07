@@ -21,18 +21,17 @@ function Dashboard() {
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
 
-  const quitDate = new Date(profile.smokingHabit.quitDate);
-  const currentDate = new Date();
-  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
-  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+const quitDate = profile && profile.smokingHabit && new Date(profile.smokingHabit.quitDate);
+const currentDate = new Date();
+const timeDiff = quitDate && currentDate && Math.abs(currentDate.getTime() - quitDate.getTime());
+const daysPassed = timeDiff && Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-  // Saved money 
- const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
- const packageCost = profile.smokingHabit.packageCost;
- const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
- console.log(packageCost)
- const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
- const savedMoney = daysPassed * priceForOneCigarret
+// Saved money
+const cigarettesInPackage = profile && profile.smokingHabit && profile.smokingHabit.cigarettesInPackage;
+const packageCost = profile && profile.smokingHabit && profile.smokingHabit.packageCost;
+const cigarettesPerDay = profile && profile.smokingHabit && profile.smokingHabit.cigarettesPerDay;
+const priceForOneCigarret = (packageCost / cigarettesInPackage) * cigarettesPerDay;
+const savedMoney = daysPassed && priceForOneCigarret && daysPassed * priceForOneCigarret;
 
   const handleOpenReadMe1 = () => {
     setOpenReadMe1(!openReadMe1);
@@ -110,7 +109,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {savedMoney.toFixed(2)} {currency}
+                    {profile && profile.savedMoney && savedMoney.toFixed(2)} {currency}
                   </strong>
                 </p>
               </label>

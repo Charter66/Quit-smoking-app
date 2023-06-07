@@ -22,10 +22,10 @@ function SavedMoney() {
           const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
 
           const cigarettesSmoked = cigarettesPerDay * daysPassed;
-          const savedMoney = profile.savedMoney
+          const savedMoney = profile && profile.savedMoney
 
           
-          setSavedMoney(profile.savedMoney);
+          setSavedMoney(savedMoney);
           setCurrency(profile.smokingHabit.selectedCurrency);
           //localStorage.setItem("savedMoney", savedMoney.toFixed(2)); // Cache the saved money value in localStorage
           localStorage.setItem(
@@ -105,12 +105,16 @@ function SavedMoney() {
   return (
     <div>
       {!isLoading ? (
-        <div>
-          <h2>Saved Money</h2>
-          <p>
-            You have saved {savedMoney.toFixed(2)} {currency}
-          </p>
-        </div>
+        savedMoney !== null ? (
+          <div>
+            <h2>Saved Money</h2>
+            <p>
+              You have saved {profile && profile.savedMoney.toFixed(2)} {currency}
+            </p>
+          </div>
+        ) : (
+          <p>No saved money data available</p>
+        )
       ) : (
         <p>Loading...</p>
       )}

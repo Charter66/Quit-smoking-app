@@ -26,7 +26,7 @@ const Goals = () => {
   useEffect(() => {
     fetchUserProfile();
 
-    const storedSavedMoney = profile.savedMoney;
+    const storedSavedMoney = profile && profile.savedMoney;
     if (storedSavedMoney) {
       setSavedMoney(parseFloat(storedSavedMoney));
     }
