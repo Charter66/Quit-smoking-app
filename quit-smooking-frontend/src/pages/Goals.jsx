@@ -82,7 +82,7 @@ const Goals = () => {
       };
 
       const response = await axios.put(
-        'http://quit-smoking-app.onrender.com/api/users/goals',
+        'https://quit-smoking-app.onrender.com/api/users/goals',
         newGoalData,
         {
           headers: {
