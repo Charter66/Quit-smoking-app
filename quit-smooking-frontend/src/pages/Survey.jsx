@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileContext } from '../context/ProfileContext';
 import { AuthContext } from '../context/AuthContext';
@@ -8,26 +8,59 @@ import "../Styles/Survey.css";
 const Survey = () => {
   const navigate = useNavigate();
   const [cigarettesPerDay, setCigarettesPerDay] = useState(0);
-  const [quitDate, setQuitDate] = useState('');
+  const [quitDate, setQuitDate] = useState(new Date());
   const [packageCost, setPackageCost] = useState();
   const [cigarettesInPackage, setCigarettesInPackage] = useState(0);
   const [startSmokingDate, setStartSmokingDate] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
-  
   const { isLoggedIn } = useContext(ProfileContext);
   const { isAuth } = useContext(AuthContext); // Access the isAuth state from AuthContext
+  const [daysPassed, setDaysPassed] = useState(0);
+  const currentDate = new Date();
+
+  const updateSavedMoneyInDatabase = async () => {
+    try {
+      const timeDiff = Math.abs(currentDate.getTime() - new Date(quitDate).getTime());
+      const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      setDaysPassed(days);
+
+      const priceForOneCigarette = (packageCost / cigarettesInPackage) * cigarettesPerDay;
+
+      const savedMoney = daysPassed * priceForOneCigarette;
+      console.log(priceForOneCigarette);
+      const token = isAuth.token;
+
+      console.log("savedMoney", savedMoney);
+
+      const updatedUserData = {
+        savedMoney,
+      };
+
+      await axios.put(
+        'https://quit-smoking-app.onrender.com/api/users/update-saved-money',
+        updatedUserData,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const token = isAuth.token; // Retrieve the token from the isAuth state
-  
+
       console.log("cigarettesPerDay:", cigarettesPerDay);
       console.log("quitDate:", quitDate);
       console.log("packageCost:", packageCost);
       console.log("cigarettesInPackage:", cigarettesInPackage);
-  
+
       const { status } = await axios.put(
         'https://quit-smoking-app.onrender.com/api/users/survey',
         {
@@ -43,16 +76,21 @@ const Survey = () => {
             Authorization: token,
           },
         }
-      );      
-  
+      );
+
       console.log(status);
+      updateSavedMoneyInDatabase();
       if (isLoggedIn) navigate('/me/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
       console.error(error);
       // Handle error state or display error message to the user
     }
   };
-  
+
+  useEffect(() => {
+    // Call the function when the component mounts
+    updateSavedMoneyInDatabase();
+  }, [packageCost, cigarettesInPackage, cigarettesPerDay, quitDate]); // Empty dependency array ensures the effect runs only once
 
   if (!isLoggedIn) {
     return (
@@ -97,14 +135,15 @@ const Survey = () => {
           <label className='survey-label' htmlFor="quitDate">
             Quit Date:
           </label>
-          <input
-            type="date"
-            id="quitDate"
-            name="quitDate"
-            value={quitDate}
-            onChange={(e) => setQuitDate(e.target.value)}
-            className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-          />
+              <input
+          type="date"
+          id="quitDate"
+          name="quitDate"
+          value={quitDate}
+          onChange={(e) => setQuitDate(e.target.value)}
+          max={(new Date(Date.now() - 86400000)).toISOString().split('T')[0]} // Set the max attribute to one day before the current day
+          className="border border-gray-400 rounded-lg px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+        />
         </div>
 
         <div className="mb-4">
