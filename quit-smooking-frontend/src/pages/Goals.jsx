@@ -17,7 +17,7 @@ const Goals = () => {
   const [goalSaved, setGoalSaved] = useState(false);
   const [savedMoney, setSavedMoney] = useState(0);
   const [showModal, setShowModal] = useState(false);
-
+  console.log("profile:", profile)
   const quitDate = new Date(profile && profile.smokingHabit && profile.smokingHabit.quitDate);
   const currentDate = new Date();
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
