@@ -1,5 +1,5 @@
 const CACHE_NAME = "version-1";
-const urlsToCache = ["quit-smooking-frontend/index.html", "quit-smooking-frontend/offline.html"];
+const urlsToCache = ["./index.html", "./offline.html"];
 const self = this;
 
 //installation
