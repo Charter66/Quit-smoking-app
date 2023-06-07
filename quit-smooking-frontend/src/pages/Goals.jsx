@@ -39,20 +39,11 @@ const Goals = () => {
 
   useEffect(() => {
     fetchUserProfile();
-<<<<<<< HEAD
-
-    const storedSavedMoney = profile && profile.savedMoney;
-    if (storedSavedMoney) {
-      setSavedMoney(parseFloat(storedSavedMoney));
-    }
-
-=======
     // const storedSavedMoney = profile.savedMoney;
     // if (storedSavedMoney) {
     //   setSavedMoney(parseFloat(storedSavedMoney));
     // }
     setSavedMoney(savedMoneyy)
->>>>>>> 754284ef14e60dee2001427712dbd722acceed79
     const storedGoals = localStorage.getItem('goals');
     if (storedGoals) {
       setGoals(JSON.parse(storedGoals));
