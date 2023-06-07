@@ -20,11 +20,10 @@ function Dashboard() {
   const currency = localStorage.getItem('currency')
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
-
-  const quitDate = new Date(profile.smokingHabit.quitDate);
-  const currentDate = new Date();
-  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
-  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  // const quitDate = new Date(profile.smokingHabit.quitDate);
+  // const currentDate = new Date();
+  // const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  // const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
 //   // Saved money 
 //  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
@@ -80,6 +79,10 @@ function Dashboard() {
 
     fetchData();
   }, [isLoading]);
+  const quitDate = new Date(profile.smokingHabit.quitDate);
+  const currentDate = new Date();
+  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
   return (
     <div>
@@ -110,7 +113,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {profile.savedMoney.toFixed(2)} {currency}
+                    {profile && profile.savedMoney && profile.savedMoney.toFixed(2)} {currency}
                   </strong>
                 </p>
               </label>

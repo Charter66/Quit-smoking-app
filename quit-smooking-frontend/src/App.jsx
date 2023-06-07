@@ -13,6 +13,7 @@ import ProtectRoutes from './pages/ProtectRoutes';
 import withAuthProtection from './components/withAuthProtection';
 import { ProfileContext } from './context/ProfileContext';
 import MatchTheCardsGame from './pages/CardGame'
+import LandingPage from './pages/LandingPage';
 
 
 const ProtectedDashboard = withAuthProtection(Dashboard);
@@ -56,6 +57,7 @@ const App = () => {
             }
           />
           <Route path="/login" element={<Login />} />
+          {/* <Route path="/" element={<LandingPage />}/> */}
         </Routes>
       </div>
       

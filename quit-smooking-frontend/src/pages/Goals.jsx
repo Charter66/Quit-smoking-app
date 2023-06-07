@@ -223,7 +223,7 @@ const Goals = () => {
     <div className="bg-gray-100 rounded-lg shadow-lg p-4 savedmoney">
     <p className="font-bold">
   <span className="text-yellow-500">Total saved:</span>
-  <span className="text-green-500"> {profile.savedMoney}{profile.smokingHabit.selectedCurrency}</span>
+  <span className="text-green-500"> {profile &&  profile.savedMoney &&  profile.savedMoney.toFixed(2)}{profile.smokingHabit.selectedCurrency}</span>
 </p></div>
       {showModal && (
         <>
