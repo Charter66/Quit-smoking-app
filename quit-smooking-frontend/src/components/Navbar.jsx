@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { BsHouse, BsBullseye, BsGraphUp, BsPerson } from 'react-icons/bs';
-import "../Styles/Navbar.css";
+import "../styles/Navbar.css";
 
 const Navbar = () => {
   return (
