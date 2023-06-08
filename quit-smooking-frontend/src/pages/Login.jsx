@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate, Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { ProfileContext } from "../context/ProfileContext";
@@ -26,10 +26,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      
       const response = await axios.post(
         "https://quit-smoking-app.onrender.com/api/users/login",
         formData
       );
+      console.log
       if (response.status === 200) {
         const token = response.data.token;
         // Store the token in local storage
@@ -40,7 +42,7 @@ const Login = () => {
         const fetchData = async () => {
           try {
             await fetchUserProfile();
-            setLoggedIn(true);
+          
           } catch (error) {
             console.error("Error fetching user profile:", error);
           } finally {
@@ -57,10 +59,12 @@ const Login = () => {
     }
   };
 
-  if (isLoggedIn)
-    return (
-      <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
-    );
+  // if (isLoggedIn){
+  //   navigate("/me/dashboard")
+  // }
+    // return (
+    //   // <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
+    // );
   return (
     <>
       <div className="background-login">
