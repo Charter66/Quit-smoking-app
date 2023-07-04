@@ -1,9 +1,8 @@
 import { useContext, useEffect } from "react";
 import { RegisterContext } from "../context/SignUpContext";
 import { useNavigate, Navigate, Link } from "react-router-dom";
-import "../styles/SignUp.css";
-import { AuthContext } from "../context/AuthContext";
 import { ProfileContext } from "../context/ProfileContext";
+import "../styles/SignUp.css";
 
 //icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,8 +21,8 @@ const SignUp = () => {
     passwordValidation
   } = useContext(RegisterContext) || {};
   const navigate = useNavigate();
-  const { isLoggedIn, setLoggedIn, initPath } = useContext(ProfileContext);
-  const { hasToken } = useContext(AuthContext);
+  const { isLoggedIn, setLoggedIn, initPath, hasToken } = useContext(ProfileContext);
+  //const { hasToken } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

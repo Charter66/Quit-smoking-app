@@ -1,18 +1,24 @@
-import React, { useState, useContext } from "react";
-import { useNavigate, Link, Navigate } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { ProfileContext } from "../context/ProfileContext";
+import { RegisterContext } from "../context/SignUpContext";
 import "../styles/Login.css";
+import axios from "axios";
 
-//icons
+
+//Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
-  const { hasToken, isLoggedIn, setLoggedIn, initPath, fetchUserProfile, setIsLoading } =
-    useContext(ProfileContext);
+
+  const { fetchUserProfile, setIsLoading } = useContext(ProfileContext);
+
+  const { isLoggedIn, setLoggedIn } = useContext(RegisterContext)
+
   const navigate = useNavigate();
-  //console.log(hasToken)
+
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,42 +37,43 @@ const Login = () => {
         "https://quit-smoking-app.onrender.com/api/users/login",
         formData
       );
-      console.log
+      
       if (response.status === 200) {
         const token = response.data.token;
         // Store the token in local storage
         localStorage.setItem("token", token);
         setLoggedIn(true);
-
-        // Let's see
-        const fetchData = async () => {
-          try {
-            await fetchUserProfile();
-          
-          } catch (error) {
-            console.error("Error fetching user profile:", error);
-          } finally {
-            setIsLoading(false);
-          }
-        };
-    
-        fetchData();
-
-        navigate("/me/dashboard");
       }
+
+      if (isLoggedIn) {
+
+        const fetchData = async () => {
+         try {
+           await fetchUserProfile();
+         } catch (error) {
+           console.error("Error fetching user profile:", error);
+         } finally {
+           setIsLoading(false);
+         }
+       };
+ 
+       fetchData();
+       navigate("/me/dashboard")
+     }
+      
     } catch (error) {
       console.error(error);
     }
   };
 
-  // if (isLoggedIn){
-  //   navigate("/me/dashboard")
-  // }
+
     // return (
     //   // <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
     // );
   return (
+    
     <>
+    
       <div className="background-login">
         <div className="wrapper-dashboard">
           <form onSubmit={handleSubmit}>

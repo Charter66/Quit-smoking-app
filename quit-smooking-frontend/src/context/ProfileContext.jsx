@@ -1,18 +1,19 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { AuthProvider } from './AuthContext';
 
 
 const ProfileContext = createContext();
 
 const ProfileProvider = ({ children }) => {
   const { pathname } = useLocation();
+  
   const [initPath] = useState(pathname);
   const [profile, setProfile] = useState(null);
   const [hasToken, setHasToken] = useState(null);
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  //const [isLoggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
 
   const fetchUserProfile = async () => {
     
@@ -55,15 +56,13 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
-
-
   useEffect(() => {
     fetchUserProfile();
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <ProfileContext.Provider
-      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoggedIn, setLoggedIn, isLoading, setIsLoading, initPath }}
+      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoading, setIsLoading, initPath }}
     >
       {children}
     </ProfileContext.Provider>

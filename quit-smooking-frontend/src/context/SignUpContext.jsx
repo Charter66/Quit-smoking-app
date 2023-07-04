@@ -1,18 +1,31 @@
 import { createContext, useState, useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../context/AuthContext'; // Update the path to your AuthContext file
 import { useNavigate } from 'react-router-dom';
 
 const RegisterContext = createContext();
 
 const RegisterProvider = ({ children }) => {
+
   const [name, setName] = useState('');
   const [nameValidation, setNameValidation] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordValidation, setPasswordValidation] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const { setIsAuth, setLoggedIn } = useContext(AuthContext); // Access setIsAuth from AuthContext
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isAuth, setIsAuth] = useState({ token: localStorage.getItem('token') }); 
+
   const navigate = useNavigate();
+
+  const login = (token) => {
+    setIsAuth({ token });
+    setLoggedIn(true);
+   
+  };
+  
+  const logout = () => {
+    setIsAuth({ token: '' });
+    setLoggedIn(false);
+  };
 
   const handleNameChange = (event) => {
     const inputValue = event.target.value;
@@ -48,7 +61,6 @@ const RegisterProvider = ({ children }) => {
     }
   };
   
-
   const handleRegister = () => {
     axios
       .post('https://quit-smoking-app.onrender.com/api/users/register', {
@@ -76,6 +88,8 @@ const RegisterProvider = ({ children }) => {
         console.error(error); // Example: Display the error message
       });
   };
+
+
   const contextValue = {
     name,
     email,
@@ -87,7 +101,12 @@ const RegisterProvider = ({ children }) => {
     nameValidation, 
     setNameValidation,
     passwordValidation,
-    setPasswordValidation
+    setPasswordValidation,
+    login,
+    logout,
+    isLoggedIn,
+    setLoggedIn,
+    isAuth
   };
 
   return (
