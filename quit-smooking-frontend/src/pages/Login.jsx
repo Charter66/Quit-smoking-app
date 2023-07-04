@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import { ProfileContext } from "../context/ProfileContext";
 import "../styles/Login.css";
 import axios from "axios";
@@ -11,7 +11,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
 
-  const { fetchUserProfile, setIsLoading, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+  const { fetchUserProfile, setIsLoading, isLoggedIn, setLoggedIn, initPath } = useContext(ProfileContext);
 
   const navigate = useNavigate();
 
@@ -72,9 +72,10 @@ const Login = () => {
   };
 
 
-    // return (
-    //   // <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
-    // );
+  if (isLoggedIn)
+    return (
+      <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
+    );
   return (
     
     <>

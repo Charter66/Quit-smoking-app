@@ -51,7 +51,7 @@ function Initials() {
     <div>
       <div className="relative inline-flex items-center justify-center w-20 h-20 overflow-hidden bg-set rounded-full ">
           {/* <strong><span className="initials-text">{initials}</span></strong> */}
-          <strong><span className="initials-text">{profile.name.split(' ').map(e => e[0].toUpperCase()).join('')}</span></strong>
+          <strong><span className="initials-text">{profile && profile.name.split(' ').map(e => e[0].toUpperCase()).join('')}</span></strong>
       </div>
     </div>
   )
