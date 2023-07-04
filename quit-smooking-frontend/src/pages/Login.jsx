@@ -40,14 +40,16 @@ const Login = () => {
         const fetchData = async () => {
           try {
             await fetchUserProfile();
+
             setLoggedIn(true);
+
           } catch (error) {
             console.error("Error fetching user profile:", error);
           } finally {
             setIsLoading(false);
           }
         };
-    
+        
         fetchData();
 
         navigate("/me/dashboard");

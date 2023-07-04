@@ -8,8 +8,8 @@ const ProfileProvider = ({ children }) => {
   const { pathname } = useLocation();
   const [initPath] = useState(pathname);
   const [profile, setProfile] = useState(null);
-  const [hasToken, setHasToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [hasToken, setHasToken] = useState(localStorage.getItem('token'));
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserProfile = async () => {
