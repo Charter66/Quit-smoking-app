@@ -42,19 +42,27 @@ const Login = () => {
         setLoggedIn(true);
       }
 
+
       if (isLoggedIn) {
 
+        // Let's see
         const fetchData = async () => {
-         try {
-           await fetchUserProfile();
-         } catch (error) {
-           console.error("Error fetching user profile:", error);
-         } finally {
-           setIsLoading(false);
-         }
-       };
- 
-       fetchData();
+          try {
+            await fetchUserProfile();
+
+            setLoggedIn(true);
+
+          } catch (error) {
+            console.error("Error fetching user profile:", error);
+          } finally {
+            setIsLoading(false);
+          }
+        };
+        
+        fetchData();
+
+
+   
        navigate("/me/dashboard")
      }
       

@@ -81,6 +81,7 @@ const login= async (req, res) => {
 
     // Send the token in the response
     // res.json({ token });
+
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'Server error' });
@@ -92,8 +93,7 @@ const logout = async (req, res) => {
   try {
     // Clear the token from the client-side by removing the cookie
     res.clearCookie('token');
-    console.log('Logout successful'); // Add console log
-    res.setHeader('Set-Cookie', '');
+    console.log('Logout successful'); 
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Error during logout:', error);
@@ -313,12 +313,10 @@ const updateSavedMoney = async (req, res) => {
   try {
     // The problem was the token so far
     const token = req.headers.authorization;
-    // const token = req.cookie.token
+    
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken._id;
 
-    // const {indexInArray} = req.body
-    //  let indexForDatabase = `goals[${indexInArray}].achieved`
     const { savedMoney } = req.body;
     console.log('Decoded Token:', decodedToken);
     console.log('User ID:', userId);
