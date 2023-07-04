@@ -66,20 +66,20 @@ function Dashboard() {
   }
   
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       await fetchUserProfile();
-  //       setLoggedIn(true);
-  //     } catch (error) {
-  //       console.error("Error fetching user profile:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await fetchUserProfile();
+        setLoggedIn(true);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  //   fetchData();
-  // }, [isLoading]);
+    fetchData();
+  }, [isLoading]);
   const quitDate = new Date(profile && profile.smokingHabit &&  profile.smokingHabit.quitDate);
   const currentDate = new Date();
   const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());

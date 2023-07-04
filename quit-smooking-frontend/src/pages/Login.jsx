@@ -51,7 +51,7 @@ const Login = () => {
             await fetchUserProfile();
 
             setLoggedIn(true);
-
+            console.log(isLoggedIn)
           } catch (error) {
             console.error("Error fetching user profile:", error);
           } finally {
@@ -59,7 +59,7 @@ const Login = () => {
           }
         };
         
-        fetchData();
+        await fetchData();
 
 
    
