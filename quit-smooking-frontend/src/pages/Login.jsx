@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ProfileContext } from "../context/ProfileContext";
-import { RegisterContext } from "../context/SignUpContext";
 import "../styles/Login.css";
 import axios from "axios";
 
@@ -12,9 +11,7 @@ import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
 
-  const { fetchUserProfile, setIsLoading } = useContext(ProfileContext);
-
-  const { isLoggedIn, setLoggedIn } = useContext(RegisterContext)
+  const { fetchUserProfile, setIsLoading, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
 
   const navigate = useNavigate();
 

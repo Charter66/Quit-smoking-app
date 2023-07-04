@@ -11,8 +11,10 @@ const ProfileProvider = ({ children }) => {
   const [initPath] = useState(pathname);
   const [profile, setProfile] = useState(null);
   const [hasToken, setHasToken] = useState(null);
-  //const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+
+  //const { isLoggedIn, setLoggedIn } = useContext(RegisterContext);
 
 
   const fetchUserProfile = async () => {
@@ -20,6 +22,7 @@ const ProfileProvider = ({ children }) => {
     try {
 
       setHasToken(localStorage.getItem('token'))
+      console.log(hasToken)
 
       const response = await axios.get('https://quit-smoking-app.onrender.com/api/users/profile', {
         headers: {
@@ -29,6 +32,7 @@ const ProfileProvider = ({ children }) => {
         console.log(response)
       if (response.status === 200) {
         setProfile(response.data.user);
+        setLoggedIn(true)
         
         // console.log(response.data.user);
       } else {
@@ -62,7 +66,7 @@ const ProfileProvider = ({ children }) => {
 
   return (
     <ProfileContext.Provider
-      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoading, setIsLoading, initPath }}
+      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoading, setIsLoading, isLoggedIn, setLoggedIn, initPath }}
     >
       {children}
     </ProfileContext.Provider>

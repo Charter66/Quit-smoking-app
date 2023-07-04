@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import { ProfileContext } from '../context/ProfileContext';
+import { ProfileContext } from '../context/ProfileContext';
 //import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import "../styles/Survey.css";
@@ -17,8 +17,8 @@ const Survey = () => {
 
   const [startSmokingDate, setStartSmokingDate] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
-  const { isLoggedIn, isAuth } = useContext(RegisterContext);
-  //const { isAuth } = useContext(AuthContext); // Access the isAuth state from AuthContext
+  const { isAuth } = useContext(RegisterContext);
+  const { isLoggedIn } = useContext(ProfileContext); // Access the isAuth state from AuthContext
   const [daysPassed, setDaysPassed] = useState(0);
   const currentDate = new Date();
 

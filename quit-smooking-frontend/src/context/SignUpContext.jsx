@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,21 +11,21 @@ const RegisterProvider = ({ children }) => {
   const [password, setPassword] = useState('');
   const [passwordValidation, setPasswordValidation] = useState('');
   const [email, setEmail] = useState('');
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  //const [isLoggedIn, setLoggedIn] = useState(false);
   const [isAuth, setIsAuth] = useState({ token: localStorage.getItem('token') }); 
 
   const navigate = useNavigate();
 
-  const login = (token) => {
-    setIsAuth({ token });
-    setLoggedIn(true);
+  // const login = (token) => {
+  //   setIsAuth({ token });
+  //   setLoggedIn(true);
    
-  };
+  // };
   
-  const logout = () => {
-    setIsAuth({ token: '' });
-    setLoggedIn(false);
-  };
+  // const logout = () => {
+  //   setIsAuth({ token: '' });
+  //   setLoggedIn(false);
+  // };
 
   const handleNameChange = (event) => {
     const inputValue = event.target.value;
@@ -102,10 +102,6 @@ const RegisterProvider = ({ children }) => {
     setNameValidation,
     passwordValidation,
     setPasswordValidation,
-    login,
-    logout,
-    isLoggedIn,
-    setLoggedIn,
     isAuth
   };
 
