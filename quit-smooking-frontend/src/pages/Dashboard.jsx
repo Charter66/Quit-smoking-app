@@ -114,7 +114,7 @@ function Dashboard() {
                 You saved:{" "}
                 <p>
                   <strong>
-                    {profile && profile.savedMoney && profile.savedMoney.toFixed(2)} {currency}
+                    {profile && profile.savedMoney && profile.savedMoney.toFixed(2)} {profile.smokingHabit.selectedCurrency}
                   </strong>
                 </p>
               </label>

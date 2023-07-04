@@ -1,18 +1,21 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate, Link, Navigate } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 import { ProfileContext } from "../context/ProfileContext";
 import "../styles/Login.css";
+import axios from "axios";
 
-//icons
+
+//Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
-  const { hasToken, isLoggedIn, setLoggedIn, initPath, fetchUserProfile, setIsLoading } =
-    useContext(ProfileContext);
+
+  const { fetchUserProfile, setIsLoading, isLoggedIn, setLoggedIn } = useContext(ProfileContext);
+
   const navigate = useNavigate();
-  //console.log(hasToken)
+
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,15 +29,21 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      
       const response = await axios.post(
         "https://quit-smoking-app.onrender.com/api/users/login",
         formData
       );
+      
       if (response.status === 200) {
         const token = response.data.token;
         // Store the token in local storage
         localStorage.setItem("token", token);
         setLoggedIn(true);
+      }
+
+
+      if (isLoggedIn) {
 
         // Let's see
         const fetchData = async () => {
@@ -52,19 +61,24 @@ const Login = () => {
         
         fetchData();
 
-        navigate("/me/dashboard");
-      }
+
+   
+       navigate("/me/dashboard")
+     }
+      
     } catch (error) {
       console.error(error);
     }
   };
 
-  if (isLoggedIn)
-    return (
-      <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
-    );
+
+    // return (
+    //   // <Navigate to={initPath.includes("login") ? "/me/dashboard" : initPath} />
+    // );
   return (
+    
     <>
+    
       <div className="background-login">
         <div className="wrapper-dashboard">
           <form onSubmit={handleSubmit}>

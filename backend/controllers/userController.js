@@ -54,6 +54,7 @@ const getOneUser = async (req, res, next) => {
 
 const login= async (req, res) => {
   try {
+    
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).send('Please provide all fields');
@@ -76,13 +77,16 @@ const login= async (req, res) => {
     // });
     
     res.json({ token });
+    console.log('login fired')
+
+    // Send the token in the response
+    // res.json({ token });
 
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 
 
 const logout = async (req, res) => {
@@ -97,8 +101,6 @@ const logout = async (req, res) => {
   }
 };
 
-
-  
 
 
 const survey = async (req, res) => {
@@ -190,12 +192,6 @@ const goals = async (req, res) => {
 };
 
 
-
-
-
-
-
-  
 const profile = async (req, res) => {
   try {
     // Verify the token from the request headers
