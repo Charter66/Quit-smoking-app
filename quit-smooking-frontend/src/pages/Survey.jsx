@@ -84,6 +84,7 @@ const Survey = () => {
 
       console.log(status);
       updateSavedMoneyInDatabase();
+
       if (isLoggedIn) navigate('/me/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
       console.error(error);

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { Routes, Route ,Link} from 'react-router-dom';
+import { Routes, Route ,Link, useLocation} from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Goals from './pages/Goals';
@@ -25,26 +25,28 @@ const ProtectedGame = withAuthProtection(MatchTheCardsGame)
 const App = () => {
   const { isLoggedIn } = useContext(ProfileContext);
 
-  
-
+  const location = useLocation();
+  const isSurveyPage = location.pathname.includes('/me/survey');
+  const isLandingPage =location.pathname.includes('')
+  console.log(isLandingPage)
   return (
     
     <div className="flex flex-col h-screen ">
       <div className="flex-grow">
-     
-  <Link
+     {isLoggedIn && !isSurveyPage &&  <Link
     to="/me/cardgame"
     className="bg-yellow-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
   >
     Play a Game
-  </Link>
+  </Link>}
+
        <Routes>
           <Route path='/me' element={<ProtectRoutes />}>
-            <Route path="dashboard" element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
             <Route path="goals" element={<Goals />} />
             <Route path="progress" element={<Progress />} />
             <Route path="user" element={<User />} />
-            <Route path="survey" element={<Survey />} />
+           <Route path="survey" element={<Survey />} />
             <Route path="cardgame" element={<MatchTheCardsGame />} />
           </Route>
           <Route
@@ -56,7 +58,8 @@ const App = () => {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/" element={<LandingPage />}/>
+          <Route path="/" element={<LandingPage />}/>  
+          
         </Routes>
       </div>
       
