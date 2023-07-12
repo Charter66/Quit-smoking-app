@@ -54,6 +54,7 @@ const getOneUser = async (req, res, next) => {
 
 const login= async (req, res) => {
   try {
+    
     const { email, password } = req.body;
     if (!email || !password)
       return res.status(400).send('Please provide all fields');
@@ -76,13 +77,11 @@ const login= async (req, res) => {
     // });
     
     res.json({ token });
-    
-
-
-
+    console.log('login fired')
 
     // Send the token in the response
     // res.json({ token });
+
   } catch (error) {
     console.error('Error during login:', error);
     res.status(500).json({ message: 'Server error' });
@@ -90,13 +89,11 @@ const login= async (req, res) => {
 };
 
 
-
 const logout = async (req, res) => {
   try {
     // Clear the token from the client-side by removing the cookie
     res.clearCookie('token');
-    console.log('Logout successful'); // Add console log
-    res.setHeader('Set-Cookie', '');
+    console.log('Logout successful'); 
     res.status(200).json({ message: 'Logout successful' });
   } catch (error) {
     console.error('Error during logout:', error);
@@ -104,8 +101,6 @@ const logout = async (req, res) => {
   }
 };
 
-
-  
 
 
 const survey = async (req, res) => {
@@ -197,12 +192,6 @@ const goals = async (req, res) => {
 };
 
 
-
-
-
-
-
-  
 const profile = async (req, res) => {
   try {
     // Verify the token from the request headers
@@ -324,12 +313,10 @@ const updateSavedMoney = async (req, res) => {
   try {
     // The problem was the token so far
     const token = req.headers.authorization;
-    // const token = req.cookie.token
+    
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken._id;
 
-    // const {indexInArray} = req.body
-    //  let indexForDatabase = `goals[${indexInArray}].achieved`
     const { savedMoney } = req.body;
     console.log('Decoded Token:', decodedToken);
     console.log('User ID:', userId);

@@ -1,9 +1,10 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ProfileContext } from '../context/ProfileContext';
-import { AuthContext } from '../context/AuthContext';
+//import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import "../styles/Survey.css";
+import { RegisterContext } from '../context/SignUpContext';
 
 const Survey = () => {
   const navigate = useNavigate();
@@ -16,8 +17,8 @@ const Survey = () => {
 
   const [startSmokingDate, setStartSmokingDate] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('USD');
-  const { isLoggedIn } = useContext(ProfileContext);
-  const { isAuth } = useContext(AuthContext); // Access the isAuth state from AuthContext
+  const { isAuth } = useContext(RegisterContext);
+  const { isLoggedIn } = useContext(ProfileContext); // Access the isAuth state from AuthContext
   const [daysPassed, setDaysPassed] = useState(0);
   const currentDate = new Date();
 
@@ -83,6 +84,7 @@ const Survey = () => {
 
       console.log(status);
       updateSavedMoneyInDatabase();
+
       if (isLoggedIn) navigate('/me/dashboard'); // Redirect to the home page after submitting the survey
     } catch (error) {
       console.error(error);

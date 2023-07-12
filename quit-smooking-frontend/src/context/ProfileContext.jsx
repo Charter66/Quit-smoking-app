@@ -2,28 +2,38 @@ import React, { createContext, useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 
+
 const ProfileContext = createContext();
 
 const ProfileProvider = ({ children }) => {
   const { pathname } = useLocation();
+  
   const [initPath] = useState(pathname);
   const [profile, setProfile] = useState(null);
-  const [hasToken, setHasToken] = useState(localStorage.getItem('token'));
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [hasToken, setHasToken] = useState(localStorage.getItem('token'));
   const [isLoading, setIsLoading] = useState(true);
+
+  //const { isLoggedIn, setLoggedIn } = useContext(RegisterContext);
+
 
   const fetchUserProfile = async () => {
     
     try {
+
+      setHasToken(localStorage.getItem('token'))
+      console.log(hasToken)
+
       const response = await axios.get('https://quit-smoking-app.onrender.com/api/users/profile', {
         headers: {
-          Authorization: hasToken,
+          authorization: localStorage.getItem('token'),
         },
       });
-
+        console.log(response)
       if (response.status === 200) {
         setProfile(response.data.user);
-        setLoggedIn(true);
+        setLoggedIn(true)
+        
         // console.log(response.data.user);
       } else {
         throw new Error('Failed to fetch user profile');
@@ -50,15 +60,13 @@ const ProfileProvider = ({ children }) => {
     }
   };
 
-
-
   useEffect(() => {
     fetchUserProfile();
-  }, [isLoggedIn]);
+  }, []);
 
   return (
     <ProfileContext.Provider
-      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoggedIn, setLoggedIn, isLoading, setIsLoading, initPath }}
+      value={{ profile, setProfile, fetchUserProfile, hasToken, setHasToken, isLoading, setIsLoading, isLoggedIn, setLoggedIn, initPath }}
     >
       {children}
     </ProfileContext.Provider>

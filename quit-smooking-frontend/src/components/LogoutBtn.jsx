@@ -15,7 +15,7 @@ const LogoutBtn = () => {
       // Make a request to the logout endpoint on the server
       await axios.post('https://quit-smoking-app.onrender.com/api/users/logout',{
         headers: {
-          Authorization: `${hasToken}` // Replace `token` with the actual token value
+          authorization: `${hasToken}` // Replace `token` with the actual token value
         }
       });
 
@@ -25,8 +25,6 @@ const LogoutBtn = () => {
       setProfile(null)
       setHasToken(null)
 
- 
-      console.log("bagigstesgfnsdjtrhdd")
       navigate('/login');
     } catch (error) {
       console.error('Error during logout:', error);

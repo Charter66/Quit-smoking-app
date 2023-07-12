@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <link rel="apple-touch-icon"  href="apple-touch-icon.png" />
-    <link rel="manifest" href="./manifest.json" /> 
+    <link rel="manifest" href="manifest.json" /> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vite + React</title>
     <link rel="apple-touch-icon" href="../icons/apple-icon-180.png">
@@ -47,7 +47,7 @@
     <script>
       if('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./serviceWorker.js').then((reg) => {
+          navigator.serviceWorker.register('serviceWorker.js').then((reg) => {
             console.log('Worker Registered')
           }).catch((err) => {
             console.log('Error in service worker registration.')
