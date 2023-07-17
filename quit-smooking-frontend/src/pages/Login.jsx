@@ -31,7 +31,7 @@ const Login = () => {
     try {
       
       const response = await axios.post(
-        "https://quit-smoking-app.onrender.com/api/users/login",
+        "http://localhost:5000/api/users/login",
         formData
       );
       
@@ -61,9 +61,9 @@ const Login = () => {
         
         await fetchData();
 
+        navigate("/me/dashboard")
 
    
-       navigate("/me/dashboard")
      }
       
     } catch (error) {

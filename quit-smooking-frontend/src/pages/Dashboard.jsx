@@ -1,47 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { ProfileContext } from "../context/ProfileContext";
 import "../styles/Dashboard.css";
-import SavedMoney from "../components/SavedMoney";
 import Initials from "../components/Initials";
-
-//images
 import unlocking from "../images/unlocking.png";
 import journey from "../images/journey.png";
-
-// Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins, faCalendarDays } from "@fortawesome/free-solid-svg-icons";
 
 function Dashboard() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const { profile, fetchUserProfile, isLoggedIn, setLoggedIn, isLoading, setIsLoading } = useContext(ProfileContext);
-  //const savedMoney = localStorage.getItem('savedMoney') 
   const currency = localStorage.getItem('currency')
   const [openReadMe1, setOpenReadMe1] = useState(false);
   const [openReadMe2, setOpenReadMe2] = useState(false);
+  const [daysPassed, setDaysPassed] = useState(0);
 
-  // const quitDate = new Date(profile.smokingHabit.quitDate);
-  // const currentDate = new Date();
-  // const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
-  // const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
-//   // Saved money 
-//  const cigarettesInPackage = profile.smokingHabit.cigarettesInPackage;
-//  const packageCost = profile.smokingHabit.packageCost;
-//  const cigarettesPerDay = profile.smokingHabit.cigarettesPerDay;
-//  console.log(packageCost)
-//  const priceForOneCigarret =  (packageCost / cigarettesInPackage) * cigarettesPerDay;
-//  const savedMoney = daysPassed * priceForOneCigarret
-
-
-  const handleOpenReadMe1 = () => {
-    setOpenReadMe1(!openReadMe1);
-  };
-
-  const handleOpenReadMe2 = () => {
-    setOpenReadMe2(!openReadMe2);
-  };
-  
   function capitalizeFirstLetter(string) {
     const words = string.split(" ");
     const capitalizedWords = words.map((word) => {
@@ -64,7 +37,6 @@ function Dashboard() {
   
     return greeting;
   }
-  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,10 +52,23 @@ function Dashboard() {
 
     fetchData();
   }, [isLoading]);
-  const quitDate = new Date(profile && profile.smokingHabit &&  profile.smokingHabit.quitDate);
-  const currentDate = new Date();
-  const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
-  const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+  useEffect(() => {
+    const quitDate = new Date(profile && profile.smokingHabit && profile.smokingHabit.quitDate);
+    const currentDate = new Date();
+    const timeDiff = Math.abs(quitDate.getTime() - currentDate.getTime());
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    console.log(days)
+    setDaysPassed(days);
+  }, [profile]);
+
+  const handleOpenReadMe1 = () => {
+    setOpenReadMe1(!openReadMe1);
+  };
+
+  const handleOpenReadMe2 = () => {
+    setOpenReadMe2(!openReadMe2);
+  };
 
   return (
     <div>
@@ -95,13 +80,11 @@ function Dashboard() {
           <p>Loading profile...</p>
         </div>
       ) : profile ? (
-        //form-box-dashboard is not used!
         <div className="form-box-dashboard">
           <div className="dashboard-good-morning">
             <strong>
-            <h2 id="greeting">{getGreeting()} {capitalizeFirstLetter(profile.name)}</h2>
+              <h2 id="greeting">{getGreeting()} {capitalizeFirstLetter(profile.name)}</h2>
             </strong>
-          
             <p>You are doing great!</p>
           </div>
 
@@ -134,7 +117,6 @@ function Dashboard() {
           </div>
         </div>
       ) : null}
-
 
       <div className="background-articles flex flex-col">
         <div>
