@@ -20,8 +20,9 @@ app.use(express.json());
 app.use(cors());
 
 // Serve static files from the "public" folder
-app.use(express.static(path.join(__dirname, 'public')));
-
+app.get("*", function response(req, res) {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 // Connect to MongoDB
 connectDB();
 
