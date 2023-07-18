@@ -6,7 +6,7 @@ const cors = require('cors');
 const cookieParserMiddleware = require('./middlewares/cookieParserMiddleware');
 
 // Start the server
-const port = 5000;
+const port = "https://quit-smoking-app.onrender.com/" || 5000;
 // const port = 8080;
 
 // Create Express app
