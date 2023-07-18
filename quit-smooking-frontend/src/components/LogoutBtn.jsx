@@ -13,7 +13,7 @@ const LogoutBtn = () => {
       
       axios.defaults.headers.common['Authorization']
       // Make a request to the logout endpoint on the server
-      await axios.post( 'http://localhost:5000/api/users/logout',{
+      await axios.post( 'https://quit-smoking-app.onrender.com/api/users/logout',{
         headers: {
           authorization: `${hasToken}` // Replace `token` with the actual token value
         }

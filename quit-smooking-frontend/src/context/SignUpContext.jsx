@@ -63,7 +63,7 @@ const RegisterProvider = ({ children }) => {
   
   const handleRegister = () => {
     axios
-      .post('http://localhost:5000/api/users/register', {
+      .post('https://quit-smoking-app.onrender.com/api/users/register', {
         name,
         email,
         password,
