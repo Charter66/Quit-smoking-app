@@ -45,10 +45,11 @@ const Progress = () => {
           const currentDate = new Date();
 
           // finding how many days have passed...
-          const timeDiff = Math.abs(currentDate.getTime() - quitDate.getTime());
+          const timeDiff = Math.abs(startDate.getTime() - quitDate.getTime());
           const daysPassed = Math.ceil(timeDiff / (1000 * 3600 * 24));
-
+          console.log("days",daysPassed)
           // finding how many cigarettes were smoked
+          console.log("asdasf", profile.smokingHabit.cigarettesPerDay)
           const cigarettesSmoked =
             profile.smokingHabit.cigarettesPerDay * daysPassed;
 
@@ -91,8 +92,8 @@ const Progress = () => {
           const remainingDaysLost = (daysLost % 365) % 30;
 
           // percentage for 3 
-          // const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());
-          // const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
+           const timeDiffCurrent = Math.abs(currentDate.getTime() - quitDate.getTime());
+           const daysPassedCurrent = Math.ceil(timeDiffCurrent / (1000 * 3600 * 24));
           const numeratorDays = daysPassed;
           console.log(daysPassed)
           const denominator = 90;
@@ -122,6 +123,7 @@ const Progress = () => {
           setMonths(monthsLost);
           setDays(remainingDaysLost);
           setCigarettes(cigarettesSmoked);
+          console.log("cigarettes", cigarettes)
           setMoneySpent(totalMoneySpent);
           setCurrency(profileCurrency);
           setDaysSmokeFree(daysPassed)

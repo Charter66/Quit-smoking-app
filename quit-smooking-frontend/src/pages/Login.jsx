@@ -61,9 +61,9 @@ const Login = () => {
         
         await fetchData();
 
+        navigate("/me/dashboard")
 
    
-       navigate("/me/dashboard")
      }
       
     } catch (error) {

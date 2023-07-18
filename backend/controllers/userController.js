@@ -1,7 +1,9 @@
+require('dotenv').config();
+
+const jwtSecret = process.env.JWT_SECRET;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-
 const request = require('request');
 const cheerio = require('cheerio');
 
@@ -24,7 +26,7 @@ const register = async (req, res) => {
    
 
     // Generate JWT token
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: user._id },jwtSecret);
     // res.cookie('token', token, {
     //   httpOnly: true,
     //   maxAge: 1000 * 60 * 60,
@@ -67,7 +69,7 @@ const login= async (req, res) => {
     const pwdMatch = await bcrypt.compare(password, checkUser.password);
     if (!pwdMatch) return res.status(400).send('Incorrect password');
 
-    const token = jwt.sign({ _id: checkUser._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ _id: checkUser._id }, jwtSecret);
 
     // res.cookie('token', token, {
     //   httpOnly: true,
@@ -112,7 +114,7 @@ const survey = async (req, res) => {
     console.log(token);
 
     // Verify the token and extract the user's email or ID
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, jwtSecret);
     const id = decoded._id;
     console.log(decoded._id)
 
@@ -134,7 +136,9 @@ const survey = async (req, res) => {
         },
       },
       { new: true } // to return the updated user document
-    );
+    
+      );
+      console.log(startSmokingDate)
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -156,7 +160,7 @@ const goals = async (req, res) => {
     const token = req.headers.authorization;
 
     // Verify the token and extract the user's email or ID
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, jwtSecret);
     const id = decoded._id;
 
     if (!id) {
@@ -204,7 +208,7 @@ const profile = async (req, res) => {
     // Verify and decode the token
     let decoded;
     try {
-      decoded = jwt.verify(token, process.env.JWT_SECRET);
+      decoded = jwt.verify(token, jwtSecret);
       console.log('Decoded token:', decoded);
     } catch (error) {
       console.log('Error verifying token:', error);
@@ -232,7 +236,7 @@ const deleteGoal = async (req, res) => {
     const token = req.headers.authorization;
 
     // Decode the token to obtain the user ID
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, jwtSecret);
     const userId = decodedToken._id;
     const goalId = req.params.id;
 
@@ -314,7 +318,7 @@ const updateSavedMoney = async (req, res) => {
     // The problem was the token so far
     const token = req.headers.authorization;
     
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, jwtSecret);
     const userId = decodedToken._id;
 
     const { savedMoney } = req.body;
@@ -339,7 +343,7 @@ const updateSavedMoney = async (req, res) => {
 const achieveGoal = async (req, res) => {
   try {
     const token = req.headers.authorization;
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, jwtSecret);
     const userId = decodedToken._id;
     const { goalId } = req.params;
     const { achieved } = req.body;
