@@ -47,7 +47,7 @@ function SavedMoney() {
         
               // Make an API request to update the saved money in the database
               await axios.put(
-                'https://quit-smoking-app.onrender.com/api/users/update-saved-money',
+                'https://quit-smoking-app-m1ex.onrender.comapi/users/update-saved-money',
                 updatedUserData,
                 {
                   headers: {
