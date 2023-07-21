@@ -41,7 +41,7 @@ const Survey = () => {
       };
 
       await axios.put(
-        'https://quit-smoking-app-m1ex.onrender.comapi/users/update-saved-money',
+        'https://quit-smoking-app-m1ex.onrender.com/api/users/update-saved-money',
         // 'https://localhost:5000/api/users/update-saved-money',
         updatedUserData,
         {
@@ -62,7 +62,7 @@ const Survey = () => {
       const token = localStorage.getItem('token');
 
       const { status } = await axios.put(
-        'https://quit-smoking-app-m1ex.onrender.comapi/users/survey',
+        'https://quit-smoking-app-m1ex.onrender.com/api/users/survey',
 
         {
           startSmokingDate,

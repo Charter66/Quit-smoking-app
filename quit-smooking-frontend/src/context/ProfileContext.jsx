@@ -26,7 +26,7 @@ const ProfileProvider = ({ children }) => {
 
       const response = await axios.get(
   
-        'https://quit-smoking-app-m1ex.onrender.comapi/users/profile',
+        'https://quit-smoking-app-m1ex.onrender.com/api/users/profile',
        {
         headers: {
           authorization: localStorage.getItem('token'),

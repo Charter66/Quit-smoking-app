@@ -31,7 +31,7 @@ const Login = () => {
     try {
       
       const response = await axios.post(
-        "https://quit-smoking-app-m1ex.onrender.comapi/users/login",
+        "https://quit-smoking-app-m1ex.onrender.com/api/users/login",
         formData
       );
       
